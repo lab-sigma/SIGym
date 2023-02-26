@@ -1,0 +1,108 @@
+Mon Dec  5 17:39:26 2022
+0
+0.02880382537841797
+Mon Dec  5 17:39:26 2022
+1
+0.012809514999389648
+Mon Dec  5 17:42:38 2022
+0
+0.0264132022857666
+Mon Dec  5 17:42:38 2022
+1
+0.013629436492919922
+Mon Dec  5 17:42:38 2022
+2
+0.06141495704650879
+Mon Dec  5 17:42:38 2022
+3
+0.1861131191253662
+Mon Dec  5 17:42:38 2022
+4
+1.3205904960632324
+Mon Dec  5 17:42:40 2022
+5
+19.446690797805786
+Mon Dec  5 17:42:59 2022
+6
+93.90306973457336
+Mon Dec  5 17:44:33 2022
+7
+2589.1408367156982
+Mon Dec  5 18:27:42 2022
+8
+118889.1409702301
+Wed Dec  7 03:29:11 2022
+9
+109841.11445617676
+Tue Dec 13 11:45:42 2022
+0
+MILP average running time fun 50 instances: 0.002695183753967285.
+EXP average running time fun 50 instances: 0.0021633195877075197.
+
+Tue Dec 13 11:45:42 2022
+1
+MILP average running time fun 50 instances: 0.0050335550308227535.
+EXP average running time fun 50 instances: 0.004077181816101074.
+
+Tue Dec 13 11:45:43 2022
+2
+MILP average running time fun 50 instances: 0.01858898639678955.
+EXP average running time fun 50 instances: 0.030188326835632325.
+
+Tue Dec 13 11:45:45 2022
+3
+MILP average running time fun 50 instances: 0.09067927837371827.
+EXP average running time fun 50 instances: 0.4048634910583496.
+
+Tue Dec 13 11:46:10 2022
+4
+MILP average running time fun 50 instances: 0.306125750541687.
+EXP average running time fun 50 instances: 7.129471387863159.
+
+Tue Dec 13 11:52:22 2022
+5
+MILP average running time fun 50 instances: 1.2822899007797242.
+EXP average running time fun 50 instances: 144.18507162094116.
+
+Setting: 223
+Mon Jan  2 21:43:58 2023
+1
+MILP average running time fun 50 instances: 0.03110361099243164.
+EXP average running time fun 50 instances: 0.007843017578125.
+
+Setting: 223
+Mon Jan  2 21:43:58 2023
+2
+MILP average running time fun 50 instances: 0.0557703971862793.
+EXP average running time fun 50 instances: 0.053174495697021484.
+
+Setting: 223
+Mon Jan  2 21:43:58 2023
+3
+MILP average running time fun 50 instances: 0.22750401496887207.
+EXP average running time fun 50 instances: 0.4550654888153076.
+
+Setting: 223
+Mon Jan  2 21:43:59 2023
+4
+MILP average running time fun 50 instances: 0.8608343601226807.
+EXP average running time fun 50 instances: 8.434438705444336.
+
+Setting: 223
+Mon Jan  2 21:44:08 2023
+5
+MILP average running time fun 50 instances: 1.3364341259002686.
+EXP average running time fun 50 instances: 131.01124238967896.
+
+Setting: 223
+Mon Jan  2 21:46:20 2023
+6
+MILP average running time fun 50 instances: 11.58159351348877.
+EXP average running time fun 50 instances: 2724.2993416786194.
+
+Setting: 223
+Mon Jan  2 22:31:56 2023
+7
+MILP average running time fun 50 instances: 15.303082466125488.
+EXP average running time fun 50 instances: 51170.64362120628.
+
