@@ -23,6 +23,7 @@ class Platform:
         self.R = R
         self.C = C
         self.m, self.n = len(self.R), len(self.R[0])
+        self.cum_u = 0.0
 
     def compute_SSE(self):
         sse_u, vars = SSE.StackelbergEquilibrium(self.m, self.n, self.R, self.C)

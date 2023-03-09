@@ -80,7 +80,6 @@ from sigym import Follower, Platform
 #             rgt += (u_sse*T - u_t)/T
 #         print("The averaged regret you get over {} trials is {}".format(trial, rgt/trial))
 
-
 def main():
 
     defender_mode_dict = {
@@ -112,14 +111,12 @@ def main():
             u_sse = env.compute_SSE()
 
             x = [1.0/m for _ in range(m)]
-            u_t = 0.0
             for t in range(T):
                 i_t, j_t = env.step(x, agent) # the platform takes a step based on the leader strategy and the follower model
-                
-                u_t += R[i_t][j_t]
+                env.cum_u += R[i_t][j_t]
                 
                 print("At round " + str(t) + ", the leader plays action " + str(i_t) + " according to mixed strategy " + str(x) + ", the follower responses by " + str(j_t) + ".")
-                print("The leader utility at current round is {}, and the cumulative leader utility until current round is {}.".format(R[i_t][j_t], u_t))
+                print("The leader utility at current round is {}, and the cumulative leader utility until current round is {}.".format(R[i_t][j_t], env.cum_u))
                 print("==============================="*5)
                 
                 ###################################################
@@ -128,7 +125,7 @@ def main():
                 reward_t = R[:, j_t]
                 x = utils.mwu_update(x=x, reward=reward_t, eps=eps)
 
-            rgt += (u_sse*T - u_t)/T
+            rgt += (u_sse*T - env.cum_u)/T
         print("The averaged regret you get over {} trials is {}".format(trial, rgt/trial))
     
     else:
@@ -136,26 +133,31 @@ def main():
         for tr in range(trial):
             R = np.loadtxt("random_instance/R_{}.txt".format(tr))
             C = np.loadtxt("random_instance/C_{}.txt".format(0))
-            agent = Follower(utility_matrix=C, behavior_mode=attacker_mode_dict[attacker_mode])
+            
+            agent = Follower(utility_matrix=C, behavior_mode=attacker_mode_dict[attacker_mode])  # Instantiate a follower class using the utility matrix and the behavior model
             env = Platform(R, C)
             u_sse = env.compute_SSE()
-            #u_sse, _ = SSE.StackelbergEquilibrium(2, 2, R, C)
+
             x = [np.random.rand() for i in range(m)]
             temp = sum(x)
             x = [i/temp for i in x]
-            u_t = 0.0
+            
             for t in range(T):
-                i_t, j_t = env.step(x, agent)
-                # j_t = agent.response(x)
-                # i_t = np.random.choice(np.arange(m), p=x)
-                u_t += R[i_t][j_t]
+                i_t, j_t = env.step(x, agent) # the platform takes a step based on the leader strategy and the follower model
+                env.cum_u += R[i_t][j_t]
+
                 print("At round " + str(t) + ", the leader plays action " + str(i_t) + " according to mixed strategy " + str(x) + ", the follower responses by " + str(j_t) + ".")
-                print("The leader utility at current round is {}, and the cumulative leader utility until current round is {}.".format(R[i_t][j_t], u_t))
+                print("The leader utility at current round is {}, and the cumulative leader utility until current round is {}.".format(R[i_t][j_t], env.cum_u))
                 print("==============================="*5)
+
+                ############################################################
+                # the user updates the leader strategy (e.g. radom update) #
+                ############################################################
                 x = [np.random.rand() for i in range(m)]
                 temp = sum(x)
                 x = [i/temp for i in x]
-            rgt += (u_sse*T - u_t)/T
+
+            rgt += (u_sse*T - env.cum_u)/T
         print("The averaged regret you get over {} trials is {}".format(trial, rgt/trial))
 
 if __name__ == '__main__':
