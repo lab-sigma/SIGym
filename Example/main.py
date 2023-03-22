@@ -94,22 +94,29 @@ attacker_mode_dict = {
 defender_mode = '1'
 attacker_mode = '2'
 T = 10
-m, n = 3, 3
+m, n = 3, 3 #m defender row / n attacker colomn
 eps = 0.01
-trial = 5
-imgheight = 1000
-imgwidth = 1000
+trial = 2
+imgheight = 800
+imgwidth = 800
 base = 50, 50
 base2 = imgwidth/2+50, 50
-squareL = 70
+squareL = min((imgwidth - base[0]*2) / m, (imgheight - base[1]*2) / n )
 i_res = []
 j_res = []
 update_cnt = 0
 
+
 # init tk
 root = tkinter.Tk()
 myCanvas = tkinter.Canvas(root, bg="white", height=imgheight, width=imgwidth)
+string_var = tkinter.StringVar()
+caption = tkinter.Label(root, textvariable = string_var, font=("Arial", 25))
+caption.place(relx = 0.5,
+                rely = 0.9,
+                anchor ='center')
 
+'''
 def update_win():
     global update_cnt, root
     if update_cnt == len(i_res):
@@ -123,9 +130,24 @@ def update_win():
     myCanvas.pack()
     update_cnt+=1
     root.after(100, update_win)
+'''
+
+def update_matrix():
+    global update_cnt, root
+    if update_cnt == len(i_res):
+        return
+    for i in range(m):
+        for j in range(n):
+            color = 'green' if (i == i_res[update_cnt]) and (j == j_res[update_cnt]) else 'white'
+            myCanvas.create_rectangle(base[0]+j*squareL, base[1]+i*squareL,base[0]+j*squareL+squareL, base[1]+i*squareL+squareL, fill=color)
+    myCanvas.pack()
+    string_var.set("Round "+str(update_cnt+1)+": defender chooses " + str(i_res[update_cnt]) + "; attacker chooses " + str(j_res[update_cnt]))
+    caption.pack()
+    update_cnt+=1
+    root.after(500, update_matrix)
 
 def main():
-    global i_res, j_res, root, myCanvas, update_cnt
+    global i_res, j_res, root, myCanvas, update_cnt, caption, string_var
     rgt = 0.0
     for tr in range(trial):
         update_cnt = 0
@@ -137,7 +159,11 @@ def main():
             # re-init tk
             root = tkinter.Tk()
             myCanvas = tkinter.Canvas(root, bg="white", height=imgheight, width=imgwidth)
-
+            string_var = tkinter.StringVar()
+            caption = tkinter.Label(root,textvariable = string_var, font=("Arial", 25))
+            caption.place(relx = 0.5,
+                            rely = 0.9,
+                            anchor ='center')
         agent = Follower(utility_matrix=C, behavior_mode=attacker_mode_dict[attacker_mode])  # Instantiate a follower class using the utility matrix and the behavior model
         env = Platform(R, C)
         u_sse = env.compute_SSE()
@@ -152,7 +178,7 @@ def main():
             env.cum_u += R[i_t][j_t]
             i_res.append(i_t)
             j_res.append(j_t)
-            print("At round " + str(t) + ", the leader plays action " + str(i_t) + " according to " + defender_mode_dict[defender_mode] + str(x) + ", the follower responses by " + str(j_t) + ".")
+            print("At trial " + str(tr) + " round " + str(t) + ", the leader plays action " + str(i_t) + " according to " + defender_mode_dict[defender_mode] + str(x) + ", the follower responses by " + str(j_t) + ".")
             print("The leader utility at current round is {}, and the cumulative leader utility until current round is {}.".format(R[i_t][j_t], env.cum_u))
             print("==============================="*5)
             ############################################################
@@ -166,10 +192,10 @@ def main():
                 reward_t = R[:, j_t]
                 x = utils.mwu_update(x=x, reward=reward_t, eps=eps)
         print(i_res, j_res)
-        update_win()
+        update_matrix()
         root.mainloop()
-        rgt += (u_sse*T - env.cum_u)/T
-    print("The averaged regret you get over {} trials is {}".format(trial, rgt/trial))
+        rgt += (u_sse*T - env.cum_u)/T 
+    print("The averaged regret you get over {} trial(s) is {}".format(trial, rgt/trial))
 
 if __name__ == '__main__':
     main()
