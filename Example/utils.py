@@ -3,8 +3,19 @@ import pandas as pd
 import time
 from tqdm import tqdm
 
+def compute_follower_utility(x, C, j_t):
+    # input: x is a vector of leader strategy, C is the follower utility matrix, j_t is the follower action
+    # output: the follower utility
+    m, n = len(C), len(C[0])
+    u = 0.0
+    for i in range(m):
+        u += x[i]*C[i][j_t]
+    return u
+
 
 def best_response(x, C):
+    # input: x is a vector of leader strategy, C is the follower utility matrix
+    # output: the follower action
     m, n = len(C), len(C[0])
     action = -1
     max_u = -np.infty
@@ -18,8 +29,19 @@ def best_response(x, C):
     return action
 
 
+def quantal_response(x, C, alpha=0.8):
+    # input: x is a vector of leader strategy, C is the follower utility matrix, alpha is the quantal response parameter
+    # output: the follower action sampled from the quantal response distribution
+    denominator = 0.0
+    for j in range(len(C[0])):
+        denominator += np.exp(alpha*compute_follower_utility(x, C, j))
+    follower_strategy = np.zeros(len(C[0]))
+    for j in range(len(C[0])):
+        follower_strategy[j] = np.exp(alpha*compute_follower_utility(x, C, j))/denominator
+    return np.random.choice(np.arange(len(C[0])), p=follower_strategy)
+
+
 def mwu_update(x, reward, eps):
-    
     for i in range(len(x)):
         x[i] = x[i] * (1 + eps* reward[i])
     temp = sum(x)

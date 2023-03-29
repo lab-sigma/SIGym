@@ -100,11 +100,12 @@ def main():
     trial = 10
 
     if defender_mode == '2':
+        
         rgt = 0.0
         for tr in range(trial):
             # Loading  the utility matrices of the leader and the follower 
             R = np.loadtxt("random_instance/R_{}.txt".format(tr))
-            C = np.loadtxt("random_instance/C_{}.txt".format(0))
+            C = np.loadtxt("random_instance/C_{}.txt".format(0)) # add these utilit matrix generation to the platform
 
             agent = Follower(utility_matrix=C, behavior_mode=attacker_mode_dict[attacker_mode])  # Instantiate a follower class using the utility matrix and the behavior model
             env = Platform(R, C)
@@ -113,7 +114,8 @@ def main():
             x = [1.0/m for _ in range(m)]
             for t in range(T):
                 i_t, j_t = env.step(x, agent) # the platform takes a step based on the leader strategy and the follower model
-                env.cum_u += R[i_t][j_t]
+                
+                #return R[i_t][j_t] to the user
                 
                 print("At round " + str(t) + ", the leader plays action " + str(i_t) + " according to mixed strategy " + str(x) + ", the follower responses by " + str(j_t) + ".")
                 print("The leader utility at current round is {}, and the cumulative leader utility until current round is {}.".format(R[i_t][j_t], env.cum_u))
