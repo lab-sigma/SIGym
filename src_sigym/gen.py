@@ -5,7 +5,9 @@ from tqdm import tqdm
 
 from src_sigym.General_Stackelberg.dynamic_stackelberg import dyse, SSE
 from src_sigym.General_Stackelberg.dynamic_stackelberg import utils as uG
+
 import src_sigym.utils as utils
+
 from src_sigym.sigym import Follower, Platform
 
 defender_mode_dict = {
@@ -36,13 +38,13 @@ update_cnt = 0
 info = ''
 
 def main():
-    global i_res, j_res, root, myCanvas, update_cnt, caption, string_var, info
+    global i_res, j_res, update_cnt, info
     rgt = 0.0
     update_cnt = 0
     i_res = []
     j_res = []
-    R = np.loadtxt("C:/Users/liuxi/Desktop/Academics/SIGym/src_sigym/random_instance/R_{}.txt".format(0))
-    C = np.loadtxt("C:/Users/liuxi/Desktop/Academics/SIGym/src_sigym/random_instance/C_{}.txt".format(0))
+    R = np.loadtxt("src_sigym/random_instance/R_{}.txt".format(0))
+    C = np.loadtxt("src_sigym/random_instance/C_{}.txt".format(0))
     agent = Follower(utility_matrix=C, behavior_mode=attacker_mode_dict[attacker_mode])  # Instantiate a follower class using the utility matrix and the behavior model
     env = Platform(R, C)
     u_sse = env.compute_SSE()
@@ -74,7 +76,7 @@ def main():
         #print(i_res, j_res)
         rgt += (u_sse*T - env.cum_u)/T 
     print("The averaged regret you get over {} trial(s) is {}".format(trial, rgt/trial))
-    return i_res, j_res, rgt
+    return i_res, j_res, rgt, m, n
 
 if __name__ == '__main__':
     main()

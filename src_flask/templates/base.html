@@ -1,9 +1,55 @@
 {% block title %}
-  SIGym
+  <h3 style="text-align: center">SIGym</h3>
 {% endblock %}
 
 {% block content %}
   <body style="background-image:url('/static/background/1.jpg'); background-size: cover;">
-   <p>{{rgt[0]}}</p>
+   <p style="text-align: center">Average Regret: {{rgt}}</p>
+
   </body>
+{% endblock %}
+
+{% block javascript %}
+   <script>
+      var l = {{l_res | safe}}
+      var f = {{f_res | safe}}
+      var coords = [];
+      for(let i = 0; i < l.length; i++){
+         var cur = [l[i], f[i]];
+         coords.push(cur);
+      }
+      const highlightTime = 1000; // in milliseconds
+
+      // create the 3x3 matrix table
+      const table = document.createElement('table');
+      for(let i=0; i<{{m}}; i++) {
+        const row = document.createElement('tr');
+        for(let j=0; j<{{n}}; j++) {
+          const cell = document.createElement('td');
+          cell.innerHTML = '@';
+          row.appendChild(cell);
+        }
+        table.appendChild(row);
+      }
+      table.style.fontSize = "x-large";
+      table.style.margin = "auto";
+      table.className = "table";
+      document.body.appendChild(table);
+      // function to highlight a coordinate for a given time
+      function highlightCoordinate(coord) {
+        const [x,y] = coord;
+        const cell = table.rows[x].cells[y];
+        cell.style.backgroundColor = '#' + Math.floor(Math.random()*16777215).toString(16);
+        setTimeout(() => {
+          cell.style.backgroundColor = '';
+        }, highlightTime-100);
+      }
+      // loop through each coordinate and highlight it for 1 second
+      for(let coord of coords) {
+        setTimeout(() => {
+          highlightCoordinate(coord);
+        }, 1000 * coords.indexOf(coord));
+      }
+
+</script>
 {% endblock %}
