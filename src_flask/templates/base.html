@@ -4,29 +4,55 @@
 
 {% block content %}
   <body style="background-image:url('/static/background/1.jpg'); background-size: cover;">
-   <p style="text-align: center">Average Regret: {{rgt}}</p>
-
+   <p style="text-align: center; padding-top: 100px;">Average Regret: {{rgt}}</p>
+   <p style="text-align: center;" id = "currgt">Current Regret: 0</p>
   </body>
+
 {% endblock %}
+
+{% block style %}
+<style>
+table, th, td {
+  border:1px solid black;
+  border-collapse: collapse;
+}
+tr{
+  height: 100px;
+}
+</style>
+{% endblock %}
+  <style>
+  table, th, td {
+    border:1px solid black;
+    border-collapse: collapse;
+  }
+  tr{
+    height: 100px;
+  }
+  td{
+    width: 100px;
+  }
+  </style>
 
 {% block javascript %}
    <script>
       var l = {{l_res | safe}}
       var f = {{f_res | safe}}
+      var rgtinfo = {{rgt_res | safe}}
       var coords = [];
       for(let i = 0; i < l.length; i++){
          var cur = [l[i], f[i]];
          coords.push(cur);
       }
-      const highlightTime = 1000; // in milliseconds
-
+      const curRGT = document.getElementById("currgt");
       // create the 3x3 matrix table
       const table = document.createElement('table');
       for(let i=0; i<{{m}}; i++) {
         const row = document.createElement('tr');
         for(let j=0; j<{{n}}; j++) {
           const cell = document.createElement('td');
-          cell.innerHTML = '@';
+          cell.style.backgroundColor = '#AAAAAA';
+          cell.innerHTML = '';
           row.appendChild(cell);
         }
         table.appendChild(row);
@@ -35,21 +61,26 @@
       table.style.margin = "auto";
       table.className = "table";
       document.body.appendChild(table);
-      // function to highlight a coordinate for a given time
-      function highlightCoordinate(coord) {
-        const [x,y] = coord;
-        const cell = table.rows[x].cells[y];
-        cell.style.backgroundColor = '#' + Math.floor(Math.random()*16777215).toString(16);
-        setTimeout(() => {
-          cell.style.backgroundColor = '';
-        }, highlightTime-100);
+      var cnt = 0;
+      function sleep(ms) {
+        return new Promise(
+          resolve => setTimeout(resolve, ms)
+        );
       }
-      // loop through each coordinate and highlight it for 1 second
-      for(let coord of coords) {
-        setTimeout(() => {
-          highlightCoordinate(coord);
-        }, 1000 * coords.indexOf(coord));
+      async function coloring(){
+        for(let coord of coords){
+          //await sleep(100);
+          var cur_rgt = rgtinfo[cnt];
+          cnt++;
+          curRGT.innerHTML = 'Current Regret: ' + String(cur_rgt);
+          const [x,y] = coord;
+          const cell = table.rows[x].cells[y];
+          cell.style.backgroundColor = '#32CD32';// + Math.floor(Math.random()*16777215).toString(16);
+          await sleep(1000);
+          cell.style.backgroundColor = '#AAAAAA';
+        }
       }
+      coloring();
 
 </script>
 {% endblock %}
