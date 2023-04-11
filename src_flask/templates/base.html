@@ -1,27 +1,18 @@
 {% block title %}
-  <h3 style="text-align: center">SIGym</h3>
 {% endblock %}
 
 {% block content %}
-  <body style="background-image:url('/static/background/1.jpg'); background-size: cover;">
-   <p style="text-align: center; padding-top: 100px;">Average Regret: {{rgt}}</p>
+  <body style="background-image:url('/static/background/bg.jpg'); background-size: cover;">
+   <p style="text-align: center; padding-top: 200px;">Average Regret: {{rgt}}</p>
    <p style="text-align: center;" id = "currgt">Current Regret: 0</p>
+   <img src="/static/elements/def.png" alt="defender" class="center">
+   <img src="/static/elements/att.png" alt="attacker" class="center" id = "att">
   </body>
 
 {% endblock %}
 
 {% block style %}
 <style>
-table, th, td {
-  border:1px solid black;
-  border-collapse: collapse;
-}
-tr{
-  height: 100px;
-}
-</style>
-{% endblock %}
-  <style>
   table, th, td {
     border:1px solid black;
     border-collapse: collapse;
@@ -32,8 +23,19 @@ tr{
   td{
     width: 100px;
   }
+  .center {
+  display: block;
+  margin-left: auto;
+  margin-right: auto;
+  width: 3%;
+  }
+  #att{
+    position:absolute;
+    left: calc(38%);
+    bottom: calc(43%);
+  }
   </style>
-
+{% endblock %}
 {% block javascript %}
    <script>
       var l = {{l_res | safe}}
