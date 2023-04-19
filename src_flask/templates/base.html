@@ -3,10 +3,10 @@
 
 {% block content %}
   <body style="background-image:url('/static/background/bg.jpg'); background-size: cover;">
-   <p style="text-align: center; padding-top: 200px;">Average Regret: {{rgt}}</p>
+   <p style="text-align: center; padding-top: 150px;">Average Regret: {{rgt}}</p>
    <p style="text-align: center;" id = "currgt">Current Regret: 0</p>
-   <img src="/static/elements/def.png" alt="defender" class="center">
-   <img src="/static/elements/att.png" alt="attacker" class="center" id = "att">
+   <!--img src="/static/elements/def.png" alt="defender" class="center">
+   <img src="/static/elements/att.png" alt="attacker" class="center" id = "att"-->
   </body>
 
 {% endblock %}
@@ -18,10 +18,10 @@
     border-collapse: collapse;
   }
   tr{
-    height: 100px;
+    height: 80px;
   }
   td{
-    width: 100px;
+    width: 80px;
   }
   .center {
   display: block;
@@ -29,10 +29,10 @@
   margin-right: auto;
   width: 3%;
   }
-  #att{
-    position:absolute;
-    left: calc(38%);
-    bottom: calc(43%);
+  #att, #def{
+    display: block;
+    height: 100%;
+    width: 100%;
   }
   </style>
 {% endblock %}
@@ -49,12 +49,15 @@
       const curRGT = document.getElementById("currgt");
       // create the 3x3 matrix table
       const table = document.createElement('table');
-      for(let i=0; i<{{m}}; i++) {
+      for(let i=0; i<{{m}}+2; i++) {
         const row = document.createElement('tr');
-        for(let j=0; j<{{n}}; j++) {
+        for(let j=0; j<{{n}}+2; j++) {
           const cell = document.createElement('td');
-          cell.style.backgroundColor = '#AAAAAA';
           cell.innerHTML = '';
+          if(i == 0 || j == 0 || i == {{m}}+1 || j == {{n}}+1){
+            cell.style.backgroundColor = '#222222';
+          }
+          else {cell.style.backgroundColor = '#AAAAAA';}
           row.appendChild(cell);
         }
         table.appendChild(row);
@@ -76,10 +79,28 @@
           cnt++;
           curRGT.innerHTML = 'Current Regret: ' + String(cur_rgt);
           const [x,y] = coord;
-          const cell = table.rows[x].cells[y];
-          cell.style.backgroundColor = '#32CD32';// + Math.floor(Math.random()*16777215).toString(16);
+          const cell = table.rows[x+1].cells[y+1];
+          const lead = table.rows[0].cells[y+1];
+          const foll = table.rows[x+1].cells[0];
+          for(let i = 1; i<=y;i++){
+            table.rows[x+1].cells[i].style.backgroundColor = "#86eb34";
+          }
+          for(let i = 1; i<=x;i++){
+            table.rows[i].cells[y+1].style.backgroundColor = "#86eb34";
+          }
+          lead.innerHTML="<img src='/static/elements/att.png' alt='attacker' class='center' id = 'att'>";
+          foll.innerHTML="<img src='/static/elements/def.png' alt='defender' class='center' id = 'def'>";
+          cell.style.backgroundColor = '#00FF00';// + Math.floor(Math.random()*16777215).toString(16);
           await sleep(1000);
+          for(let i = 1; i<=y;i++){
+            table.rows[x+1].cells[i].style.backgroundColor = "#AAAAAA";
+          }
+          for(let i = 1; i<=x;i++){
+            table.rows[i].cells[y+1].style.backgroundColor = "#AAAAAA";
+          }
           cell.style.backgroundColor = '#AAAAAA';
+          lead.innerHTML="";
+          foll.innerHTML="";
         }
       }
       coloring();
