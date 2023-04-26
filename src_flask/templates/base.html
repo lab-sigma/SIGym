@@ -3,7 +3,7 @@
 
 {% block content %}
   <body style="background-image:url('/static/background/bg.jpg'); background-size: cover;">
-   <p style="text-align: center; padding-top: 150px;">Average Regret: {{rgt}}</p>
+   <p style="text-align: center; padding-top: 150px;">Average Regret: {{"%.2f"|format(rgt)}}</p>
    <p style="text-align: center;" id = "currgt">Current Regret: 0</p>
    <!--img src="/static/elements/def.png" alt="defender" class="center">
    <img src="/static/elements/att.png" alt="attacker" class="center" id = "att"-->
@@ -13,15 +13,21 @@
 
 {% block style %}
 <style>
+  table{
+    border-spacing: 10px;
+  }
   table, th, td {
-    border:1px solid black;
-    border-collapse: collapse;
+    border:0px solid black;
+    border-radius: 10px;
   }
   tr{
     height: 80px;
   }
   td{
     width: 80px;
+    font-size: 13px;
+    vertical-align: top;
+    font-family: "Courier New", Courier,monospace;
   }
   .center {
   display: block;
@@ -31,15 +37,18 @@
   }
   #att, #def{
     display: block;
-    height: 100%;
-    width: 100%;
+    height: 90%;
+    width: 90%;
   }
   </style>
 {% endblock %}
 {% block javascript %}
+   <script src="/static/scripts/anseki-leader-line/leader-line.min.js"></script>
    <script>
       var l = {{l_res | safe}}
       var f = {{f_res | safe}}
+      var rinfo = {{R | safe}} 
+      var cinfo = {{C | safe}}
       var rgtinfo = {{rgt_res | safe}}
       var coords = [];
       for(let i = 0; i < l.length; i++){
@@ -55,9 +64,15 @@
           const cell = document.createElement('td');
           cell.innerHTML = '';
           if(i == 0 || j == 0 || i == {{m}}+1 || j == {{n}}+1){
-            cell.style.backgroundColor = '#222222';
+            cell.style.backgroundColor = '#1affc6';
+            if(i==0 && j>0 && j <{{n}}+1){
+              cell.innerHTML = String(j);
+            }
+            if(j==0 && i>0 && i <{{n}}+1){
+              cell.innerHTML = String(i);
+            }
           }
-          else {cell.style.backgroundColor = '#AAAAAA';}
+          else {cell.style.backgroundColor = '#AAAAAA';cell.innerHTML=String(rinfo[i-1][j-1]).substring(0,4) +","+String(cinfo[i-1][j-1]).substring(0,4);}
           row.appendChild(cell);
         }
         table.appendChild(row);
@@ -77,30 +92,54 @@
           //await sleep(100);
           var cur_rgt = rgtinfo[cnt];
           cnt++;
-          curRGT.innerHTML = 'Current Regret: ' + String(cur_rgt);
+          curRGT.innerHTML = 'Current Regret: ' + String(cur_rgt).substring(0,4);
           const [x,y] = coord;
           const cell = table.rows[x+1].cells[y+1];
           const lead = table.rows[0].cells[y+1];
           const foll = table.rows[x+1].cells[0];
+          /*
           for(let i = 1; i<=y;i++){
             table.rows[x+1].cells[i].style.backgroundColor = "#86eb34";
           }
           for(let i = 1; i<=x;i++){
             table.rows[i].cells[y+1].style.backgroundColor = "#86eb34";
           }
+          */
           lead.innerHTML="<img src='/static/elements/att.png' alt='attacker' class='center' id = 'att'>";
           foll.innerHTML="<img src='/static/elements/def.png' alt='defender' class='center' id = 'def'>";
           cell.style.backgroundColor = '#00FF00';// + Math.floor(Math.random()*16777215).toString(16);
+          var line1 = new LeaderLine(lead, cell, {  
+            startPlugColor: '#1a6be0',
+            endPlugColor: '#1efdaa',
+            gradient: true, 
+            dash: {animation: true},
+            dropShadow: true,
+            hide: true
+          });
+          var line2 = new LeaderLine(foll, cell, {  
+            startPlugColor: '#1a6be0',
+            endPlugColor: '#1efdaa',
+            gradient: true, 
+            dash: {animation: true},
+            dropShadow: true,
+            hide: true
+          });
+          line1.show('draw');
+          line2.show('draw');
           await sleep(1000);
+          /*
           for(let i = 1; i<=y;i++){
             table.rows[x+1].cells[i].style.backgroundColor = "#AAAAAA";
           }
           for(let i = 1; i<=x;i++){
             table.rows[i].cells[y+1].style.backgroundColor = "#AAAAAA";
           }
+          */
           cell.style.backgroundColor = '#AAAAAA';
-          lead.innerHTML="";
-          foll.innerHTML="";
+          lead.innerHTML=String(y+1);
+          foll.innerHTML=String(x+1);
+          line1.remove();
+          line2.remove();
         }
       }
       coloring();
