@@ -133,6 +133,7 @@ def main():
     else:
         rgt = 0.0
         for tr in range(trial):
+            # don't provide R/C, use package to generate, and they'are unknown to the user
             R = np.loadtxt("random_instance/R_{}.txt".format(tr))
             C = np.loadtxt("random_instance/C_{}.txt".format(0))
             
