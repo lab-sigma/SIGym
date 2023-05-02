@@ -69,7 +69,9 @@
               cell.innerHTML = String(i);
             }
           }
-          else {cell.style.backgroundColor = '#AAAAAA';cell.innerHTML=String(rinfo[i-1][j-1]).substring(0,4) +","+String(cinfo[i-1][j-1]).substring(0,4);}
+          else {cell.style.backgroundColor = '#AAAAAA';
+          cell.innerHTML=String(rinfo[i-1][j-1]).substring(0,4);
+          }
           row.appendChild(cell);
         }
         table.appendChild(row);
