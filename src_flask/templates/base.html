@@ -5,8 +5,6 @@
   <body style="background-image:url('/static/background/bg.jpg'); background-size: cover;">
    <p style="text-align: center; padding-top: 150px;">Average Regret: {{"%.2f"|format(rgt)}}</p>
    <p style="text-align: center;" id = "currgt">Current Regret: 0</p>
-   <!--img src="/static/elements/def.png" alt="defender" class="center">
-   <img src="/static/elements/att.png" alt="attacker" class="center" id = "att"-->
   </body>
 
 {% endblock %}
@@ -56,7 +54,6 @@
          coords.push(cur);
       }
       const curRGT = document.getElementById("currgt");
-      // create the 3x3 matrix table
       const table = document.createElement('table');
       for(let i=0; i<{{m}}+2; i++) {
         const row = document.createElement('tr');
@@ -64,7 +61,7 @@
           const cell = document.createElement('td');
           cell.innerHTML = '';
           if(i == 0 || j == 0 || i == {{m}}+1 || j == {{n}}+1){
-            cell.style.backgroundColor = '#1affc6';
+            cell.style.backgroundColor = '#FFFFFF';
             if(i==0 && j>0 && j <{{n}}+1){
               cell.innerHTML = String(j);
             }
@@ -97,14 +94,6 @@
           const cell = table.rows[x+1].cells[y+1];
           const lead = table.rows[0].cells[y+1];
           const foll = table.rows[x+1].cells[0];
-          /*
-          for(let i = 1; i<=y;i++){
-            table.rows[x+1].cells[i].style.backgroundColor = "#86eb34";
-          }
-          for(let i = 1; i<=x;i++){
-            table.rows[i].cells[y+1].style.backgroundColor = "#86eb34";
-          }
-          */
           lead.innerHTML="<img src='/static/elements/att.png' alt='attacker' class='center' id = 'att'>";
           foll.innerHTML="<img src='/static/elements/def.png' alt='defender' class='center' id = 'def'>";
           cell.style.backgroundColor = '#00FF00';// + Math.floor(Math.random()*16777215).toString(16);
@@ -127,14 +116,6 @@
           line1.show('draw');
           line2.show('draw');
           await sleep(1000);
-          /*
-          for(let i = 1; i<=y;i++){
-            table.rows[x+1].cells[i].style.backgroundColor = "#AAAAAA";
-          }
-          for(let i = 1; i<=x;i++){
-            table.rows[i].cells[y+1].style.backgroundColor = "#AAAAAA";
-          }
-          */
           cell.style.backgroundColor = '#AAAAAA';
           lead.innerHTML=String(y+1);
           foll.innerHTML=String(x+1);
