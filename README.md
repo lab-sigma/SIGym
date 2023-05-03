@@ -9,3 +9,13 @@ algorithms.
 Ported utilities/algorithmic implementations from here: https://github.com/lab-sigma/dynamic-stackelberg
 
 You will need Gurobi (https://www.gurobi.com/) to run the code. Licenses can be obtained for free for academic purposes.
+
+We provide a number of attacker models for users to test their designed strategy in a Stackelberg game.
+
+Random: arbitrarily returns a decision in each round.
+
+Best: returns the optimal decision under a perfect Stackelberg equilibrium.
+
+Quantal: under a quantal response equilibrium
+
+MWU: returns the optimal decision using multiplicative weights update.
