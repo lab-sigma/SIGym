@@ -6,8 +6,43 @@ Strategic Interation Gym is a Python library for developing and exploring differ
 It aims to provide implementations of a variety of common environments and response mechanisms as well as an API for setting up custom environments and
 algorithms.
 
-To install the package, run `pip install -i https://test.pypi.org/simple/ SIGym-MinbiaoHan`.
+To install the package, run `pip install -i https://test.pypi.org/simple/ SIGym-MinbiaoHan`. An example usage:
+```
+import numpy as np
+from src.SIGym.sigym import Follower, Platform
+from src.SIGym.General_Stackelberg.dynamic_stackelberg import dyse, SSE, utils
 
+
+T = 10
+m, n = 3, 3
+trial = 5
+
+for attacker_mode in ["random", "best_response", "quantal_response", "mwu", "ftl", 'delta_suboptimal']:
+    print("--------------------"*5, "Attacker mode: {}".format(attacker_mode), "--------------------"*5)
+    rgt, cur_utility = 0.0, 0.0
+    for tr in range(trial):
+
+        # generate a random game
+        R, C, _ = utils.setup_random_game_int(m, n , ntypes=1)
+
+        R, C = R[0], C[0]
+        agent = Follower(utility_matrix=C, behavior_mode=attacker_mode)  # Instantiate a follower class using the utility matrix and the behavior model
+        env = Platform(R, C) # Instantiate a platform class using the reward matrix and the utility matrix
+        u_sse = env.compute_SSE()
+
+        x = [np.random.rand() for i in range(m)]
+        temp = sum(x)
+        x = [i/temp for i in x]
+        for t in range(T):
+            i_t, j_t = env.step(x, agent, R) # the platform takes a step based on the leader strategy and the follower model
+            cur_utility += R[i_t][j_t]
+            x = [np.random.rand() for i in range(m)]
+            temp = sum(x)
+            x = [i/temp for i in x]
+
+        rgt += (u_sse*T - cur_utility)/T
+    print("The averaged regret you get over {} trials is {}".format(trial, rgt/trial))
+```
 
 Ported utilities/algorithmic implementations from here: https://github.com/lab-sigma/dynamic-stackelberg
 
