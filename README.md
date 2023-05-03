@@ -13,6 +13,7 @@ Ported utilities/algorithmic implementations from here: https://github.com/lab-s
 
 You will need Gurobi (https://www.gurobi.com/) to run the code. Licenses can be obtained for free for academic purposes.
 
+# Follower
 We provide a number of attacker models for users to test their designed strategy in a Stackelberg game.
 
 Random: arbitrarily returns a decision in each round.
@@ -22,3 +23,10 @@ Best: returns the optimal decision under a perfect Stackelberg equilibrium.
 Quantal: under a quantal response equilibrium
 
 MWU: returns the optimal decision using multiplicative weights update.
+
+# Platform
+The Platform class provides interfaces that help users evaluate the performance of their strategy. We provide three approaches of metrics:
+SSE 
+BSE
+RME
+Platform.step(): return the response for both sides
