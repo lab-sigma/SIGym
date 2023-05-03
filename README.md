@@ -6,7 +6,7 @@ Strategic Interation Gym is a Python library for developing and exploring differ
 It aims to provide implementations of a variety of common environments and response mechanisms as well as an API for setting up custom environments and
 algorithms.
 
-To install the package, run `pip install -i https://test.pypi.org/simple/ SIGym-MinbiaoHan`. An example usage:
+To install the package, run `pip install -i https://test.pypi.org/simple/SIGym-MinbiaoHan`. An example usage:
 ```
 import numpy as np
 from src.SIGym.sigym import Follower, Platform
