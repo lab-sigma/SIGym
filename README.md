@@ -6,6 +6,9 @@ Strategic Interation Gym is a Python library for developing and exploring differ
 It aims to provide implementations of a variety of common environments and response mechanisms as well as an API for setting up custom environments and
 algorithms.
 
+To install the package, run `pip install -i https://test.pypi.org/simple/ SIGym-MinbiaoHan`.
+
+
 Ported utilities/algorithmic implementations from here: https://github.com/lab-sigma/dynamic-stackelberg
 
 You will need Gurobi (https://www.gurobi.com/) to run the code. Licenses can be obtained for free for academic purposes.
