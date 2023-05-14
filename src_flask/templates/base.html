@@ -2,7 +2,7 @@
 {% endblock %}
 
 {% block content %}
-  <body style="background-image:url('/static/background/bg.jpg'); background-size: cover;">
+  <body !--style="background-image:url('/static/background/bg.jpg'); background-size: cover;"-->
    <p style="text-align: center; padding-top: 150px;">Average Regret: {{"%.2f"|format(rgt)}}</p>
    <p style="text-align: center;" id = "currgt">Current Regret: 0</p>
   </body>
@@ -24,7 +24,7 @@
   td{
     width: 80px;
     font-size: 13px;
-    vertical-align: top;
+    text-align: center;
     font-family: "Courier New", Courier,monospace;
   }
   .center {
