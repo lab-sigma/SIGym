@@ -1,11 +1,7 @@
 Welcome to SIGym's documentation!
 =================================
 
-.. image:: _static/images/sigmalab.png
-   :alt: Welcome
-   :width: 500
-
-Strategic Interation Gym is a Python library for developing and exploring different algorithms for strategically interacting in game theoretic settings. It aims to provide implementations of a variety of common environments and response mechanisms as well as an API for setting up custom environments and algorithms.
+Strategic IntelliGence Gym is a Python library for developing and testing different learning algorithms in game-theoretic environments. The library implements a variety of commonly studied game-theoretic setups (from foundational economic models to critical real-world applications) and strategic opponent response mechanisms (rational or boundedly rational). The user can use the implemented API to test their learning algorithms by setting up customized game environments.
 
 .. note::
    This project is under active development.
