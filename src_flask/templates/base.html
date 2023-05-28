@@ -3,7 +3,7 @@
 
 {% block content %}
   <body style="background-image:url('/static/background/bg.jpg'); background-size: cover;">
-   <p style="text-align: center;" id = "currgt">Current Average Regret: 0</p>
+   <p style="text-align: center;transform: translateX(55px);" id = "currgt">&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;Current Average Regret: 0</p>
   </body>
 
 {% endblock %}
@@ -90,7 +90,7 @@
           //await sleep(100);
           var cur_rgt = rgtinfo[cnt];
           cnt++;
-          curRGT.innerHTML = 'Current Average Regret: ' + String(cur_rgt).substring(0,4);
+          curRGT.innerHTML = '&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;Current Average Regret: ' + String(cur_rgt).substring(0,4);
           const [x,y] = coord;
           const cell = table.rows[x+1].cells[y+1];
           const lead = table.rows[0].cells[y+1];
