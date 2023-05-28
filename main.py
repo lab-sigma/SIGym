@@ -25,12 +25,12 @@ def main():
 
     defender_mode = '1'
     attacker_mode = '2'
-    T = 10
-    m, n = 3, 3
+    T = 100
+    m, n = 5, 5
     eps = 0.01
-    trial = 10
+    trial = 1
 
-    for attacker_mode in ['1', '2', '3', '4', '5', '6']:
+    for attacker_mode in ['1']:
         print("--------------------"*5, "Attacker mode: {}".format(attacker_mode_dict[attacker_mode]), "--------------------"*5)
         if defender_mode == '2':
             rgt = 0.0
@@ -68,7 +68,10 @@ def main():
                 # don't provide R/C, use package to generate, and they'are unknown to the user
                 R = np.loadtxt("random_instance/R_{}.txt".format(tr))
                 C = np.loadtxt("random_instance/C_{}.txt".format(0))
-                
+                Rr = [[0.7917250394821167, -0.020218396559357643, -0.832619845867157, -0.7781567573547363, -0.8700121641159058], [-0.08712930232286453, 0.5288949012756348, -0.832619845867157, -0.7781567573547363, -0.8700121641159058], [-0.08712930232286453, -0.020218396559357643, 0.5680445432662964, -0.7781567573547363, -0.8700121641159058], [-0.08712930232286453, -0.020218396559357643, -0.832619845867157, 0.9255966544151306, -0.8700121641159058], [-0.08712930232286453, -0.020218396559357643, -0.832619845867157, -0.7781567573547363, 0.07103605568408966]]
+                Cc = [[-0.6458941102027893, 0.7151893377304077, 0.6027633547782898, 0.5448831915855408, 0.42365479469299316], [0.54881352186203, -0.4375872015953064, 0.6027633547782898, 0.5448831915855408, 0.42365479469299316], [0.54881352186203, 0.7151893377304077, -0.891772985458374, 0.5448831915855408, 0.42365479469299316], [0.54881352186203, 0.7151893377304077, 0.6027633547782898, -0.9636627435684204, 0.42365479469299316], [0.54881352186203, 0.7151893377304077, 0.6027633547782898, 0.5448831915855408, -0.3834415078163147]]
+                R = np.asarray(Rr)
+                C = np.asarray(Cc)
                 agent = Follower(utility_matrix=C, behavior_mode=attacker_mode_dict[attacker_mode])  # Instantiate a follower class using the utility matrix and the behavior model
                 env = Platform(R, C)
                 u_sse = env.compute_SSE()
@@ -76,7 +79,7 @@ def main():
                 x = [np.random.rand() for i in range(m)]
                 temp = sum(x)
                 x = [i/temp for i in x]
-                
+                rrr = []
                 for t in range(T):
                     i_t, j_t = env.step(x, agent, R) # the platform takes a step based on the leader strategy and the follower model
                     env.cum_u += R[i_t][j_t]
@@ -91,8 +94,10 @@ def main():
                     x = [np.random.rand() for i in range(m)]
                     temp = sum(x)
                     x = [i/temp for i in x]
-
+                    rrr.append((u_sse*(t+1) - env.cum_u) / (t+1))
+                    #print ((u_sse*(t+1) - env.cum_u) / (t+1))
                 rgt += (u_sse*T - env.cum_u)/T
+                print(rrr)
             print("The averaged regret you get over {} trials is {}".format(trial, rgt/trial))
 
 if __name__ == '__main__':
