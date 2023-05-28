@@ -23,7 +23,7 @@ exclude_patterns = []
 
 # -- Options for HTML output -------------------------------------------------
 # https://www.sphinx-doc.org/en/master/usage/configuration.html#options-for-html-output
-
 html_theme = 'alabaster'
+html_theme_options = {'font_family':'Droid Sans,Tahoma,Arial,sans-serif'}
 html_static_path = ['_static']
 html_logo = "_static/images/sigmalab.png"

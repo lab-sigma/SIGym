@@ -8,7 +8,7 @@ Strategic IntelliGence Gym is a Python library for developing and testing differ
 
 .. toctree::
    :hidden:
-   :caption: Games:
+   :caption: Games
 
    games/stackelberg
 
