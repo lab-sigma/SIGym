@@ -112,7 +112,7 @@ div.sphinxsidebar h4 {
     color: #444;
     font-size: 24px;
     font-weight: normal;
-    margin: 0 0 5px 0;
+    margin: 0 0 0px 0;
     padding: 0;
 }
 
@@ -137,7 +137,7 @@ div.sphinxsidebar p {
 }
 
 div.sphinxsidebar ul {
-    margin: 10px 0;
+    margin: 0px 0px 10px 0px;
     padding: 0;
     color: #000;
 }
@@ -200,7 +200,7 @@ div.body h5,
 div.body h6 {
     font-family: Droid Sans,Tahoma,Arial,sans-serif;
     font-weight: normal;
-    margin: 30px 0px 10px 0px;
+    margin: 20px 0px 5px 0px;
     padding: 0;
 }
 
