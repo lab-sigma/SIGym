@@ -1,0 +1,143 @@
+{% block title %}
+{% endblock %}
+
+{% block content %}
+  <body>
+   <!--p style="text-align: center;transform: translateX(55px);" id = "currgt">&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;Current Average Regret: 0</p-->
+  </body>
+
+{% endblock %}
+
+{% block style %}
+<style>
+  table{
+    border-spacing: 10px;
+  }
+  table, th, td {
+    border:0px solid black;
+    border-radius: 10px;
+  }
+  tr{
+    height: 80px;
+  }
+  td{
+    width: 80px;
+    font-size: 21px;
+    text-align: center;
+    font-family: "Courier New", Courier,monospace;
+  }
+  .center {
+  display: block;
+  margin-left: auto;
+  margin-right: auto;
+  width: 3%;
+  }
+  #att, #def{
+    display: block;
+    height: 90%;
+    width: 90%;
+  }
+  .gem{
+    display: block;
+    height: 70%;
+    width: 70%;
+  }
+  </style>
+{% endblock %}
+{% block javascript %}
+   <script src="/static/scripts/anseki-leader-line/leader-line.min.js"></script>
+   <script>
+      var l = {{l_res | safe}}
+      var f = {{f_res | safe}}
+      var reslen = l[0].length
+      var rinfo = {{R | safe}} 
+      var cinfo = {{C | safe}}
+      var rgtinfo = {{rgt_res | safe}}
+      var coords = [];
+      for(let i = 0; i < l.length; i++){
+         var cur = [l[i][0], f[i]];
+         coords.push(cur);
+      }
+      
+      const curRGT = document.getElementById("currgt");
+      const table = document.createElement('table');
+      for(let i=0; i<{{m}}+2; i++) {
+        const row = document.createElement('tr');
+        for(let j=0; j<{{n}}+1; j++) {
+          const cell = document.createElement('td');
+          cell.innerHTML = '';
+          if(i == 0 || j == 0 || i == {{m}}+1 || j == {{n}}+1){
+            cell.style.backgroundColor = '#FFFFFF';
+            if(i==0 && j>0 && j <{{n}}+1){
+              cell.innerHTML = String(j);
+            }
+          }
+          else if(i==3){
+            cell.style.backgroundColor = '#AAAAAA';
+            cell.innerHTML="<img src='/static/elements/gem" + String(j) + ".png' alt='gem1' class='center gem'>";
+          }
+          row.appendChild(cell);
+        }
+        table.appendChild(row);
+      }
+      table.style.fontSize = "x-large";
+      table.style.margin = "auto";
+      table.className = "table";
+      document.body.appendChild(table);
+      var cnt = 0;
+      function sleep(ms) {
+        return new Promise(
+          resolve => setTimeout(resolve, ms)
+        );
+      }
+      sleep(4000);
+      const attcell = table.rows[6].cells[3];
+      attcell.innerHTML="<img src='/static/elements/att.png' alt='attacker' class='center' id = 'att'>";
+      async function coloring(){
+
+        for(let i = 0;i<f.length;i++){
+          deflines = [];
+          let protected = false;
+          for(let j = 0;j<reslen;j++){
+            table.rows[0].cells[l[i][j]+1].innerHTML="<img src='/static/elements/def.png' alt='defender' class='center' id = 'def'>";
+            deflines.push(new LeaderLine(table.rows[0].cells[l[i][j]+1], table.rows[3].cells[l[i][j]+1], {  
+            startPlugColor: '#1a6be0',
+            endPlugColor: '#1efdaa',
+            gradient: true, 
+            dash: {animation: true},
+            dropShadow: true,
+            hide: true
+            }));
+            deflines[j].show('draw');
+            if(f[i] == l[i][j]){
+              protected = true;
+            }
+          }
+          if(protected){
+            table.rows[3].cells[f[i]+1].style.backgroundColor = 'green';
+          } else{
+            table.rows[3].cells[f[i]+1].style.backgroundColor = 'red';
+          }
+          var attline = new LeaderLine(attcell, table.rows[3].cells[f[i]+1], {  
+            startPlugColor: '#d0312d',
+            endPlugColor: '#900d09',
+            gradient: true, 
+            dash: {animation: true},
+            dropShadow: true,
+            hide: true
+          });
+          attline.show('draw');
+          await sleep(1000);
+          for(let j = 0;j<reslen;j++){
+            deflines[j].remove();
+            table.rows[0].cells[l[i][j]+1].innerHTML=String(l[i][j]+1);
+          }
+          attline.remove();
+          table.rows[3].cells[f[i]+1].style.backgroundColor ='#AAAAAA';
+        }
+      }
+      coloring();
+      
+
+</script>
+{% endblock %}
