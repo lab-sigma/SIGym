@@ -1,0 +1,121 @@
+{% block title %}
+{% endblock %}
+
+{% block content %}
+  <body>
+   <!--p style="text-align: center;transform: translateX(55px);" id = "currgt">&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;Current Average Regret: 0</p-->
+  </body>
+
+{% endblock %}
+
+{% block style %}
+<style>
+  table{
+    border-spacing: 10px;
+  }
+  table, th, td {
+    border:0px solid black;
+    border-radius: 10px;
+  }
+  tr{
+    height: 80px;
+  }
+  td{
+    border:0px solid black;
+    width: 80px;
+    font-size: 21px;
+    text-align: center;
+    font-family: "Courier New", Courier,monospace;
+  }
+  .center {
+  display: block;
+  margin-left: auto;
+  margin-right: auto;
+  width: 3%;
+  }
+  #elem{
+    display: block;
+    height: 90%;
+    width: 90%;
+  }
+  </style>
+{% endblock %}
+{% block javascript %}
+   <script src="/static/scripts/anseki-leader-line/leader-line.min.js"></script>
+   <script>
+      var info = {{actions | safe}};
+      var um = {{um | safe}};
+      var valuethresh = 0.3;
+      const loc = Array({{nships}}+1).fill(0);
+      const curRGT = document.getElementById("currgt");
+      const table = document.createElement('table');
+      for(let i=0; i<{{nships}}+2; i++) {
+        const row = document.createElement('tr');
+        for(let j=0; j<{{nsensor}}*2+2; j++) {
+          const cell = document.createElement('td');
+          if(i == 0 && j%2==1){cell.innerHTML = "<img src='/static/elements/detectorDV.png' alt='d' class='center' id = 'elem'>";}
+          if(i>0 && i!={{nships}}+1 && j==0){
+            if(um[i] > valuethresh){cell.innerHTML = "<img src='/static/elements/ship.png' alt='s' class='center' id = 'elem'>";}
+            else{cell.innerHTML = "<img src='/static/elements/boat.png' alt='s' class='center' id = 'elem'>";}
+          }
+          if(i == 0 && j == {{nsensor}}*2+1){cell.innerHTML = "<img src='/static/elements/finish.png' alt='f' class='center' id = 'elem'>";}
+          row.appendChild(cell);
+        }
+        table.appendChild(row);
+      }
+      table.style.fontSize = "x-large";
+      table.style.margin = "auto";
+      table.className = "table";
+      document.body.appendChild(table);
+      var cnt = 0;
+      function sleep(ms) {
+        return new Promise(
+          resolve => setTimeout(resolve, ms)
+        );
+      }
+      var curline;
+      async function s(){
+        for(let cur of info){
+          var SLEEP_TIME = 300;
+          
+          if(cur[0] == 1){
+            if(cur[1] == 1){
+              table.rows[cur[2]].cells[loc[cur[2]]].innerHTML = ""
+              loc[cur[2]]+=cur[1];
+              if(um[cur[2]] > valuethresh) {table.rows[cur[2]].cells[loc[cur[2]]].innerHTML = "<img src='/static/elements/ship.png' alt='s' class='center' id = 'elem'>";}
+              else {table.rows[cur[2]].cells[loc[cur[2]]].innerHTML = "<img src='/static/elements/boat.png' alt='s' class='center' id = 'elem'>";}  
+            } else{
+              if(um[cur[2]] > valuethresh){table.rows[cur[2]].cells[loc[cur[2]]].innerHTML = "<img src='/static/elements/shipBW.png' alt='s' class='center' id = 'elem'>";}
+              else{table.rows[cur[2]].cells[loc[cur[2]]].innerHTML = "<img src='/static/elements/boatBW.png' alt='s' class='center' id = 'elem'>";}
+            }
+          } else if(cur[0] == 2){
+              if(cur[1] == 0){
+                table.rows[0].cells[1+2*(cur[2])].innerHTML = "<img src='/static/elements/detectorDV.png' alt='d' class='center' id = 'elem'>";
+              }
+              else if(cur[1] == 1){
+                table.rows[0].cells[1+2*(cur[2])].innerHTML = "<img src='/static/elements/detector.png' alt='d' class='center' id = 'elem'>";
+              }else{
+                table.rows[0].cells[1+2*(cur[2])].innerHTML = "<img src='/static/elements/detectorBW.png' alt='d' class='center' id = 'elem'>";
+                SLEEP_TIME = 0; 
+              }
+          }else{
+              if(typeof(curline)!='undefined'){
+                curline.remove()
+              }
+              curline = new LeaderLine(table.rows[{{nships+1}}].cells[cur[1]*2], table.rows[{{nships+1}}].cells[cur[1]*2+2], {  
+              startPlugColor: '#1a6be0',
+              endPlugColor: '#1efdaa',
+              gradient: true, 
+              dash: {animation: true},
+              dropShadow: true,
+              hide: true
+              });
+              curline.show('draw');
+          }
+          await sleep(SLEEP_TIME)
+        }        
+      }
+      s();
+      //curline.remove();
+</script>
+{% endblock %}
