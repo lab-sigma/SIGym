@@ -54,6 +54,7 @@
       var cinfo = {{C | safe}}
       var rgtinfo = {{rgt_res | safe}}
       var coords = [];
+      var gems = {{gems | safe}}
       for(let i = 0; i < l.length; i++){
          var cur = [l[i][0], f[i]];
          coords.push(cur);
@@ -113,10 +114,13 @@
               protected = true;
             }
           }
+          var prev =  table.rows[3].cells[f[i]+1].innerHTML;
           if(protected){
             table.rows[3].cells[f[i]+1].style.backgroundColor = 'green';
+             table.rows[3].cells[f[i]+1].innerHTML = (((Math.random()*0.4)-0.2)+gems[f[i]]).toFixed(3);
           } else{
             table.rows[3].cells[f[i]+1].style.backgroundColor = 'red';
+            table.rows[3].cells[f[i]+1].innerHTML = (((Math.random()*0.4)-0.2)+gems[f[i]]*-1).toFixed(3);
           }
           var attline = new LeaderLine(attcell, table.rows[3].cells[f[i]+1], {  
             startPlugColor: '#d0312d',
@@ -134,6 +138,7 @@
           }
           attline.remove();
           table.rows[3].cells[f[i]+1].style.backgroundColor ='#AAAAAA';
+          table.rows[3].cells[f[i]+1].innerHTML = prev;
         }
       }
       coloring();

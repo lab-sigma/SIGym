@@ -45,7 +45,7 @@
    <script>
       var info = {{actions | safe}};
       var um = {{um | safe}};
-      var valuethresh = 0.3;
+      var valuethresh = 0.5;
       const loc = Array({{nships}}+1).fill(0);
       const curRGT = document.getElementById("currgt");
       const table = document.createElement('table');
@@ -53,7 +53,14 @@
         const row = document.createElement('tr');
         for(let j=0; j<{{nsensor}}*2+2; j++) {
           const cell = document.createElement('td');
-          if(i == 0 && j%2==1){cell.innerHTML = "<img src='/static/elements/detectorDV.png' alt='d' class='center' id = 'elem'>";}
+          if(i == 0 && j%2==1){
+            if(((j-1)/2)%2 == 0){
+              cell.innerHTML = "<img src='/static/elements/detectorDV.png' alt='d' class='center' id = 'elem'>";
+            }else{
+              cell.innerHTML = "<img src='/static/elements/detector2DV.png' alt='d' class='center' id = 'elem'>";
+            }
+            
+          }
           if(i>0 && i!={{nships}}+1 && j==0){
             if(um[i] > valuethresh){cell.innerHTML = "<img src='/static/elements/ship.png' alt='s' class='center' id = 'elem'>";}
             else{cell.innerHTML = "<img src='/static/elements/boat.png' alt='s' class='center' id = 'elem'>";}
@@ -76,7 +83,7 @@
       var curline;
       async function s(){
         for(let cur of info){
-          var SLEEP_TIME = 300;
+          var SLEEP_TIME = 250;
           
           if(cur[0] == 1){
             if(cur[1] == 1){
@@ -90,10 +97,20 @@
             }
           } else if(cur[0] == 2){
               if(cur[1] == 0){
-                table.rows[0].cells[1+2*(cur[2])].innerHTML = "<img src='/static/elements/detectorDV.png' alt='d' class='center' id = 'elem'>";
+                if(cur[2]%2 == 0){
+                  table.rows[0].cells[1+2*(cur[2])].innerHTML = "<img src='/static/elements/detectorDV.png' alt='d' class='center' id = 'elem'>";
+                }
+                else{
+                  table.rows[0].cells[1+2*(cur[2])].innerHTML = "<img src='/static/elements/detector2DV.png' alt='d' class='center' id = 'elem'>";
+                }
               }
               else if(cur[1] == 1){
-                table.rows[0].cells[1+2*(cur[2])].innerHTML = "<img src='/static/elements/detector.png' alt='d' class='center' id = 'elem'>";
+                if(cur[2]%2 == 0){
+                  table.rows[0].cells[1+2*(cur[2])].innerHTML = "<img src='/static/elements/detector.png' alt='d' class='center' id = 'elem'>";
+                }else{
+                  table.rows[0].cells[1+2*(cur[2])].innerHTML = "<img src='/static/elements/detector2.png' alt='d' class='center' id = 'elem'>";
+                }
+                
               }else{
                 table.rows[0].cells[1+2*(cur[2])].innerHTML = "<img src='/static/elements/detectorBW.png' alt='d' class='center' id = 'elem'>";
                 SLEEP_TIME = 0; 
@@ -113,9 +130,15 @@
               curline.show('draw');
           }
           await sleep(SLEEP_TIME)
-        }        
+        }
+        curline.remove();
+        for(let i = 1;i<={{nships}};i++){
+          if(table.rows[i].cells[{{nsensor}}*2+1].innerHTML.trim() != ""){
+            table.rows[i].cells[{{nsensor}}*2+1].innerHTML = um[i];
+          }
+        }         
       }
       s();
-      //curline.remove();
+
 </script>
 {% endblock %}
