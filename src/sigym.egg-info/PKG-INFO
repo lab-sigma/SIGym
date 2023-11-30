@@ -1,0 +1,17 @@
+Metadata-Version: 2.1
+Name: sigym
+Version: 0.0.1
+Summary: sigym package
+Author-email: Minbiao Han <minbiaohan@uchicago.edu>, Quinn Dawkins <qed4wg@virginia.edu>
+Project-URL: Homepage, https://github.com/lab-sigma/SIGym
+Project-URL: Issues, https://github.com/lab-sigma/SIGym/issues
+Classifier: Programming Language :: Python :: 3
+Classifier: License :: OSI Approved :: MIT License
+Classifier: Operating System :: OS Independent
+Requires-Python: >=3.8
+Description-Content-Type: text/markdown
+License-File: LICENSE
+
+# sigym Package
+
+Strategic Interation Gym is a Python library for developing and exploring different algorithms for strategically interacting in game theoretic settings. It aims to provide implementations of a variety of common environments and response mechanisms as well as an API for setting up custom environments and algorithms.
