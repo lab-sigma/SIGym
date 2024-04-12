@@ -12,6 +12,7 @@ if __name__ == "__main__":
         game.req_market()
         game.req_taker()
         game.clear_book()
+        game.print_info()
 
     game.end_game()
     print(mm.name, "CHIPS:", mm.chips)

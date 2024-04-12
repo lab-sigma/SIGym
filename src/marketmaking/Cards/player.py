@@ -26,6 +26,9 @@ class MM:
         self.pos = 0
         self.info = 0
 
+    def __str__(self) -> str:
+        return "Remaining chips: " + str(self.chips) + '\n' + "Current position: " + str(self.pos)
+
 class Taker:
 
     def __init__(self, name, chips = 0, pos = 0):
@@ -39,12 +42,18 @@ class Taker:
 
     def send_action(self):
         # TODO
-        action = input("Enter BUY, SELL, or HOLD: ")
-        if action not in ["BUY", "SELL", "HOLD"]:
-            raise AssertionError("Not a valid taker action")
+        action = ""
+        while not action:
+            action = input("Enter BUY(b), SELL(s), or HOLD(h): ")
+            if action not in ["BUY", "SELL", "HOLD", "b", "s", "h"]:
+                print("Invalid action")
+                action = ""
         return action
 
     def liquidate(self, value):
         self.chips += self.pos * value
         self.pos = 0
         self.info = 0
+
+    def __str__(self) -> str:
+        return ""
