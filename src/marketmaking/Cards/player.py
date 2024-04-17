@@ -1,9 +1,12 @@
+from contract import Contract
+
 class MM:
 
-    def __init__(self, name, chips = 0, pos = 0):
+    def __init__(self, name, chips = 0, maxspread = 100000):
         self.name = name
         self.chips = chips
-        self.pos = pos
+        self.maxspread = maxspread
+        self.contracts = []
         self.info = 0 ## null 
 
     def receive_info(self, info):
@@ -17,24 +20,28 @@ class MM:
 
         if not all(isinstance(num, int) for num in [bid, ask, contracts]):
             raise AssertionError("All inputs must be integers")
-        if (bid < 0 or ask < 0 or bid >= ask or contracts <= 0):
+        if (bid < 0 or ask < 0 or bid >= ask or (ask-bid > self.maxspread) or contracts <= 0):
             raise AssertionError("Invalid market")
         return [bid, ask, contracts]
 
     def liquidate(self, value):
-        self.chips += self.pos * value
-        self.pos = 0
+        for c in self.contracts:
+            self.chips += c.pnl(value)
         self.info = 0
 
+    def print_contracts(self):
+        for c in self.contracts:
+            print(c)
+
     def __str__(self) -> str:
-        return "Remaining chips: " + str(self.chips) + '\n' + "Current position: " + str(self.pos)
+        return "Remaining chips: " + str(self.chips)
 
 class Taker:
 
-    def __init__(self, name, chips = 0, pos = 0):
+    def __init__(self, name, chips = 0):
         self.name = name
         self.chips = chips
-        self.pos = pos
+        self.contracts = []
         self.info = 0 ## null
 
     def receive_info(self, info):
@@ -51,9 +58,13 @@ class Taker:
         return action
 
     def liquidate(self, value):
-        self.chips += self.pos * value
-        self.pos = 0
+        for c in self.contracts:
+            self.chips += c.pnl(value)
         self.info = 0
+
+    def print_contracts(self):
+        for c in self.contracts:
+            print(c)
 
     def __str__(self) -> str:
         return ""
