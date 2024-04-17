@@ -33,13 +33,14 @@ class Game:
         return self.numCards, self.numCards * 13
 
     def print_board(self):
-        print("-"*12+"ROUND "+str(self.curRound+1)+"-"*12)
+        caption = "ROUND "+str(self.curRound+1) if self.curRound != self.numCards else "End of Game Settlement"
+        print("-"*12+caption+"-"*12)
         board = ""
         for i in range(self.curRound):
             board += self.symbols[self.cInd[i] // 13] + self.values[self.cards[i]] + " "
         for _ in range(self.curRound+1, self.numCards+1):
             board += "? "
-        print("CARD(s) DRAWN:", board)
+        print(board)
     
     def start_round(self):
         self.info["Cards"].append(self.cards[self.curRound])
