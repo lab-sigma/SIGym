@@ -27,6 +27,7 @@ class MM:
     def liquidate(self, value):
         for c in self.contracts:
             self.chips += c.pnl(value)
+        print()
         self.info = 0
 
     def print_contracts(self):
@@ -34,7 +35,7 @@ class MM:
             print(c)
 
     def __str__(self) -> str:
-        return "Remaining chips: " + str(self.chips)
+        return "MM Remaining chips: " + str(self.chips)
 
 class Taker:
 
@@ -67,4 +68,4 @@ class Taker:
             print(c)
 
     def __str__(self) -> str:
-        return ""
+        return "Taker Remaining chips: " + str(self.chips)

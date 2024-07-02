@@ -33,6 +33,7 @@ class Game:
         return self.numCards, self.numCards * 13
 
     def print_board(self):
+        print("print board")
         caption = "ROUND "+str(self.curRound+1) if self.curRound != self.numCards else "End of Game Settlement"
         print("-"*12+caption+"-"*12)
         board = ""
@@ -49,12 +50,16 @@ class Game:
 
     def end_round(self):
         self.curRound += 1
+        # TEST
+        #self.mm.liquidate(self.price)
+        #self.taker.liquidate(self.price)
 
     def send_info(self):
         self.mm.receive_info(self.info)
         self.taker.receive_info(self.info)
 
     def req_market(self):
+        print("req market")
         receive_object = self.mm.send_market()
         if type(receive_object) != list or len(receive_object) != 3:
             raise AssertionError ("Invalid Market")
@@ -91,11 +96,16 @@ class Game:
         self.contracts_available = 0
 
     def print_info(self):
+        print("print info")
         print(self.mm)
         print(self.taker)
 
     def end_game(self):
         self.print_board()
         self.mm.print_contracts()
+
+        # Liquidate assets to calculate profit
+        print("MM: ")
         self.mm.liquidate(self.price)
+        print("MT: ")
         self.taker.liquidate(self.price)

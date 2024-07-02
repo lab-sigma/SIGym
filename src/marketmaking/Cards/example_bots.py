@@ -17,8 +17,8 @@ class IMCMMBot(MMBot):
             curCardSum = sum(self.info['Cards'])
             curCardNum = len(self.info['Cards'])
             theo = (allCardSum - curCardSum)/(allCardNum - curCardNum) * (5 - curCardNum) + curCardSum
-            print(curCardSum, curCardNum, theo)
-        print(theo)
+            print("cardSum:{}, cardNum:{}, theo:{}".format(curCardSum, curCardNum, theo))
+        print("theo:{}".format(theo))
 
         bid, ask, contracts = round(theo-2), round(theo+2), 5
         return [bid, ask, contracts]
