@@ -46,59 +46,15 @@
                             <div id="" class="">
                                 <button>Start Game</button>
                             </div>
-                            <div class="box profile-box">
-                                <div class="profile-info-icon">
-                                    <i class="fa-solid fa-gear"></i>
-                                </div>
-                                <div class="profile-name">
-                                    Cards
-                                    <i class="fa-brands fa-cc-diners-club"></i>
-                                </div>
-                                <div class="cards-stats-container">
-                                    <div class="cards-stat">
-                                        Num Cards: <span id="market-maker-budget">3</span>
-                                    </div>
-                                    <div class="cards-stat">
-                                        Sum: <span id="market-maker-budget">16</span>
-                                    </div>
-                                </div>
-                                <div class="cards-container">
-                                    <div class="card">
-                                        <div class="card-inside-border">
-                                            <img class="logo" src="../_static/images/sigma.svg" alt="Sigma"/>
-                                        </div>
-                                    </div>
-                                    <div class="card">
-                                        <div class="card-inside-border">
-                                            <img class="logo" src="../_static/images/sigma.svg" alt="Sigma"/>
-                                        </div>
-                                    </div>
-                                    <div class="card">
-                                        <div class="card-inside-border">
-                                            <img class="logo" src="../_static/images/sigma.svg" alt="Sigma"/>
-                                        </div>
-                                    </div>
-                                    <div class="card">
-                                        <div class="card-inside-border">
-                                            <img class="logo" src="../_static/images/sigma.svg" alt="Sigma"/>
-                                        </div>
-                                    </div>
-                                    <div class="card">
-                                        <div class="card-inside-border">
-                                            <img class="logo" src="../_static/images/sigma.svg" alt="Sigma"/>
-                                        </div>
-                                    </div>
-                                    <div class="card">
-                                        <div class="card-inside-border">
-                                            <img class="logo" src="../_static/images/sigma.svg" alt="Sigma"/>
-                                        </div>
-                                    </div>
-                                </div>
+                            <h4>Round 1</h4>
+                            <div class="">
+                                <i class="fa-solid fa-gear"></i>
                             </div>
+                            
                             <div id="active-game" class="bx">
                                 <div class="game-box">
                                     <div class="profiles-container">
-                                        <div class="box profile-box">
+                                        <div class="box profile-box box-border-bottom">
                                             <div class="profile-info-icon">
                                                 <i class="fa-solid fa-circle-info"></i>
                                             </div>
@@ -106,11 +62,11 @@
                                                 <i class="fa-regular fa-building"></i>
                                             </div>
                                             <div class="profile-name">Market Maker</div>
-                                            <div class="profile-budget">
+                                            <div class="pill profile-budget">
                                                 Budget: $<span id="market-maker-budget">100</span>
                                             </div>
                                         </div>
-                                        <div class="box profile-box">
+                                        <div class="box profile-box box-border-bottom">
                                             <div class="profile-info-icon">
                                                 <i class="fa-solid fa-circle-info"></i>
                                             </div>
@@ -118,17 +74,22 @@
                                                 <i class="fa-regular fa-user"></i>
                                             </div>
                                             <div class="profile-name">Investor</div>
-                                            <div class="profile-budget">
+                                            <div class="pill profile-budget">
                                                 Budget: $<span id="market-maker-budget">100</span>
                                             </div>
                                         </div>
                                     </div>
                                     <div class="box action-box">
-                                        <div class="box action-panel">
-                                            The Market Maker <br><br>
-                                            Bid: 10, Ask: 15
+                                        <div class="box action-panel box-border-bottom">
+                                            <div class="action-descrip">
+                                                The Market Maker has spoken. 
+                                            </div>
+                                            <div class="horizontal-spread">
+                                                <div class="display-primary">Bid: <span>10</span></div>
+                                                <div class="display-primary">Ask: <span>15</span></div>
+                                            </div>
                                         </div>
-                                        <div class="box action-panel">
+                                        <div class="box horizontal-spread">
                                             <button>Buy</button>
                                             <input type="text" id="" class="action-input" placeholder="20" value="20" name="">
                                             <div class="caret-container">
@@ -136,12 +97,62 @@
                                                 <i class="fa-solid fa-caret-down"></i>
                                             </div>
                                         </div>
-                                        <div class="box action-panel">
+                                        <div class="box horizontal-spread">
                                             <button>Sell</button>
                                             <input type="text" id="" class="action-input" placeholder="20" value="20" name="">
                                             <div class="caret-container">
                                                 <i class="fa-solid fa-caret-up"></i>
                                                 <i class="fa-solid fa-caret-down"></i>
+                                            </div>
+                                        </div>
+                                    </div>
+                                </div>
+
+                                <div class="box box-border-bottom">
+                                    <div class="profile-info-icon">
+                                        <i class="fa-solid fa-circle-info"></i>
+                                    </div>
+                                    <div class="profile-name">
+                                        Cards in play
+                                        <i class="fa-brands fa-cc-diners-club"></i>
+                                    </div>
+                                    <div class="cards-stats-container">
+                                        <div class="pill cards-stat">
+                                            Cards revealed: <span id="market-maker-budget">1</span>
+                                        </div>
+                                        <div class="pill cards-stat">
+                                            Current sum: <span id="market-maker-budget">4</span>
+                                        </div>
+                                    </div>
+                                    <div class="cards-container">
+                                        <div class="card card-revealed">
+                                            <div class="card-inside card-inside-revealed">
+                                                4
+                                            </div>
+                                        </div>
+                                        <div class="card">
+                                            <div class="card-inside">
+                                                <img class="logo" src="../_static/images/sigma.svg" alt="Sigma"/>
+                                            </div>
+                                        </div>
+                                        <div class="card">
+                                            <div class="card-inside">
+                                                <img class="logo" src="../_static/images/sigma.svg" alt="Sigma"/>
+                                            </div>
+                                        </div>
+                                        <div class="card">
+                                            <div class="card-inside">
+                                                <img class="logo" src="../_static/images/sigma.svg" alt="Sigma"/>
+                                            </div>
+                                        </div>
+                                        <div class="card">
+                                            <div class="card-inside">
+                                                <img class="logo" src="../_static/images/sigma.svg" alt="Sigma"/>
+                                            </div>
+                                        </div>
+                                        <div class="card">
+                                            <div class="card-inside">
+                                                <img class="logo" src="../_static/images/sigma.svg" alt="Sigma"/>
                                             </div>
                                         </div>
                                     </div>

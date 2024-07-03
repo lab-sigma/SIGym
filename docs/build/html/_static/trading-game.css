@@ -21,6 +21,9 @@
     --width: 600px;
     --minwidth: 550px;
 
+    --highlight-color: black;
+    --highlight-bg: white;
+
     --borderwidth: 2px;
 
     overflow-x: hidden;
@@ -65,7 +68,7 @@ a:active {
 }
 
 button {
-    font-family: inherit;
+    font-family: Droid Sans,Tahoma,Arial,sans-serif;
     font-weight: bold;
     padding: 8px 20px;
     background-color: var(--green);
@@ -92,11 +95,29 @@ input {
     border: var(--borderwidth) solid var(--light-gray);
 }
 
+.box-border-bottom {
+    padding: 15px 25px;
+    border-color: black;
+    box-shadow: 0px 3px black;
+}
+
+.pill {
+    width: fit-content;
+    padding: 2px 10px;
+    margin: 0 5px 0 0;
+    font-size: 1.5rem;
+    border: 2px solid black;
+    border-radius: 50px;
+}
+
 .game-box {
     width: 100%;
     display: flex;
     justify-content: space-between;
+    font-family: 'Fira Mono', 'Courier New', Courier, monospace;
 }
+
+/* Card box */
 
 .cards-stats-container {
     display: flex;
@@ -104,12 +125,6 @@ input {
 }
 
 .cards-stat {
-    width: fit-content;
-    padding: 2px 10px;
-    margin: 0 5px 0 0;
-    font-size: 1.5rem;
-    border: 2px solid black;
-    border-radius: 50px;
 }
 
 .cards-container {
@@ -121,13 +136,24 @@ input {
     padding: 10px;
     margin: 10px;
     border-radius: 8px;
-    background-color: #d94249;
     background-color: black;
     box-shadow: 2px 2px 7px 0px rgba(0, 0, 0, 0.448);
 }
-.card-inside-border {
+.card-revealed {
+    color: #d94249;
+    background-color: white;
+}
+.card-inside {
+    height: 100%;
     padding: 15px;
+    display: flex;
+    justify-content: center;
+    align-items: center;
     border: 2px solid white;
+    font-size: 3rem;
+}
+.card-inside-revealed {
+    border: 3px solid #d94249;
 }
 
 .profiles-container {
@@ -136,9 +162,7 @@ input {
 }
 
 .profile-box {
-    padding: 15px 25px;
-    border-color: black;
-    box-shadow: 0px 3px black;
+    height: 46%;
 }
 
 .profile-info-icon {
@@ -164,22 +188,34 @@ input {
 }
 
 .profile-budget {
-    width: fit-content;
-    padding: 2px 10px;
-    margin: 0px 0;
-    font-size: 1.5rem;
-    border: 2px solid black;
-    border-radius: 50px;
+    display: none;
 }
 
 .action-box {
-    width: 50%;
+    width: 70%;
     padding: 15px 25px;
     border-color: black;
     box-shadow: 2px 3px black;
 }
 
 .action-panel {
+}
+
+.action-descrip {
+    margin: 0 0 10px 0;
+}
+
+.display-primary {
+    font-family: 'Fira Mono', 'Courier New', Courier, monospace;
+    font-size: 1.6rem;
+    font-weight: bold;
+    background-color: black;
+    color: white;
+    padding: 10px 15px;
+    border-radius: 5px;
+}
+
+.horizontal-spread {
     display: flex;
     justify-content: space-between;
     align-items: center;
