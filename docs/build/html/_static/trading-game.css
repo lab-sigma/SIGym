@@ -1,0 +1,195 @@
+@import url('https://fonts.googleapis.com/css2?family=Barlow&family=Montserrat&display=swap');
+@import url('https://fonts.googleapis.com/css2?family=Agbalumo&family=Arvo&family=Josefin+Sans&family=Rokkitt&family=Sanchez&display=swap');
+@import url('https://fonts.googleapis.com/css2?family=Anton&family=Bebas+Neue&family=Staatliches&display=swap');
+@import url('https://fonts.googleapis.com/css2?family=Pixelify+Sans&family=Press+Start+2P&display=swap');
+@import url('https://fonts.googleapis.com/css2?family=Fira+Mono&family=Noto+Sans+Mono&family=Sometype+Mono&display=swap');
+@import url('https://fonts.googleapis.com/css2?family=Gajraj+One&display=swap');
+@import url('https://fonts.googleapis.com/css2?family=Libre+Barcode+128&family=Libre+Barcode+128+Text&family=Libre+Barcode+39+Extended+Text&family=Libre+Barcode+39+Text&family=Linefont:wght@200&display=swap');
+
+:root {
+    --main: rgb(255, 211, 134);
+    --text-color: rgb(0, 0, 0);
+    --bg-color: rgb(255, 255, 255);
+    --light-gray: #D9D9D9;
+    --green: #54C57A;
+    --magenta: rgb(255, 71, 234);
+    --cyan: cyan;
+    --tomato: tomato;
+    --yellow: yellow;
+    --purple: rgb(89, 86, 255);
+
+    --width: 600px;
+    --minwidth: 550px;
+
+    --borderwidth: 2px;
+
+    overflow-x: hidden;
+    background-color: var(--bg-color);
+    color: var(--text-color);
+}
+
+::selection {
+    background-color: var(--highlight-color);
+    color: var(--highlight-bg);
+}
+
+html {
+    font-size: 62.7%;
+    scroll-behavior: smooth;
+    overflow-x: hidden;
+}
+
+* {
+    box-sizing: border-box;
+}
+
+body {
+    transition: 1s ease;
+    font-family: -apple-system, BlinkMacSystemFont, 'Segoe UI', Roboto, Oxygen, Ubuntu, Cantarell, 'Open Sans', 'Helvetica Neue', sans-serif;
+    font-family: Droid Sans,Tahoma,Arial,sans-serif;
+}
+
+a {
+    transition: color .5s ease;
+    transition: 0s;
+    color: white;
+    text-decoration: none;
+}
+
+a:hover,
+a:focus, 
+a:active {
+    color: var(--magenta);
+    text-decoration: line-through;
+    /*font-family: 'Pixelify Sans', sans-serif;*/
+}
+
+button {
+    font-family: inherit;
+    font-weight: bold;
+    padding: 8px 20px;
+    background-color: var(--green);
+    background-color: white;
+    border-radius: 3px;
+    box-shadow: 2px 2px black;
+}
+button:hover {
+    background-color: var(--green);
+    cursor: pointer;
+}
+
+input {
+    font-family: inherit;
+    border: 2px solid black;
+    border-radius: 5px;
+    padding: 8px 15px;
+}
+
+.box {
+    margin: 10px 0;
+    padding: 15px 15px;
+    border-radius: 5px;
+    border: var(--borderwidth) solid var(--light-gray);
+}
+
+.game-box {
+    width: 100%;
+    display: flex;
+    justify-content: space-between;
+}
+
+.cards-stats-container {
+    display: flex;
+    margin: 20px 0;
+}
+
+.cards-stat {
+    width: fit-content;
+    padding: 2px 10px;
+    margin: 0 5px 0 0;
+    font-size: 1.5rem;
+    border: 2px solid black;
+    border-radius: 50px;
+}
+
+.cards-container {
+    display: flex;
+}
+
+.card {
+    width: 80px;
+    padding: 10px;
+    margin: 10px;
+    border-radius: 8px;
+    background-color: #d94249;
+    background-color: black;
+    box-shadow: 2px 2px 7px 0px rgba(0, 0, 0, 0.448);
+}
+.card-inside-border {
+    padding: 15px;
+    border: 2px solid white;
+}
+
+.profiles-container {
+    width: 50%;
+    margin-right: 5px;
+}
+
+.profile-box {
+    padding: 15px 25px;
+    border-color: black;
+    box-shadow: 0px 3px black;
+}
+
+.profile-info-icon {
+    display: flex;
+    justify-content: end;
+}
+
+.profile-icon {
+    width: 60px;
+    height: 60px;
+    border: 2px solid black;
+    border-radius: 50%;
+    display: flex;
+    justify-content: center;
+    align-items: center;
+    font-size: 30px;
+}
+
+.profile-name {
+    margin: 10px 0;
+    padding: 0;
+    font-size: 2rem;
+}
+
+.profile-budget {
+    width: fit-content;
+    padding: 2px 10px;
+    margin: 0px 0;
+    font-size: 1.5rem;
+    border: 2px solid black;
+    border-radius: 50px;
+}
+
+.action-box {
+    width: 50%;
+    padding: 15px 25px;
+    border-color: black;
+    box-shadow: 2px 3px black;
+}
+
+.action-panel {
+    display: flex;
+    justify-content: space-between;
+    align-items: center;
+}
+
+.action-input {
+    width: 130px;
+}
+
+.caret-container {
+    display: flex;
+    flex-direction: column;
+}
