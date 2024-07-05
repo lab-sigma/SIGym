@@ -1,5 +1,5 @@
 import random
-from contract import Contract
+from .contract import Contract
 
 MAX = 10000
 

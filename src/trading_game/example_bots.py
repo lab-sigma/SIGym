@@ -1,5 +1,5 @@
-from contract import Contract 
-from bot import MMBot, TakerBot 
+from .contract import Contract 
+from .bot import MMBot, TakerBot 
 import math
 
 # MM bots

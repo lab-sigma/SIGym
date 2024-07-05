@@ -1,4 +1,4 @@
-from contract import Contract
+from .contract import Contract
 
 class MMBot:
 
