@@ -30,48 +30,37 @@ game = Game(mm,taker,numRounds)
 cardsRevealed = game.cards[:game.curRound]
 cardsHidden = game.cards[game.curRound:]
 
-"""
-for _ in range(numRounds):
-    game.start_round()
-    game.req_market()
-    game.req_taker()
-    game.clear_book()
-    game.print_info()
-    game.end_round()
-    print(mm.name, "CHIPS:", mm.chips)
-    print(taker.name, "CHIPS:", taker.chips)
-
-game.end_game()
-print(mm.name, "CHIPS:", mm.chips)
-print(taker.name, "CHIPS:", taker.chips)
-mmTotal += mm.chips 
-takerTotal += taker.chips 
-
-print("MARKET MAKER PROFIT", round(mmTotal - 100, 3))
-print("TAKER PROFIT", round(takerTotal - 100, 3))
-
-"""
-
 @app.route('/trading-game', methods=("GET", "POST"))
 def trading_game():
     global cardsRevealed
     global cardsHidden
-    
+    global mmTotal
+    global takerTotal
+
     if request.method == "POST":
         amount = request.form["title"]
-        print(amount)
-        game.start_round()
-        game.req_market()
-        game.req_taker()
-        game.clear_book()
-        game.print_info()
-        game.end_round()
-        print(mm.name, "CHIPS:", mm.chips)
-        print(taker.name, "CHIPS:", taker.chips)
+        
+        if game.curRound != numRounds:
+            game.start_round()
+            game.req_market()
+            game.req_taker()
+            game.clear_book()
+            game.print_info()
+            game.end_round()
+            print(mm.name, "CHIPS:", mm.chips)
+            print(taker.name, "CHIPS:", taker.chips)
+        else:
+            game.end_game()
+            print(mm.name, "CHIPS:", mm.chips)
+            print(taker.name, "CHIPS:", taker.chips)
+            mmTotal += mm.chips 
+            takerTotal += taker.chips 
+
+            print("MARKET MAKER PROFIT", round(mmTotal - 100, 3))
+            print("TAKER PROFIT", round(takerTotal - 100, 3))
 
         cardsRevealed = game.cards[:game.curRound]
         cardsHidden = game.cards[game.curRound:]
-        print("cards revealed:{}".format(cardsRevealed))
     return render_template('trading-game.html', cardsRevealed=cardsRevealed, cardsHidden=cardsHidden)
 
 @app.route('/')

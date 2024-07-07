@@ -2,7 +2,7 @@ from .contract import Contract
 from .bot import MMBot, TakerBot 
 import math
 
-# MM bots
+""" MM bots """
 
 class IMCMMBot(MMBot):
     def __init__(self, name, chips=0, maxspread=100000):
@@ -49,7 +49,7 @@ class HRTMMBot(MMBot):
         bid, ask, contracts = round(theo-2), round(theo+2), contractSize
         return [bid, ask, contracts]
 
-# Taker bots
+""" Taker bots """
 
 class GoldmanTakerBot(TakerBot):
     def __init__(self, name, chips=0):
