@@ -67,7 +67,8 @@ a:active {
     /*font-family: 'Pixelify Sans', sans-serif;*/
 }
 
-button {
+button,
+.button {
     font-family: Droid Sans,Tahoma,Arial,sans-serif;
     font-weight: bold;
     padding: 8px 20px;
@@ -76,7 +77,8 @@ button {
     border-radius: 3px;
     box-shadow: 2px 2px black;
 }
-button:hover {
+button:hover,
+.button:hover {
     background-color: var(--green);
     cursor: pointer;
 }

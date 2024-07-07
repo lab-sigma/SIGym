@@ -50,21 +50,6 @@
                             <div class="">
                                 <i class="fa-solid fa-gear"></i>
                             </div>
-
-                            {% block content %}
-                                    <form method="post">
-                                        <label for="title">Title</label>
-                                        <input name="title" id="title" value="{{ request.form['title'] }}" required>
-                                        <label for="body">Body</label>
-                                        <textarea name="body" id="body">body</textarea>
-                                        <input type="submit" value="Save">
-                                    </form>
-                                    <hr>
-                                    <form action="ok" method="post">
-                                        <input class="danger" type="submit" value="Delete" onclick="return confirm('Are you sure?');">
-                                    </form>
-                                    {% endblock %}
-                            
                             <div id="active-game" class="bx">
                                 <div class="game-box">
                                     <div class="profiles-container">
@@ -103,22 +88,24 @@
                                                 <div class="display-primary">Ask: <span>15</span></div>
                                             </div>
                                         </div>
-                                        <div class="box horizontal-spread">
-                                            <button>Buy</button>
-                                            <input type="text" id="" class="action-input" placeholder="20" value="20" name="">
-                                            <div class="caret-container">
-                                                <i class="fa-solid fa-caret-up"></i>
-                                                <i class="fa-solid fa-caret-down"></i>
+                                        <form method="post">
+                                            <div class="box horizontal-spread">
+                                                <input class="button" type="submit" name="submit_btn" value="Buy">
+                                                <input name="amt_bought" type="text" id="" class="action-input" placeholder="0" value="{{ request.form['amt_bought'] }}">
+                                                <div class="caret-container">
+                                                    <i class="fa-solid fa-caret-up"></i>
+                                                    <i class="fa-solid fa-caret-down"></i>
+                                                </div>
                                             </div>
-                                        </div>
-                                        <div class="box horizontal-spread">
-                                            <button>Sell</button>
-                                            <input type="text" id="" class="action-input" placeholder="20" value="20" name="">
-                                            <div class="caret-container">
-                                                <i class="fa-solid fa-caret-up"></i>
-                                                <i class="fa-solid fa-caret-down"></i>
+                                            <div class="box horizontal-spread">
+                                                <input class="button" type="submit" name="submit_btn" value="Sell">
+                                                <input name="amt_sold" type="text" id="" class="action-input" placeholder="0" value="{{ request.form['amt_sold'] }}">
+                                                <div class="caret-container">
+                                                    <i class="fa-solid fa-caret-up"></i>
+                                                    <i class="fa-solid fa-caret-down"></i>
+                                                </div>
                                             </div>
-                                        </div>
+                                        </form>
                                     </div>
                                 </div>
 

@@ -26,11 +26,10 @@ taker = Taker("player taker", chips = 100)
 taker = GoldmanTakerBot("GoldmanTakerBot", chips = 100)
 numRounds = 6
 game = Game(mm,taker,numRounds)
-#game.curRound = 2
 cardsRevealed = game.cards[:game.curRound]
 cardsHidden = game.cards[game.curRound:]
 
-@app.route('/trading-game', methods=("GET", "POST"))
+@app.route("/trading-game", methods=("GET", "POST"))
 def trading_game():
     global cardsRevealed
     global cardsHidden
@@ -38,8 +37,16 @@ def trading_game():
     global takerTotal
 
     if request.method == "POST":
-        amount = request.form["title"]
+        # Process player action
+        amount = 0
+        if request.form["submit_btn"] == "Buy":
+            amount = request.form["amt_bought"]
+        elif request.form["submit_btn"] == "Sell":
+            amount = request.form["amt_sold"]
         
+        print("amt:{}".format(amount))
+        
+        # Simulate this round
         if game.curRound != numRounds:
             game.start_round()
             game.req_market()
@@ -50,6 +57,7 @@ def trading_game():
             print(mm.name, "CHIPS:", mm.chips)
             print(taker.name, "CHIPS:", taker.chips)
         else:
+            # End game after last round
             game.end_game()
             print(mm.name, "CHIPS:", mm.chips)
             print(taker.name, "CHIPS:", taker.chips)
@@ -59,6 +67,7 @@ def trading_game():
             print("MARKET MAKER PROFIT", round(mmTotal - 100, 3))
             print("TAKER PROFIT", round(takerTotal - 100, 3))
 
+        # Update cards display
         cardsRevealed = game.cards[:game.curRound]
         cardsHidden = game.cards[game.curRound:]
     return render_template('trading-game.html', cardsRevealed=cardsRevealed, cardsHidden=cardsHidden)
