@@ -10,15 +10,10 @@ class Contract:
         print("fair_price:{}".format(fair_price))
         if self.contract_type == 'b':
             pnl = (fair_price - self.spot) * self.pos
-            print("spot:{}".format(self.spot))
-            print("pos:{}".format(self.pos))
             print("profit:{}".format(pnl))
             return pnl
         else:
             pnl = (self.spot - fair_price) * self.pos
-            print("spot:{}".format(self.spot))
-            print("pos:{}".format(self.pos))
-            print("equation:{}".format((self.spot - fair_price) * self.pos))
             print("profit:{}".format(pnl))
             return pnl
     

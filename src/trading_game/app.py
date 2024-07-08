@@ -24,17 +24,25 @@ mm = IMCMMBot("IMC Trading", chips=100, maxspread=5)
 #mm = HRTMMBot("Hudson River Trading", chips=100, maxspread=5)
 taker = Taker("player taker", chips = 100)
 #taker = GoldmanTakerBot("GoldmanTakerBot", chips = 100)
-numRounds = 2
+numRounds = 6
 game = Game(mm,taker,numRounds)
 cardsRevealed = game.cards[:game.curRound]
 cardsHidden = game.cards[game.curRound:]
 
+game.start_round()
+bid, ask, contracts = game.req_market()
+
 @app.route("/trading-game", methods=("GET", "POST"))
 def trading_game():
-    global cardsRevealed
+    global cardsRevealed 
     global cardsHidden
     global mmTotal
     global takerTotal
+    global bid
+    global ask
+    global contracts
+
+    #bid = ask = contracts = None
 
     if request.method == "POST":
         # Process player action
@@ -46,29 +54,36 @@ def trading_game():
         
         # Simulate this round
         if game.curRound != numRounds:
-            game.start_round()
-            game.req_market()
+            
             game.req_taker(action, amount)
+
             game.clear_book()
             game.print_info()
-            game.end_round()
-            print(mm.name, "CHIPS:", mm.chips)
-            print(taker.name, "CHIPS:", taker.chips)
-        else:
-            # End game after last round
-            game.end_game()
-            print(mm.name, "CHIPS:", mm.chips)
-            print(taker.name, "CHIPS:", taker.chips)
-            mmTotal += mm.chips 
-            takerTotal += taker.chips 
 
-            print("MARKET MAKER PROFIT", round(mmTotal - 100, 3))
-            print("TAKER PROFIT", round(takerTotal - 100, 3))
+            game.end_round()
+
+            print(mm.name, "CHIPS:", mm.chips)
+            print(taker.name, "CHIPS:", taker.chips)
+
+            if game.curRound != numRounds:
+                game.start_round()
+                bid, ask, contracts = game.req_market()
+            else:
+                # End game after last round
+                game.end_game()
+                print(mm.name, "CHIPS:", mm.chips)
+                print(taker.name, "CHIPS:", taker.chips)
+                mmTotal += mm.chips 
+                takerTotal += taker.chips 
+
+                print("MARKET MAKER PROFIT", round(mmTotal - 100, 3))
+                print("TAKER PROFIT", round(takerTotal - 100, 3))
 
         # Update cards display
         cardsRevealed = game.cards[:game.curRound]
         cardsHidden = game.cards[game.curRound:]
-    return render_template('trading-game.html', cardsRevealed=cardsRevealed, cardsHidden=cardsHidden)
+    
+    return render_template('trading-game.html', cardsRevealed=cardsRevealed, cardsHidden=cardsHidden, bid=bid, ask=ask)
 
 @app.route('/')
 def flask_page():

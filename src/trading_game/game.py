@@ -77,6 +77,8 @@ class Game:
         self.info["Actions"][self.curRound].append(market_object)
         self.send_info()
 
+        return receive_object
+
     def req_taker(self, action = "", amount = -1):
         # Ask for input from terminal if action not passed in
         if action == "":
