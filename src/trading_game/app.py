@@ -19,17 +19,21 @@ app = Flask(__name__)
 mmTotal = 0
 takerTotal = 0
 
+# Set up players
 mm = IMCMMBot("IMC Trading", chips=100, maxspread=5)
 #mm = MM("player mm", chips=100, maxspread=5)
 #mm = HRTMMBot("Hudson River Trading", chips=100, maxspread=5)
 taker = Taker("player taker", chips = 100)
 #taker = GoldmanTakerBot("GoldmanTakerBot", chips = 100)
+
+# Game settings
 numRounds = 6
 game = Game(mm,taker,numRounds)
+
+# Start game
+game.start_round()
 cardsRevealed = game.cards[:game.curRound]
 cardsHidden = game.cards[game.curRound:]
-
-game.start_round()
 bid, ask, contracts = game.req_market()
 
 @app.route("/trading-game", methods=("GET", "POST"))
@@ -41,8 +45,6 @@ def trading_game():
     global bid
     global ask
     global contracts
-
-    #bid = ask = contracts = None
 
     if request.method == "POST":
         # Process player action
@@ -83,7 +85,12 @@ def trading_game():
         cardsRevealed = game.cards[:game.curRound]
         cardsHidden = game.cards[game.curRound:]
     
-    return render_template('trading-game.html', cardsRevealed=cardsRevealed, cardsHidden=cardsHidden, bid=bid, ask=ask)
+    return render_template('trading-game.html', 
+                           gameActive=True,
+                           cardsRevealed=cardsRevealed, 
+                           cardsHidden=cardsHidden, 
+                           bid=bid, 
+                           ask=ask)
 
 @app.route('/')
 def flask_page():
