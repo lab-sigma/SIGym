@@ -77,14 +77,20 @@ class Game:
         self.info["Actions"][self.curRound].append(market_object)
         self.send_info()
 
-    def req_taker(self):
-        action = self.taker.send_action()
-        if action == "BUY" or action == 'b':
-            self.mm.contracts.append(Contract('s', self.bestAsk, self.contracts_available))
-            self.taker.contracts.append(Contract('b', self.bestAsk, self.contracts_available))
-        elif action == "SELL" or action == 's':
-            self.mm.contracts.append(Contract('b', self.bestBid, self.contracts_available))
-            self.taker.contracts.append(Contract('s', self.bestBid, self.contracts_available))
+    def req_taker(self, action = "", amount = -1):
+        # Ask for input from terminal if action not passed in
+        if action == "":
+            action = self.taker.send_action()
+        if amount == -1:
+            amount = self.contracts_available
+        #amount = self.contracts_available
+
+        if action.upper() == "BUY" or action == 'b':
+            self.mm.contracts.append(Contract('s', self.bestAsk, amount))
+            self.taker.contracts.append(Contract('b', self.bestAsk, amount))
+        elif action.upper() == "SELL" or action == 's':
+            self.mm.contracts.append(Contract('b', self.bestBid, amount))
+            self.taker.contracts.append(Contract('s', self.bestBid, amount))
 
         action_object = {"Taker": action}
         self.info["Actions"][self.curRound].append(action_object)

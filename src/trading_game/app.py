@@ -23,8 +23,8 @@ mm = IMCMMBot("IMC Trading", chips=100, maxspread=5)
 #mm = MM("player mm", chips=100, maxspread=5)
 #mm = HRTMMBot("Hudson River Trading", chips=100, maxspread=5)
 taker = Taker("player taker", chips = 100)
-taker = GoldmanTakerBot("GoldmanTakerBot", chips = 100)
-numRounds = 6
+#taker = GoldmanTakerBot("GoldmanTakerBot", chips = 100)
+numRounds = 2
 game = Game(mm,taker,numRounds)
 cardsRevealed = game.cards[:game.curRound]
 cardsHidden = game.cards[game.curRound:]
@@ -38,19 +38,17 @@ def trading_game():
 
     if request.method == "POST":
         # Process player action
-        amount = 0
-        if request.form["submit_btn"] == "Buy":
-            amount = request.form["amt_bought"]
-        elif request.form["submit_btn"] == "Sell":
-            amount = request.form["amt_sold"]
+        action = request.form["submit_btn"].lower()
+        amount = int(request.form[action + "_amt"])
         
+        print("action:{}".format(action))
         print("amt:{}".format(amount))
         
         # Simulate this round
         if game.curRound != numRounds:
             game.start_round()
             game.req_market()
-            game.req_taker()
+            game.req_taker(action, amount)
             game.clear_book()
             game.print_info()
             game.end_round()
