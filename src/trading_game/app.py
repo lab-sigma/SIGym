@@ -18,30 +18,33 @@ app = Flask(__name__)
 # Initialize default game variables
 mmTotal = 0
 takerTotal = 0
+marketPrice = 0
+numChips = 100
 
 # Players and bots
-mm = IMCMMBot("IMC Trading", chips=100, maxspread=5)
+mm = IMCMMBot("IMC Trading", chips = numChips, maxspread=5)
 #mm = MM("player mm", chips=100, maxspread=5)
 #mm = HRTMMBot("Hudson River Trading", chips=100, maxspread=5)
-taker = Taker("player taker", chips = 100)
+taker = Taker("player taker", chips = numChips)
 #taker = GoldmanTakerBot("GoldmanTakerBot", chips = 100)
 
 # Game settings
 numRounds = 6
 timer = 60
 game = None
-gameActive = False
+gameStatus = "inactive"
 
 @app.route("/trading-game", methods=("GET", "POST"))
 def trading_game():
     global mmTotal
     global takerTotal
+    global marketPrice
     global mm
     global taker
     global numRounds
     global timer
     global game
-    global gameActive
+    global gameStatus
 
     cardsRevealed = cardsHidden = []
     bid = ask = contracts = 0
@@ -51,10 +54,10 @@ def trading_game():
             """ Initialize game """
 
             # Set up players and bots
-            mm = IMCMMBot("IMC Trading", chips=100, maxspread=5)
+            mm = IMCMMBot("IMC Trading", chips = numChips, maxspread=5)
             #mm = MM("player mm", chips=100, maxspread=5)
             #mm = HRTMMBot("Hudson River Trading", chips=100, maxspread=5)
-            taker = Taker("player taker", chips = 100)
+            taker = Taker("player taker", chips = numChips)
             #taker = GoldmanTakerBot("GoldmanTakerBot", chips = 100)
 
             # Game settings
@@ -63,11 +66,18 @@ def trading_game():
 
             # Start game
             game.start_round()
+            marketPrice = game.price
             cardsRevealed = game.cards[:game.curRound]
             cardsHidden = game.cards[game.curRound:]
             bid, ask, contracts = game.req_market()
 
-            gameActive = True
+            print("start game pressed")
+            
+            gameStatus = "active"
+        elif (request.form["submit_btn"] == "End Game"):
+            gameStatus = "inactive"
+        elif (request.form["submit_btn"] == "New Game"):
+            gameStatus = "inactive"
         else:
             # Process player action
             action = request.form["submit_btn"].lower()
@@ -95,6 +105,8 @@ def trading_game():
                 else:
                     # End game after last round
                     game.end_game()
+                    gameStatus = "ended"
+
                     print(mm.name, "CHIPS:", mm.chips)
                     print(taker.name, "CHIPS:", taker.chips)
                     mmTotal += mm.chips 
@@ -108,11 +120,15 @@ def trading_game():
             cardsHidden = game.cards[game.curRound:]
     
     return render_template('trading-game.html', 
-                           gameActive=gameActive,
+                           gameStatus=gameStatus,
                            cardsRevealed=cardsRevealed, 
                            cardsHidden=cardsHidden, 
                            bid=bid, 
-                           ask=ask)
+                           ask=ask,
+                           marketPrice=marketPrice,
+                           startingBudget = numChips,
+                           mmChips = mm.chips,
+                           takerChips = taker.chips)
 
 @app.route('/')
 def flask_page():

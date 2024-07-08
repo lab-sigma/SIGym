@@ -29,9 +29,9 @@
             <div class="documentwrapper">
                 <div class="bodywrapper">
                     <div class="body" role="main">
-                        {% if not gameActive %}
-                            <section>
-                                <h1>Trading Game<a class="headerlink" href="#stackelberg-game" title="Permalink to this heading">¶</a></h1>
+                        {% if gameStatus == "inactive" %}
+                            <h1>Trading Game<a class="headerlink" href="#stackelberg-game" title="Permalink to this heading">¶</a></h1>
+                            <section class="box profile-box box-border-bottom">
                                 <p>
                                     This interactive environment simulates a market making game. Your objective as the trader
                                     is to maximize your profit against a market maker with the same goal. Every round, the market maker
@@ -79,12 +79,15 @@
                                 </form>
                             </section>
                         {% endif %}
-                        {% if gameActive %}
+                        {% if gameStatus == "active" %}
                             <section>
-                                <h4>Round 1</h4>
+                                <h4>Round {{ (cardsRevealed | length) + 1 }}</h4>
                                 <div class="">
                                     <i class="fa-solid fa-gear"></i>
                                 </div>
+                                <form method="post">
+                                    <input class="button" type="submit" name="submit_btn" value="End Game">
+                                </form>
                                 <div id="active-game" class="bx">
                                     <div class="game-box">
                                         <div class="profiles-container">
@@ -179,6 +182,57 @@
                                     </div>
                                 </div>
                             </section>
+                        {% endif %}
+                        {% if gameStatus == "ended" %}
+                        <section>
+                            <h4>Game ended</h4>
+                            <div class="">
+                                <i class="fa-solid fa-gear"></i>
+                            </div>
+                            <form method="post">
+                                <input class="button" type="submit" name="submit_btn" value="New Game">
+                            </form>
+                            <div class="game-box">
+                                <div class="profiles-container">
+                                    <div class="box box-border-bottom">
+                                        True price: {{ marketPrice }}
+                                    </div>
+                                    <div class="box box-border-bottom">
+                                        <div class="profile-info-icon">
+                                            <i class="fa-solid fa-circle-info"></i>
+                                        </div>
+                                        <div class="profile-icon">
+                                            <i class="fa-regular fa-building"></i>
+                                        </div>
+                                        <div class="profile-name">Market Maker</div>
+                                        <div class="horizontal-start">
+                                            <div class="pill">
+                                                Budget: ${{ mmChips }}
+                                            </div>
+                                            <div class="pill">
+                                                Profit: ${{ mmChips - startingBudget }}
+                                            </div>
+                                        </div>
+                                    </div>
+                                    <div class="box box-border-bottom">
+                                        <div class="profile-info-icon">
+                                            <i class="fa-solid fa-circle-info"></i>
+                                        </div>
+                                        <div class="profile-icon">
+                                            <i class="fa-regular fa-user"></i>
+                                        </div>
+                                        <div class="profile-name">Investor</div>
+                                        <div class="horizontal-start">
+                                            <div class="pill">
+                                                Budget: ${{ takerChips }}
+                                            </div>
+                                            <div class="pill">
+                                                Profit: ${{ takerChips - startingBudget }}
+                                            </div>
+                                        </div>
+                                    </div>
+                                </div>
+                            </div>
                         {% endif %}
                     </div>
                 </div>

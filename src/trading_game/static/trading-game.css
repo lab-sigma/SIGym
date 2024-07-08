@@ -226,6 +226,11 @@ input {
     justify-content: space-between;
     align-items: center;
 }
+.horizontal-start {
+    display: flex;
+    justify-content: start;
+    align-items: center;
+}
 
 .action-input {
     width: 130px;
