@@ -29,56 +29,56 @@
             <div class="documentwrapper">
                 <div class="bodywrapper">
                     <div class="body" role="main">
-                        <section id="">
-                            <h1>Trading Game<a class="headerlink" href="#stackelberg-game" title="Permalink to this heading">¶</a></h1>
-                            <p>
-                                This interactive environment simulates a market making game. Your objective as the trader
-                                is to maximize your profit against a market maker with the same goal. Every round, the market maker
-                                puts out a bid and an ask. You must then respond by buying or selling a number of contracts to them.
-                            </p>
-                            <p>
-                                At the start of the game, you'll be given a set of cards. The true market price is represented by
-                                the sum of the cards, and is unknown until the very end of the game. Each round, one additional 
-                                card will be flipped over.
-                            </p>
-                        </section>
-                        <section>
-                            <h4>Settings</h4>
-                            <form method="post" class="box profile-box box-border-bottom">
-                                <div class="box horizontal-spread">
-                                    <div>Difficulty</div>
-                                    <div>
-                                        <input type="radio" name="difficulty" value="Easy" checked>
-                                        <label for="html">Easy</label><br>
+                        {% if not gameActive %}
+                            <section>
+                                <h1>Trading Game<a class="headerlink" href="#stackelberg-game" title="Permalink to this heading">¶</a></h1>
+                                <p>
+                                    This interactive environment simulates a market making game. Your objective as the trader
+                                    is to maximize your profit against a market maker with the same goal. Every round, the market maker
+                                    puts out a bid and an ask. You must then respond by buying or selling a number of contracts to them.
+                                </p>
+                                <p>
+                                    At the start of the game, you'll be given a set of cards. The true market price is represented by
+                                    the sum of the cards, and is unknown until the very end of the game. Each round, one additional 
+                                    card will be flipped over.
+                                </p>
+                                <h4>Settings</h4>
+                                <form method="post" class="box profile-box box-border-bottom">
+                                    <div class="box horizontal-spread">
+                                        <div>Difficulty</div>
+                                        <div>
+                                            <input type="radio" name="difficulty" value="Easy" checked>
+                                            <label for="html">Easy</label><br>
+                                        </div>
+                                        <div>
+                                            <input type="radio" name="difficulty" value="Medium">
+                                            <label for="html">Medium</label><br>
+                                        </div>
+                                        <div>
+                                            <input type="radio" name="difficulty" value="Hard">
+                                            <label for="html">Hard</label><br>
+                                        </div>
                                     </div>
-                                    <div>
-                                        <input type="radio" name="difficulty" value="Medium">
-                                        <label for="html">Medium</label><br>
+                                    <div class="box horizontal-spread">
+                                        <label for="num_cards">Deck Size</label>
+                                        <input name="num_cards" type="text" class="action-input" placeholder="54" value="{{ request.form['num_cards'] }}">
+                                        <div class="caret-container">
+                                            <i class="fa-solid fa-caret-up"></i>
+                                            <i class="fa-solid fa-caret-down"></i>
+                                        </div>
                                     </div>
-                                    <div>
-                                        <input type="radio" name="difficulty" value="Hard">
-                                        <label for="html">Hard</label><br>
+                                    <div class="box horizontal-spread">
+                                        <label for="num_rounds">Number of Rounds</label>
+                                        <input name="num_rounds" type="text" class="action-input" placeholder="6" value="{{ request.form['num_rounds'] }}">
+                                        <div class="caret-container">
+                                            <i class="fa-solid fa-caret-up"></i>
+                                            <i class="fa-solid fa-caret-down"></i>
+                                        </div>
                                     </div>
-                                </div>
-                                <div class="box horizontal-spread">
-                                    <label for="num_cards">Deck Size</label>
-                                    <input name="num_cards" type="text" class="action-input" placeholder="54" value="{{ request.form['num_cards'] }}">
-                                    <div class="caret-container">
-                                        <i class="fa-solid fa-caret-up"></i>
-                                        <i class="fa-solid fa-caret-down"></i>
-                                    </div>
-                                </div>
-                                <div class="box horizontal-spread">
-                                    <label for="num_rounds">Number of Rounds</label>
-                                    <input name="num_rounds" type="text" class="action-input" placeholder="6" value="{{ request.form['num_rounds'] }}">
-                                    <div class="caret-container">
-                                        <i class="fa-solid fa-caret-up"></i>
-                                        <i class="fa-solid fa-caret-down"></i>
-                                    </div>
-                                </div>
-                                <input class="button" type="submit" name="submit_btn" value="Start Game">
-                            </form>
-                        </section>
+                                    <input class="button" type="submit" name="submit_btn" value="Start Game">
+                                </form>
+                            </section>
+                        {% endif %}
                         {% if gameActive %}
                             <section>
                                 <h4>Round 1</h4>
