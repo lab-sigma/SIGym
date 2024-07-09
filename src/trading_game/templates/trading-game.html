@@ -42,7 +42,10 @@
                                     the sum of the cards, and is unknown until the very end of the game. Each round, one additional 
                                     card will be flipped over.
                                 </p>
-                                <h4>Settings</h4>
+                                <div class="profile-name">
+                                    Settings
+                                    <i class="fa-solid fa-gear"></i>
+                                </div>
                                 <form method="post" class="box profile-box box-border-bottom">
                                     <div class="box horizontal-spread">
                                         <div>Difficulty</div>
@@ -61,7 +64,7 @@
                                     </div>
                                     <div class="box horizontal-spread">
                                         <label for="num_cards">Deck Size</label>
-                                        <input name="num_cards" type="text" class="action-input" placeholder="54" value="{{ request.form['num_cards'] }}">
+                                        <input name="num_cards" type="text" class="action-input" placeholder="52" value="{{ request.form['num_cards'] }}">
                                         <div class="caret-container">
                                             <i class="fa-solid fa-caret-up"></i>
                                             <i class="fa-solid fa-caret-down"></i>
@@ -81,13 +84,10 @@
                         {% endif %}
                         {% if gameStatus == "active" %}
                             <section>
-                                <h4>Round {{ (cardsRevealed | length) + 1 }}</h4>
-                                <div class="">
+                                <div class="horizontal-spread">
+                                    <h4>Round {{ (cardsRevealed | length) + 1 }}</h4>
                                     <i class="fa-solid fa-gear"></i>
                                 </div>
-                                <form method="post">
-                                    <input class="button" type="submit" name="submit_btn" value="End Game">
-                                </form>
                                 <div id="active-game" class="bx">
                                     <div class="game-box">
                                         <div class="profiles-container">
@@ -126,22 +126,20 @@
                                                     <div class="display-primary">Ask: <span>{{ ask }}</span></div>
                                                 </div>
                                             </div>
-                                            <form method="post">
-                                                <div class="box horizontal-spread">
-                                                    <input class="button" type="submit" name="submit_btn" value="Buy">
-                                                    <input name="buy_amt" type="text" id="" class="action-input" placeholder="0" value="{{ request.form['buy_amt'] }}">
-                                                    <div class="caret-container">
-                                                        <i class="fa-solid fa-caret-up"></i>
-                                                        <i class="fa-solid fa-caret-down"></i>
-                                                    </div>
+                                            <form method="post" class="box horizontal-spread">
+                                                <input class="button" type="submit" name="submit_btn" value="Buy">
+                                                <input required name="buy_amt" type="text" id="" class="action-input" placeholder="0" value="{{ request.form['buy_amt'] }}">
+                                                <div class="caret-container">
+                                                    <i class="fa-solid fa-caret-up"></i>
+                                                    <i class="fa-solid fa-caret-down"></i>
                                                 </div>
-                                                <div class="box horizontal-spread">
-                                                    <input class="button" type="submit" name="submit_btn" value="Sell">
-                                                    <input name="sell_amt" type="text" id="" class="action-input" placeholder="0" value="{{ request.form['sell_amt'] }}">
-                                                    <div class="caret-container">
-                                                        <i class="fa-solid fa-caret-up"></i>
-                                                        <i class="fa-solid fa-caret-down"></i>
-                                                    </div>
+                                            </form>
+                                            <form method="post" class="box horizontal-spread">
+                                                <input class="button" type="submit" name="submit_btn" value="Sell">
+                                                <input required name="sell_amt" type="text" id="" class="action-input" placeholder="0" value="{{ request.form['sell_amt'] }}">
+                                                <div class="caret-container">
+                                                    <i class="fa-solid fa-caret-up"></i>
+                                                    <i class="fa-solid fa-caret-down"></i>
                                                 </div>
                                             </form>
                                         </div>
@@ -181,58 +179,99 @@
                                         </div>
                                     </div>
                                 </div>
+                                <form method="post">
+                                    <input class="button" type="submit" name="submit_btn" value="End Game">
+                                </form>
                             </section>
                         {% endif %}
                         {% if gameStatus == "ended" %}
-                        <section>
-                            <h4>Game ended</h4>
-                            <div class="">
-                                <i class="fa-solid fa-gear"></i>
-                            </div>
-                            <form method="post">
-                                <input class="button" type="submit" name="submit_btn" value="New Game">
-                            </form>
-                            <div class="game-box">
-                                <div class="profiles-container">
-                                    <div class="box box-border-bottom">
-                                        True price: {{ marketPrice }}
-                                    </div>
-                                    <div class="box box-border-bottom">
-                                        <div class="profile-info-icon">
-                                            <i class="fa-solid fa-circle-info"></i>
+                            <section>
+                                <div class="horizontal-spread">
+                                    <h4>Game ended</h4>
+                                    <i class="fa-solid fa-gear"></i>
+                                </div>
+                                <form method="post">
+                                    <input class="button" type="submit" name="submit_btn" value="New Game">
+                                </form>
+                                <div class="game-box">
+                                    <div class="profiles-container">
+                                        <div class="box box-border-bottom">
+                                            True price: {{ marketPrice }}
                                         </div>
-                                        <div class="profile-icon">
-                                            <i class="fa-regular fa-building"></i>
-                                        </div>
-                                        <div class="profile-name">Market Maker</div>
-                                        <div class="horizontal-start">
-                                            <div class="pill">
-                                                Budget: ${{ mmChips }}
+                                        <div class="box box-border-bottom">
+                                            <div class="profile-info-icon">
+                                                <i class="fa-solid fa-circle-info"></i>
                                             </div>
-                                            <div class="pill">
-                                                Profit: ${{ mmChips - startingBudget }}
+                                            <div class="profile-icon">
+                                                <i class="fa-regular fa-building"></i>
+                                            </div>
+                                            <div class="profile-name">Market Maker</div>
+                                            <div class="horizontal-start">
+                                                <div class="pill">
+                                                    Budget: ${{ mmChips }}
+                                                </div>
+                                                <div class="pill">
+                                                    Profit: ${{ mmChips - startingBudget }}
+                                                </div>
                                             </div>
                                         </div>
-                                    </div>
-                                    <div class="box box-border-bottom">
-                                        <div class="profile-info-icon">
-                                            <i class="fa-solid fa-circle-info"></i>
-                                        </div>
-                                        <div class="profile-icon">
-                                            <i class="fa-regular fa-user"></i>
-                                        </div>
-                                        <div class="profile-name">Investor</div>
-                                        <div class="horizontal-start">
-                                            <div class="pill">
-                                                Budget: ${{ takerChips }}
+                                        <div class="box box-border-bottom">
+                                            <div class="profile-info-icon">
+                                                <i class="fa-solid fa-circle-info"></i>
                                             </div>
-                                            <div class="pill">
-                                                Profit: ${{ takerChips - startingBudget }}
+                                            <div class="profile-icon">
+                                                <i class="fa-regular fa-user"></i>
                                             </div>
+                                            <div class="profile-name">Investor</div>
+                                            <div class="horizontal-start">
+                                                <div class="pill">
+                                                    Budget: ${{ takerChips }}
+                                                </div>
+                                                <div class="pill">
+                                                    Profit: ${{ takerChips - startingBudget }}
+                                                </div>
+                                            </div>
+                                        </div>
+                                        <div class="box box-border-bottom">
+                                            Game Log: <br> <br>
+                                            {{ gameLog }}
                                         </div>
                                     </div>
                                 </div>
-                            </div>
+                                <div class="box box-border-bottom">
+                                    <div class="profile-info-icon">
+                                        <i class="fa-solid fa-circle-info"></i>
+                                    </div>
+                                    <div class="profile-name">
+                                        Cards in play 
+                                        <i class="fa-brands fa-cc-diners-club"></i>
+                                    </div>
+                                    <div class="cards-stats-container">
+                                        <div class="pill cards-stat">
+                                            Cards revealed: <span>{{ cardsRevealed | length }}</span>
+                                        </div>
+                                        <div class="pill cards-stat">
+                                            Current sum: <span>{{ cardsRevealed | sum }}</span>
+                                        </div>
+                                    </div>
+                                    <div class="cards-container">
+                                        {% for card in cardsRevealed %}
+                                            <div class="card card-revealed">
+                                                <div class="card-inside card-inside-revealed">
+                                                    {{ card }}
+                                                </div>
+                                            </div>
+                                        {% endfor %}
+                                        {% for card in cardsHidden %}
+                                            <div class="card">
+                                                <div class="card-inside">
+                                                    <img src="../static/images/sigma.svg" alt="Sigma"/>
+                                                </div>
+                                            </div>
+                                        {% endfor %}
+                                    </div>
+                                </div>
+                            </section>
                         {% endif %}
                     </div>
                 </div>

@@ -11,7 +11,7 @@ from werkzeug.exceptions import abort
 from .game import Game 
 from .player import MM, Taker
 from .bot import MMBot, TakerBot
-from .example_bots import IMCMMBot, HRTMMBot, GoldmanTakerBot, TwoSigmaTakerBot
+from .example_bots import SimpleMMBot, IMCMMBot, HRTMMBot, GoldmanTakerBot, TwoSigmaTakerBot
 
 app = Flask(__name__)
 
@@ -33,6 +33,7 @@ numRounds = 6
 timer = 60
 game = None
 gameStatus = "inactive"
+gameLog = ""
 
 @app.route("/trading-game", methods=("GET", "POST"))
 def trading_game():
@@ -45,6 +46,7 @@ def trading_game():
     global timer
     global game
     global gameStatus
+    global gameLog
 
     cardsRevealed = cardsHidden = []
     bid = ask = contracts = 0
@@ -54,7 +56,7 @@ def trading_game():
             """ Initialize game """
 
             # Set up players and bots
-            mm = IMCMMBot("IMC Trading", chips = numChips, maxspread=5)
+            mm = SimpleMMBot("IMC Trading", chips = numChips, maxspread=5)
             #mm = MM("player mm", chips=100, maxspread=5)
             #mm = HRTMMBot("Hudson River Trading", chips=100, maxspread=5)
             taker = Taker("player taker", chips = numChips)
@@ -106,6 +108,7 @@ def trading_game():
                     # End game after last round
                     game.end_game()
                     gameStatus = "ended"
+                    gameLog = game.info['Actions']
 
                     print(mm.name, "CHIPS:", mm.chips)
                     print(taker.name, "CHIPS:", taker.chips)
@@ -128,7 +131,8 @@ def trading_game():
                            marketPrice=marketPrice,
                            startingBudget = numChips,
                            mmChips = mm.chips,
-                           takerChips = taker.chips)
+                           takerChips = taker.chips,
+                           gameLog = gameLog)
 
 @app.route('/')
 def flask_page():

@@ -4,6 +4,36 @@ import math
 
 """ MM bots """
 
+class SimpleMMBot(MMBot):
+    def __init__(self, name, chips=0, maxspread=100000):
+        # Call the constructor of the superclass MMBot
+        super().__init__(name, chips, maxspread)
+
+    def algorithm(self):
+        # Override the implementation of common_function
+        if self.info == 0:
+            theo = 42
+        else:
+            allCardSum = 364 
+            allCardNum = 52
+            curCardSum = sum(self.info['Cards'])
+            curCardNum = len(self.info['Cards'])
+
+            remainingSum = allCardSum - curCardSum
+            remainingNum = allCardNum - curCardNum
+            numHiddenCards = self.info["NumCards"] - curCardNum
+
+            theo = (remainingSum / remainingNum) * numHiddenCards + curCardSum
+            print("info actions:")
+            print(self.info['Actions'])
+
+            #theo = (allCardSum - curCardSum)/(allCardNum - curCardNum) * (5 - curCardNum) + curCardSum
+            print("cardSum:{}, cardNum:{}, theo:{}".format(curCardSum, curCardNum, theo))
+        print("theo:{}".format(theo))
+
+        bid, ask, contracts = round(theo-2), round(theo+2), 5
+        return [bid, ask, contracts]
+
 class IMCMMBot(MMBot):
     def __init__(self, name, chips=0, maxspread=100000):
         # Call the constructor of the superclass MMBot
