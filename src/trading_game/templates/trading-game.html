@@ -63,16 +63,32 @@
                                         </div>
                                     </div>
                                     <div class="box horizontal-spread">
-                                        <label for="num_cards">Deck Size</label>
-                                        <input name="num_cards" type="text" class="action-input" placeholder="52" value="{{ request.form['num_cards'] }}">
+                                        <label for="num_rounds">Number of Rounds</label>
+                                        <input required name="num_rounds" type="text" class="action-input" placeholder="6" value="6">
                                         <div class="caret-container">
                                             <i class="fa-solid fa-caret-up"></i>
                                             <i class="fa-solid fa-caret-down"></i>
                                         </div>
                                     </div>
                                     <div class="box horizontal-spread">
-                                        <label for="num_rounds">Number of Rounds</label>
-                                        <input name="num_rounds" type="text" class="action-input" placeholder="6" value="{{ request.form['num_rounds'] }}">
+                                        <label for="num_cards">Deck Size</label>
+                                        <input disabled name="num_cards" type="text" class="action-input" placeholder="52" value="{{ request.form['num_cards'] }}">
+                                        <div class="caret-container">
+                                            <i class="fa-solid fa-caret-up"></i>
+                                            <i class="fa-solid fa-caret-down"></i>
+                                        </div>
+                                    </div>
+                                    <div class="box horizontal-spread">
+                                        <label for="num_suits">Number of Suits</label>
+                                        <input name="num_suits" type="text" class="action-input" placeholder="52" value="{{ request.form['num_suits'] }}">
+                                        <div class="caret-container">
+                                            <i class="fa-solid fa-caret-up"></i>
+                                            <i class="fa-solid fa-caret-down"></i>
+                                        </div>
+                                    </div>
+                                    <div class="box horizontal-spread">
+                                        <label for="">Cards per Suit</label>
+                                        <input name="" type="text" class="action-input" placeholder="52" value="{{ request.form[''] }}">
                                         <div class="caret-container">
                                             <i class="fa-solid fa-caret-up"></i>
                                             <i class="fa-solid fa-caret-down"></i>

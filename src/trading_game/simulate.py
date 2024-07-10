@@ -22,9 +22,9 @@ if __name__ == "__main__":
         #mm = HRTMMBot("Hudson River Trading", chips=100, maxspread=5)
         #taker = GoldmanTakerBot("Goldman Sachs", chips=100) 
         #taker = TwoSigmaTakerBot("Two Sigma", chips=100)
-        taker = Taker("player taker", chips=100)
+        taker = Taker("player taker", chips = 100)
         taker = SimpleTakerBot("Simple Taker Bot", chips = 100)
-        numRounds = 10
+        numRounds = 6
         game = Game(mm,taker,numRounds)
 
         for _ in range(numRounds):

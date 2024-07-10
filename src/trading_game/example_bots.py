@@ -13,14 +13,12 @@ class SimpleMMBot(MMBot):
         # Override the implementation of common_function
         allCardSum = 364 
         allCardNum = 52 # total deck size
-        n = self.info["NumCards"] # total number of cards drawn from deck
+        n = self.info["NumCards"] # number of rounds (total #cards drawn from deck)
 
         if self.info == 0:
             # Expected value for set of n unknown cards 
             # 42 for 6 cards
             theo = (allCardSum / allCardNum) * n
-            print("maker theo:")
-            print(theo)
         else:
             curCardSum = sum(self.info['Cards'])
             curCardNum = len(self.info['Cards']) # number of cards revealed

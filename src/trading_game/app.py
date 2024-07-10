@@ -8,10 +8,17 @@ from flask import request
 from flask import url_for
 from werkzeug.exceptions import abort
 
-from .game import Game 
-from .player import MM, Taker
-from .bot import MMBot, TakerBot
-from .example_bots import SimpleMMBot, IMCMMBot, HRTMMBot, GoldmanTakerBot, TwoSigmaTakerBot
+import sys
+import os
+
+# Add the 'src' directory to the system path
+sys.path.append(os.path.join(os.path.dirname(__file__), '..'))
+
+# Game imports
+from trading_game.game import Game 
+from trading_game.player import MM, Taker
+from trading_game.bot import MMBot, TakerBot
+from trading_game.example_bots import SimpleMMBot, SimpleTakerBot, IMCMMBot, HRTMMBot, GoldmanTakerBot, TwoSigmaTakerBot
 
 app = Flask(__name__)
 
@@ -29,7 +36,7 @@ taker = Taker("player taker", chips = numChips)
 #taker = GoldmanTakerBot("GoldmanTakerBot", chips = 100)
 
 # Game settings
-numRounds = 6
+numRounds = 10
 timer = 60
 game = None
 gameStatus = "inactive"
@@ -63,8 +70,8 @@ def trading_game():
             #taker = GoldmanTakerBot("GoldmanTakerBot", chips = 100)
 
             # Game settings
-            numRounds = 6
-            game = Game(mm,taker,numRounds)
+            numRounds = int(request.form["num_rounds"])
+            game = Game(mm, taker, numRounds)
 
             # Start game
             game.start_round()
