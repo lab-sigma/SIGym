@@ -46,6 +46,7 @@ class Game:
     def start_round(self):
         self.info["Cards"].append(self.cards[self.curRound])
         self.info["Actions"].append([])
+        self.send_info()
         self.print_board()
 
     def end_round(self):

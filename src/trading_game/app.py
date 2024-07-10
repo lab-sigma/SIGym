@@ -56,7 +56,7 @@ def trading_game():
             """ Initialize game """
 
             # Set up players and bots
-            mm = SimpleMMBot("IMC Trading", chips = numChips, maxspread=5)
+            mm = SimpleMMBot("Simple MM Bot", chips = numChips, maxspread=5)
             #mm = MM("player mm", chips=100, maxspread=5)
             #mm = HRTMMBot("Hudson River Trading", chips=100, maxspread=5)
             taker = Taker("player taker", chips = numChips)
@@ -72,8 +72,6 @@ def trading_game():
             cardsRevealed = game.cards[:game.curRound]
             cardsHidden = game.cards[game.curRound:]
             bid, ask, contracts = game.req_market()
-
-            print("start game pressed")
             
             gameStatus = "active"
         elif (request.form["submit_btn"] == "End Game"):
