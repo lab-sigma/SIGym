@@ -3,17 +3,20 @@ from .contract import Contract
 
 MAX = 10000
 
-def GenerateCards(numCards):
-    deck = [i for i in range(1,14) for _ in range(4)]
+def GenerateCards(numCards, numSuits, cardsPerSuit):
+    deck = [i for i in range(1, cardsPerSuit + 1) for _ in range(numSuits)]
     selected_indices = random.sample(range(len(deck)), numCards)
     selected_cards = [deck[i] for i in selected_indices]
     return selected_cards, selected_indices
 
 class Game:
 
-    def __init__(self, mm, taker, numCards = 5):
+    def __init__(self, mm, taker, numCards = 6, numSuits = 4, cardsPerSuit = 13):
         self.numCards = numCards
-        self.cards, self.cInd = GenerateCards(numCards)
+        self.numSuits = numSuits
+        self.cardsPerSuit = cardsPerSuit
+        self.cards, self.cInd = GenerateCards(numCards, numSuits, cardsPerSuit)
+
         self.mm = mm
         self.taker = taker
         self.bestBid = -1
@@ -33,7 +36,7 @@ class Game:
         return self.numCards, self.numCards * 13
 
     def print_board(self):
-        print("print board")
+        print("--------Board---------")
         caption = "ROUND "+str(self.curRound+1) if self.curRound != self.numCards else "End of Game Settlement"
         print("-"*12+caption+"-"*12)
         board = ""

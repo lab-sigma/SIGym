@@ -5,6 +5,8 @@ from flask import g
 from flask import redirect
 from flask import render_template
 from flask import request
+from flask import jsonify
+from flask import session
 from flask import url_for
 from werkzeug.exceptions import abort
 
@@ -71,6 +73,9 @@ def trading_game():
 
             # Game settings
             numRounds = int(request.form["num_rounds"])
+            deckSize = request.form["deck_size"]
+            #numSuits = int(request.form["num_suits"])
+            #cards_per_suit = int(request.form["cards_per_suit"])
             game = Game(mm, taker, numRounds)
 
             # Start game
@@ -95,7 +100,7 @@ def trading_game():
             
             # Simulate this round
             if game.curRound != numRounds:
-                
+                # Apply investor move
                 game.req_taker(action, amount)
 
                 game.clear_book()
@@ -107,6 +112,7 @@ def trading_game():
                 print(taker.name, "CHIPS:", taker.chips)
 
                 if game.curRound != numRounds:
+                    # Start another round
                     game.start_round()
                     bid, ask, contracts = game.req_market()
                 else:
@@ -138,6 +144,15 @@ def trading_game():
                            mmChips = mm.chips,
                            takerChips = taker.chips,
                            gameLog = gameLog)
+
+@app.route('/get_html_value', methods=['POST'])
+def get_html_value():
+    element_id = request.form['element_id']
+    element_value = request.form['element_value']
+    print("get html test")
+    print(element_id)
+    print(element_value)
+    return jsonify({'element_id': element_id, 'element_value': element_value})
 
 @app.route('/')
 def flask_page():
