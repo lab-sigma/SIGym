@@ -72,7 +72,7 @@
                                     </div>
                                     <div class="box horizontal-spread">
                                         <label for="deck_size">Deck Size</label>
-                                        <input name="deck_size" type="text" class="action-input" placeholder="52" value="52">
+                                        <input disabled name="deck_size" type="text" class="action-input" placeholder="52" value="52">
                                         <div class="caret-container">
                                             <i class="fa-solid fa-caret-up"></i>
                                             <i class="fa-solid fa-caret-down"></i>
@@ -80,7 +80,7 @@
                                     </div>
                                     <div class="box horizontal-spread">
                                         <label for="num_suits">Number of Suits</label>
-                                        <input name="num_suits" type="text" class="action-input" placeholder="4" value="{{ request.form['num_suits'] }}">
+                                        <input name="num_suits" type="text" class="action-input" placeholder="4" value="4">
                                         <div class="caret-container">
                                             <i class="fa-solid fa-caret-up"></i>
                                             <i class="fa-solid fa-caret-down"></i>
@@ -88,7 +88,7 @@
                                     </div>
                                     <div class="box horizontal-spread">
                                         <label for="cards_per_suit">Cards per Suit</label>
-                                        <input name="cards_per_suit" type="text" class="action-input" placeholder="13" value="{{ request.form['cards_per_suit'] }}">
+                                        <input name="cards_per_suit" type="text" class="action-input" placeholder="13" value="13">
                                         <div class="caret-container">
                                             <i class="fa-solid fa-caret-up"></i>
                                             <i class="fa-solid fa-caret-down"></i>
@@ -124,7 +124,7 @@
                                     }
                                 </script>
 
-                                
+
                             </section>
                         {% endif %}
                         {% if gameStatus == "active" %}

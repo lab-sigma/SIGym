@@ -73,10 +73,9 @@ def trading_game():
 
             # Game settings
             numRounds = int(request.form["num_rounds"])
-            deckSize = request.form["deck_size"]
-            #numSuits = int(request.form["num_suits"])
-            #cards_per_suit = int(request.form["cards_per_suit"])
-            game = Game(mm, taker, numRounds)
+            numSuits = int(request.form["num_suits"])
+            cardsPerSuit = int(request.form["cards_per_suit"])
+            game = Game(mm, taker, numRounds, numSuits, cardsPerSuit)
 
             # Start game
             game.start_round()

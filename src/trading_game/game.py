@@ -23,7 +23,8 @@ class Game:
         self.bestAsk = MAX 
         self.contracts_available = 0
         self.curRound = 0
-        self.info = {"Cards": [], "Actions": [], "NumCards": numCards}
+        self.info = {"Cards": [], "Actions": [], 
+                     "NumCards": numCards, "NumSuits": numSuits, "CardsPerSuit": cardsPerSuit}
         self.symbols = {0:'♠',1:'♥',2:'♣',3:'♦'}
         self.values = {1:"A",2:"2",3:"3",4:"4",5:"5",6:"6",7:"7",8:"8",9:"9",10:"10",11:"J",12:"Q",13:"K"}
 
@@ -41,7 +42,7 @@ class Game:
         print("-"*12+caption+"-"*12)
         board = ""
         for i in range(self.curRound):
-            board += self.symbols[self.cInd[i] // 13] + self.values[self.cards[i]] + " "
+            board += self.symbols[self.cInd[i] // 13] + str(self.cards[i]) + " "
         for _ in range(self.curRound+1, self.numCards+1):
             board += "? "
         print(board)

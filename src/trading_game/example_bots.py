@@ -2,6 +2,11 @@ from .contract import Contract
 from .bot import MMBot, TakerBot 
 import math
 
+def CalculateTotalCardSum(numSuits, cardsPerSuit):
+    suit = [i for i in range(1, cardsPerSuit + 1)]
+    suitSum = sum(suit)
+    return suitSum * numSuits
+
 """ MM bots """
 
 class SimpleMMBot(MMBot):
@@ -11,8 +16,10 @@ class SimpleMMBot(MMBot):
 
     def algorithm(self):
         # Override the implementation of common_function
-        allCardSum = 364 
-        allCardNum = 52 # total deck size
+        numSuits = self.info["NumSuits"]
+        cardsPerSuit = self.info["CardsPerSuit"]
+        allCardSum = CalculateTotalCardSum(numSuits, cardsPerSuit) 
+        allCardNum = numSuits * cardsPerSuit # total deck size
         n = self.info["NumCards"] # number of rounds (total #cards drawn from deck)
 
         if self.info == 0:
@@ -88,8 +95,10 @@ class SimpleTakerBot(TakerBot):
 
     def algorithm(self):
         # Override the implementation of common_function
-        allCardSum = 364 
-        allCardNum = 52 # total deck size
+        numSuits = self.info["NumSuits"]
+        cardsPerSuit = self.info["CardsPerSuit"]
+        allCardSum = CalculateTotalCardSum(numSuits, cardsPerSuit) 
+        allCardNum = numSuits * cardsPerSuit # total deck size
         n = self.info["NumCards"] # total number of cards drawn from deck
 
         # Expected value for set of n unknown cards 
