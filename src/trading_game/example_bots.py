@@ -21,6 +21,8 @@ class SimpleMMBot(MMBot):
         allCardSum = CalculateTotalCardSum(numSuits, cardsPerSuit) 
         allCardNum = numSuits * cardsPerSuit # total deck size
         n = self.info["NumCards"] # number of rounds (total #cards drawn from deck)
+        print("info cards:")
+        print(self.info['Cards'])
 
         if self.info == 0:
             # Expected value for set of n unknown cards 
@@ -100,6 +102,9 @@ class SimpleTakerBot(TakerBot):
         allCardSum = CalculateTotalCardSum(numSuits, cardsPerSuit) 
         allCardNum = numSuits * cardsPerSuit # total deck size
         n = self.info["NumCards"] # total number of cards drawn from deck
+        
+        print("info cards:")
+        print(self.info['Cards'])
 
         # Expected value for set of n unknown cards 
         # 42 for 6 cards

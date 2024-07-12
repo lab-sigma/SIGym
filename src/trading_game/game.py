@@ -11,11 +11,12 @@ def GenerateCards(numCards, numSuits, cardsPerSuit):
 
 class Game:
 
-    def __init__(self, mm, taker, numCards = 6, numSuits = 4, cardsPerSuit = 13):
+    def __init__(self, mm, taker, numCards = 6, numSuits = 4, cardsPerSuit = 13, difficulty = "Easy"):
         self.numCards = numCards
         self.numSuits = numSuits
         self.cardsPerSuit = cardsPerSuit
         self.cards, self.cInd = GenerateCards(numCards, numSuits, cardsPerSuit)
+        self.difficulty = difficulty
 
         self.mm = mm
         self.taker = taker
@@ -48,12 +49,16 @@ class Game:
         print(board)
     
     def start_round(self):
-        self.info["Cards"].append(self.cards[self.curRound])
+        # Give MM 1 card information advantage
+        if self.difficulty != "Easy":
+            self.info["Cards"].append(self.cards[self.curRound])
         self.info["Actions"].append([])
         self.send_info()
         self.print_board()
 
     def end_round(self):
+        if self.difficulty == "Easy":
+            self.info["Cards"].append(self.cards[self.curRound])
         self.curRound += 1
         # TEST
         #self.mm.liquidate(self.price)

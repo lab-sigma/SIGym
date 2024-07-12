@@ -72,10 +72,11 @@ def trading_game():
             #taker = GoldmanTakerBot("GoldmanTakerBot", chips = 100)
 
             # Game settings
+            difficulty = request.form["difficulty"]
             numRounds = int(request.form["num_rounds"])
             numSuits = int(request.form["num_suits"])
             cardsPerSuit = int(request.form["cards_per_suit"])
-            game = Game(mm, taker, numRounds, numSuits, cardsPerSuit)
+            game = Game(mm, taker, numRounds, numSuits, cardsPerSuit, difficulty)
 
             # Start game
             game.start_round()
