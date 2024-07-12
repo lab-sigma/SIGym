@@ -72,7 +72,7 @@
                                     </div>
                                     <div class="box horizontal-spread">
                                         <label for="deck_size">Deck Size</label>
-                                        <input disabled name="deck_size" type="text" class="action-input" placeholder="52" value="52">
+                                        <input disabled id="deck-size-input" name="deck_size" type="text" class="action-input" placeholder="52" value="52">
                                         <div class="caret-container">
                                             <i class="fa-solid fa-caret-up"></i>
                                             <i class="fa-solid fa-caret-down"></i>
@@ -80,7 +80,7 @@
                                     </div>
                                     <div class="box horizontal-spread">
                                         <label for="num_suits">Number of Suits</label>
-                                        <input name="num_suits" type="text" class="action-input" placeholder="4" value="4">
+                                        <input required id="num-suits-input" name="num_suits" oninput="updateDeckSize()" type="text" class="action-input" placeholder="4" value="4">
                                         <div class="caret-container">
                                             <i class="fa-solid fa-caret-up"></i>
                                             <i class="fa-solid fa-caret-down"></i>
@@ -88,7 +88,7 @@
                                     </div>
                                     <div class="box horizontal-spread">
                                         <label for="cards_per_suit">Cards per Suit</label>
-                                        <input name="cards_per_suit" type="text" class="action-input" placeholder="13" value="13">
+                                        <input required id="cards-per-suit-input" name="cards_per_suit" oninput="updateDeckSize()" type="text" class="action-input" placeholder="13" value="13">
                                         <div class="caret-container">
                                             <i class="fa-solid fa-caret-up"></i>
                                             <i class="fa-solid fa-caret-down"></i>
@@ -98,7 +98,7 @@
                                 </form>
 
 
-                                <div id="myElement">This is the element content</div>
+                                <div id="myElement">Ignore this.</div>
                                 <button onclick="getElementValue('myElement')">Get Element Value</button>
                                 <script>
                                     function getElementValue(elementId) {
@@ -121,6 +121,14 @@
                                             console.log('Element Value:', data.element_value);
                                         })
                                         .catch(error => console.error('Error:', error));
+                                    }
+
+                                    function updateDeckSize() {
+                                        console.log("update deck size")
+                                        let deckSizeEl = document.getElementById("deck-size-input")
+                                        let numSuits = document.getElementById("num-suits-input").value
+                                        let cardsPerSuit = document.getElementById("cards-per-suit-input").value
+                                        deckSizeEl.value = numSuits * cardsPerSuit
                                     }
                                 </script>
 

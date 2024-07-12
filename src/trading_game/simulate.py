@@ -25,7 +25,9 @@ if __name__ == "__main__":
         taker = Taker("player taker", chips = 100)
         taker = SimpleTakerBot("Simple Taker Bot", chips = 100)
         numRounds = 6
-        game = Game(mm,taker,numRounds)
+        numSuits = 1
+        cardsPerSuit = 10
+        game = Game(mm, taker, numRounds, numSuits, cardsPerSuit)
 
         for _ in range(numRounds):
             game.start_round()

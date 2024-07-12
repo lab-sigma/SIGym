@@ -42,7 +42,7 @@ class Game:
         print("-"*12+caption+"-"*12)
         board = ""
         for i in range(self.curRound):
-            board += self.symbols[self.cInd[i] // 13] + str(self.cards[i]) + " "
+            board += self.symbols[3] + str(self.cards[i]) + " "
         for _ in range(self.curRound+1, self.numCards+1):
             board += "? "
         print(board)
