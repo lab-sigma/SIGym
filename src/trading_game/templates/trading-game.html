@@ -99,54 +99,6 @@
                                     </div>
                                     <input class="button" type="submit" name="submit_btn" value="Start Game">
                                 </form>
-                                <br>
-                                <div class="profile-name">Analysis</div>
-                                <p>
-                                    Let... <br>
-                                    \(M_n\): Price set by market maker for round \(n\) <br>
-                                    \(I_n\): Expected price calculated by investor for round \(n\) <br>
-                                    \(u_p\): Utility for player \(p\) <br>
-                                    \(R_n\): Set of cards revealed up to round \(n\) <br>
-                                    \(X\): True price <br>
-                                    <br>
-                                    Assume: Bid = Ask = Price (\(M_n\)) <br>
-                                    <br>
-                                    Investor's strategy: <br>
-                                </p>
-                                <section class="box profile-box box-border-bottom">
-                                    if \(I_n > M_n\): then buy $$u_i=E(I_n - M_n)$$
-                                    if \(I_n < M_n\): then sell $$u_i=E(M_n - I_n)$$
-                                </section>
-                                <p>The expected profit of the investor is then as follows: <br></p>
-                                <section class="box profile-box box-border-bottom">
-                                    $$u_i = (I_n-M_n) \times P(I_n > M_n) + (M_n-I_n) \times P(I_n &lt; M_n)$$
-                                </section>
-                                <p>
-                                    Let \(q = P(I_n > M_n)\) <br> Simplified, <br>
-                                    $$u_i = (I_n-M_n) \times q + (M_n-I_n) \times (1 - q)$$
-                                    $$ = I_n \times q - M_n \times q + M_n(1 - q) - I_n(1 - q)$$
-                                    $$ = 2I_nq - 2M_nq + M_n - I_n$$
-                                    $$ = (I_n - M_n)(2q-1)$$
-                                </p>
-                                <p>
-                                    Fair game:
-                                </p>
-                                <section class="box profile-box box-border-bottom">
-                                    For \(I_n = E[T|R_n]\), \(M_n = E[T|R_n]\):
-                                    $$u_i = (E[T|R_n] - E[T|R_n])(2q-1)=0$$
-                                </section>
-                                <p>With market maker information advantage:</p>
-                                <section class="box profile-box box-border-bottom">
-                                    For \(I_n = E[T|R_n]\), \(M_n = E[T|R_{n+1}]\):
-                                    $$u_i = (E[T|R_n] - E[T|R_{n+1}])(2q-1)$$
-                                </section>
-
-
-                                <br><br><br><br><br><br><br><br><br><br><br><br>
-                                <section class="box profile-box box-border-bottom">
-                                    When \(a \ne 0\), there are two solutions to \(ax^2 + bx + c = 0\) and they are
-                                    $$x = {-b \pm \sqrt{b^2-4ac} \over 2a}.$$
-                                </section>
 
 
                                 <div id="myElement">Ignore this.</div>

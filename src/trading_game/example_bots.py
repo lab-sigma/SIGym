@@ -40,7 +40,7 @@ class SimpleMMBot(MMBot):
             print("----mm---- \n cardSum:{}, cardNum:{}, theo:{}".format(curCardSum, curCardNum, theo))
         print("mm theo:{}".format(theo))
 
-        bid, ask, contracts = round(theo-5), round(theo+5), 5
+        bid, ask, contracts = round(theo-2), round(theo+2), 5
 
         # Set bid = ask = expected value
         #bid, ask, contracts = round(theo), round(theo), 5

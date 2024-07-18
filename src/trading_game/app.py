@@ -145,6 +145,10 @@ def trading_game():
                            takerChips = taker.chips,
                            gameLog = gameLog)
 
+@app.route("/trading-game/analysis")
+def trading_game_analysis():
+    return render_template('trading-game-analysis.html')
+
 @app.route('/get_html_value', methods=['POST'])
 def get_html_value():
     element_id = request.form['element_id']

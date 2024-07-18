@@ -1,0 +1,137 @@
+<!DOCTYPE html>
+
+<html lang="en">
+    <head>
+        <meta charset="utf-8" />
+        <meta name="viewport" content="width=device-width, initial-scale=1.0" /><meta name="generator" content="Docutils 0.19: https://docutils.sourceforge.io/" />
+
+        <title>Trading Game | Analysis &#8212; SIGym 0.1 interactive interface</title>
+        <link rel="stylesheet" type="text/css" href="../static/pygments.css" />
+        <link rel="stylesheet" type="text/css" href="../static/alabaster.css" />
+
+        <script data-url_root="../" id="documentation_options" src="../static/documentation_options.js"></script>
+        <script src="../static/doctools.js"></script>
+        <script src="../static/sphinx_highlight.js"></script>
+
+        <link rel="index" title="Index" href="../genindex.html" />
+        <link rel="search" title="Search" href="../search.html" />
+        <link rel="prev" title="Welcome to SIGym’s documentation!" href="../index.html" />
+    
+        <link rel="stylesheet" href="../static/custom.css" type="text/css" />
+        <link rel="stylesheet" href="../static/trading-game.css" type="text/css" />
+        
+        <meta name="viewport" content="width=device-width, initial-scale=0.9, maximum-scale=0.9" />
+
+        <script src="https://kit.fontawesome.com/df8ef38841.js" crossorigin="anonymous"></script>
+
+        <script type="text/javascript" id="MathJax-script" async src="https://cdn.jsdelivr.net/npm/mathjax@3/es5/tex-mml-chtml.js"></script>
+    </head>
+    <body>
+        <div class="document">
+            <div class="documentwrapper">
+                <div class="bodywrapper">
+                    <div class="body" role="main">
+                        <h1>Trading Game Analysis<a class="headerlink" href="#stackelberg-game" title="Permalink to this heading">¶</a></h1>
+                        <section class="bx profile-bx bx-border-bottom">
+                            <p>
+                                This interactive environment simulates a market making game. Your objective as the trader
+                                is to maximize your profit against a market maker with the same goal. Every round, the market maker
+                                puts out a bid and an ask. You must then respond by buying or selling a number of contracts to them.
+                            </p>
+                            <p>
+                                At the start of the game, you'll be given a set of cards. The true market price is represented by
+                                the sum of the cards, and is unknown until the very end of the game. Each round, one additional 
+                                card will be flipped over.
+                            </p>
+                            <br>
+                            <div class="profile-name">Analysis</div>
+                            <p>
+                                Let... <br>
+                                \(M_n\): Price set by market maker for round \(n\) <br>
+                                \(I_n\): Expected price calculated by investor for round \(n\) <br>
+                                \(u_p\): Utility for player \(p\) <br>
+                                \(R_n\): Set of cards revealed up to round \(n\) <br>
+                                \(X\): True price <br>
+                                <br>
+                                Assume: Bid = Ask = Price (\(M_n\)) <br>
+                                <br>
+                                Investor's strategy: <br>
+                            </p>
+                            <section class="box profile-box box-border-bottom">
+                                if \(I_n > M_n\): then buy $$u_i=E(I_n - M_n)$$
+                                if \(I_n &lt; M_n\): then sell $$u_i=E(M_n - I_n)$$
+                            </section>
+                            <p>The expected profit of the investor is then as follows: <br></p>
+                            <section class="box profile-box box-border-bottom">
+                                $$u_i = (I_n-M_n) \times P(I_n > M_n) + (M_n-I_n) \times P(I_n &lt; M_n)$$
+                            </section>
+                            <p>
+                                Let \(q = P(I_n > M_n)\) <br> Simplified, <br>
+                                $$u_i = (I_n-M_n) \times q + (M_n-I_n) \times (1 - q)$$
+                                $$ = I_n \times q - M_n \times q + M_n(1 - q) - I_n(1 - q)$$
+                                $$ = 2I_nq - 2M_nq + M_n - I_n$$
+                                $$ = (I_n - M_n)(2q-1)$$
+                            </p>
+                            <p>
+                                Fair game:
+                            </p>
+                            <section class="box profile-box box-border-bottom">
+                                For \(I_n = E[T|R_n]\), \(M_n = E[T|R_n]\):
+                                $$u_i = (E[T|R_n] - E[T|R_n])(2q-1)=0$$
+                            </section>
+                            <p>With market maker information advantage:</p>
+                            <section class="box profile-box box-border-bottom">
+                                For \(I_n = E[T|R_n]\), \(M_n = E[T|R_{n+1}]\):
+                                $$u_i = (E[T|R_n] - E[T|R_{n+1}])(2q-1)$$
+                            </section>
+
+
+                            <br><br><br><br><br><br><br><br><br><br><br><br>
+                            <section class="box profile-box box-border-bottom">
+                                When \(a \ne 0\), there are two solutions to \(ax^2 + bx + c = 0\) and they are
+                                $$x = {-b \pm \sqrt{b^2-4ac} \over 2a}.$$
+                            </section>
+                        </section>
+                    </div>
+                </div>
+            </div>
+
+            <div class="sphinxsidebar" role="navigation" aria-label="main navigation">
+                <div class="sphinxsidebarwrapper">
+                    <p class="logo"><a href="../index.html">
+                    <img class="logo" src="../static/sigmalab.png" alt="Logo"/>
+                    </a></p>
+
+                    <h4 class="caption" role="heading"><span class="caption-text">GAMES</span></h4>
+                    <ul>
+                        <li class="toctree-l1" ><a class="reference internal" style="color:#135375;">Stackelberg Game</a></li>
+                        <li class="toctree-l1" ><a class="reference internal" style="color:#135375;" href="security.html">Security Game</a></li>
+                        <li class="toctree-l1" ><a class="reference internal" style="color:#135375;" href="security.html"><b>Trading Game</b></a></li>
+                    </ul>
+                    <h4 class="caption" role="heading"><span class="caption-text">API</span></h4>
+                    <ul>
+                        <li class="toctree-l1"><a class="reference external" href="https://github.com/lab-sigma/SIGym" style="color:#135375;">Github</a></li>
+                    </ul>
+
+                    <div class="relations">
+                        <h3>Related Topics</h3>
+                        <ul>
+                            <li><a href="../index.html">Documentation overview</a><ul>
+                            <li>Previous: <a href="../index.html" title="previous chapter">Welcome to SIGym’s documentation!</a></li>
+                        </ul></li>
+                        </ul>
+                    </div>
+                    <script>document.getElementById('searchbox').style.display = "block"</script>
+                </div>
+            </div>
+            <div class="clearer"></div>
+        </div>
+
+        <div class="footer">
+            &copy;2023, Sigma Lab.
+            |
+            Powered by <a href="http://sphinx-doc.org/">Sphinx 7.0.0</a>
+            &amp; <a href="https://github.com/bitprophet/alabaster">Alabaster 0.7.13</a>
+        </div>
+    </body>
+</html>
