@@ -37,10 +37,11 @@ class SimpleMMBot(MMBot):
             numHiddenCards = self.info["NumCards"] - curCardNum
 
             theo = (remainingSum / remainingNum) * numHiddenCards + curCardSum
-            print("cardSum:{}, cardNum:{}, theo:{}".format(curCardSum, curCardNum, theo))
-        print("theo:{}".format(theo))
+            print("----mm---- \n cardSum:{}, cardNum:{}, theo:{}".format(curCardSum, curCardNum, theo))
+        print("mm theo:{}".format(theo))
 
-        bid, ask, contracts = round(theo-2), round(theo+2), 5
+        #bid, ask, contracts = round(theo-2), round(theo+2), 5
+        bid, ask, contracts = round(theo), round(theo), 5
         return [bid, ask, contracts]
 
 class IMCMMBot(MMBot):
@@ -90,7 +91,52 @@ class HRTMMBot(MMBot):
 
 """ Taker bots """
 
+# disadvantaged for when mm has 1 extra card knowledge
 class SimpleTakerBot(TakerBot):
+    def __init__(self, name, chips=0):
+        # Call the constructor of the superclass MMBot
+        super().__init__(name, chips)
+
+    def algorithm(self):
+        # Override the implementation of common_function
+        numSuits = self.info["NumSuits"]
+        cardsPerSuit = self.info["CardsPerSuit"]
+        allCardSum = CalculateTotalCardSum(numSuits, cardsPerSuit) 
+        allCardNum = numSuits * cardsPerSuit # total deck size
+        n = self.info["NumCards"] # number of rounds (total #cards drawn from deck)
+        print("info cards:")
+        print(self.info['Cards'])
+
+        if self.info == 0 or len(self.info['Cards']) == 1:
+            # Expected value for set of n unknown cards 
+            # 42 for 6 cards
+            theo = (allCardSum / allCardNum) * n
+        else:
+            curCardSum = sum(self.info['Cards']) - self.info['Cards'][len(self.info['Cards']) - 1]
+            curCardNum = len(self.info['Cards']) - 1 # number of cards revealed
+
+            remainingSum = allCardSum - curCardSum
+            remainingNum = allCardNum - curCardNum
+            numHiddenCards = self.info["NumCards"] - curCardNum
+
+            theo = (remainingSum / remainingNum) * numHiddenCards + curCardSum
+            print("----taker---- \n cardSum:{}, cardNum:{}, theo:{}".format(curCardSum, curCardNum, theo))
+        print("taker theo:{}".format(theo))
+
+        action = "h"
+        curMarket = self.info['Actions'][-1]
+
+        if theo > curMarket[0]['Market'][1]:
+            # Buy if ask price is less than market price
+            action = "b"
+        elif theo < curMarket[0]['Market'][0]:
+            # Sell if bid price is more than market price 
+            action = "s"
+        return action
+
+# Calculate initial expected value of true price and continues
+# playing based off this value every round
+class SuperSimpleTakerBot(TakerBot):
     def __init__(self, name, chips=0):
         # Call the constructor of the superclass MMBot
         super().__init__(name, chips)

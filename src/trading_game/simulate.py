@@ -11,7 +11,7 @@ from trading_game.bot import MMBot, TakerBot
 from trading_game.example_bots import SimpleMMBot, SimpleTakerBot, IMCMMBot, HRTMMBot, GoldmanTakerBot, TwoSigmaTakerBot
 
 if __name__ == "__main__":
-    numGames = 10
+    numGames = 999
     mmTotal = 0
     takerTotal = 0
 
@@ -27,7 +27,7 @@ if __name__ == "__main__":
         numRounds = 6
         numSuits = 1
         cardsPerSuit = 10
-        game = Game(mm, taker, numRounds, numSuits, cardsPerSuit)
+        game = Game(mm, taker, numRounds, numSuits, cardsPerSuit, "Medium")
 
         for _ in range(numRounds):
             game.start_round()

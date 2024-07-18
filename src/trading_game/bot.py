@@ -24,7 +24,7 @@ class MMBot:
 
         if not all(isinstance(num, int) for num in [bid, ask, contracts]):
             raise ValueError("All inputs must be integers")
-        if bid < 0 or ask < 0 or bid >= ask or (ask - bid > self.maxspread) or contracts <= 0:
+        if bid < 0 or ask < 0 or bid > ask or (ask - bid > self.maxspread) or contracts <= 0:
             raise ValueError("Invalid market")
             
         return [bid, ask, contracts]

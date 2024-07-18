@@ -20,7 +20,7 @@ sys.path.append(os.path.join(os.path.dirname(__file__), '..'))
 from trading_game.game import Game 
 from trading_game.player import MM, Taker
 from trading_game.bot import MMBot, TakerBot
-from trading_game.example_bots import SimpleMMBot, SimpleTakerBot, IMCMMBot, HRTMMBot, GoldmanTakerBot, TwoSigmaTakerBot
+from trading_game.example_bots import SimpleMMBot, IMCMMBot, HRTMMBot, GoldmanTakerBot, TwoSigmaTakerBot
 
 app = Flask(__name__)
 
