@@ -17,7 +17,7 @@ if __name__ == "__main__":
 
     for _ in range(numGames):
         mm = IMCMMBot("IMC Trading", chips=100, maxspread=5)
-        mm = SimpleMMBot("Simple MM Bot", chips = 100, maxspread=5)
+        mm = SimpleMMBot("Simple MM Bot", chips = 100, maxspread=100)
         #mm = MM("player mm", chips=100, maxspread=5)
         #mm = HRTMMBot("Hudson River Trading", chips=100, maxspread=5)
         #taker = GoldmanTakerBot("Goldman Sachs", chips=100) 

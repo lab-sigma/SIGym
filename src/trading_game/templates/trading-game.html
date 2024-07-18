@@ -23,6 +23,8 @@
         <meta name="viewport" content="width=device-width, initial-scale=0.9, maximum-scale=0.9" />
 
         <script src="https://kit.fontawesome.com/df8ef38841.js" crossorigin="anonymous"></script>
+
+        <script type="text/javascript" id="MathJax-script" async src="https://cdn.jsdelivr.net/npm/mathjax@3/es5/tex-mml-chtml.js"></script>
     </head>
     <body>
         <div class="document">
@@ -31,7 +33,8 @@
                     <div class="body" role="main">
                         {% if gameStatus == "inactive" %}
                             <h1>Trading Game<a class="headerlink" href="#stackelberg-game" title="Permalink to this heading">¶</a></h1>
-                            <section class="box profile-box box-border-bottom">
+                            
+                            <section class="bx profile-bx bx-border-bottom">
                                 <p>
                                     This interactive environment simulates a market making game. Your objective as the trader
                                     is to maximize your profit against a market maker with the same goal. Every round, the market maker
@@ -42,6 +45,10 @@
                                     the sum of the cards, and is unknown until the very end of the game. Each round, one additional 
                                     card will be flipped over.
                                 </p>
+                                <section class="box profile-box box-border-bottom">
+                                    When \(a \ne 0\), there are two solutions to \(ax^2 + bx + c = 0\) and they are
+                                    $$x = {-b \pm \sqrt{b^2-4ac} \over 2a}.$$
+                                </section>
                                 <div class="profile-name">
                                     Settings
                                     <i class="fa-solid fa-gear"></i>
