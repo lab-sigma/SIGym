@@ -90,6 +90,10 @@ input {
     padding: 8px 15px;
 }
 
+.sublink {
+    margin-left: 20px;
+}
+
 #active-game {
     font-family: 'Fira Mono', 'Courier New', Courier, monospace;
 }

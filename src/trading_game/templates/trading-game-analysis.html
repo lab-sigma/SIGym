@@ -38,13 +38,8 @@
                                 is to maximize your profit against a market maker with the same goal. Every round, the market maker
                                 puts out a bid and an ask. You must then respond by buying or selling a number of contracts to them.
                             </p>
-                            <p>
-                                At the start of the game, you'll be given a set of cards. The true market price is represented by
-                                the sum of the cards, and is unknown until the very end of the game. Each round, one additional 
-                                card will be flipped over.
-                            </p>
                             <br>
-                            <div class="profile-name">Analysis</div>
+                            <div class="profile-name">Basic Strategies</div>
                             <p>
                                 Let... <br>
                                 \(M_n\): Price set by market maker for round \(n\) <br>
@@ -58,16 +53,16 @@
                                 Investor's strategy: <br>
                             </p>
                             <section class="box profile-box box-border-bottom">
-                                if \(I_n > M_n\): then buy $$u_i=E(I_n - M_n)$$
-                                if \(I_n &lt; M_n\): then sell $$u_i=E(M_n - I_n)$$
+                                if \(I_n > M_n\): then buy $$u_i = \mathbb{E}[I_n - M_n]$$
+                                if \(I_n &lt; M_n\): then sell $$u_i = \mathbb{E}[M_n - I_n]$$
                             </section>
                             <p>The expected profit of the investor is then as follows: <br></p>
                             <section class="box profile-box box-border-bottom">
-                                $$u_i = (I_n-M_n) \times P(I_n > M_n) + (M_n-I_n) \times P(I_n &lt; M_n)$$
+                                $$u_i = \mathbb{E}[(I_n-M_n) \times P(I_n > M_n) + (M_n-I_n) \times P(I_n &lt; M_n)]$$
                             </section>
                             <p>
                                 Let \(q = P(I_n > M_n)\) <br> Simplified, <br>
-                                $$u_i = (I_n-M_n) \times q + (M_n-I_n) \times (1 - q)$$
+                                $$(I_n-M_n) \times q + (M_n-I_n) \times (1 - q)$$
                                 $$ = I_n \times q - M_n \times q + M_n(1 - q) - I_n(1 - q)$$
                                 $$ = 2I_nq - 2M_nq + M_n - I_n$$
                                 $$ = (I_n - M_n)(2q-1)$$
@@ -76,21 +71,27 @@
                                 Fair game:
                             </p>
                             <section class="box profile-box box-border-bottom">
-                                For \(I_n = E[T|R_n]\), \(M_n = E[T|R_n]\):
-                                $$u_i = (E[T|R_n] - E[T|R_n])(2q-1)=0$$
+                                For \(I_n = \mathbb{E}[X|R_n]\), \(M_n = \mathbb{E}[X|R_n]\):
+                                $$u_i = \mathbb{E}[\mathbb{E}[X|R_n] - \mathbb{E}[X|R_n]](2q-1)$$
+                                $$ = \mathbb{E}[0](2q-1)$$
+                                $$ = 0$$
                             </section>
                             <p>With market maker information advantage:</p>
                             <section class="box profile-box box-border-bottom">
-                                For \(I_n = E[T|R_n]\), \(M_n = E[T|R_{n+1}]\):
-                                $$u_i = (E[T|R_n] - E[T|R_{n+1}])(2q-1)$$
+                                For \(I_n = \mathbb{E}[X|R_n]\), \(M_n = \mathbb{E}[X|R_{n+1}]\):
+                                $$u_i = \mathbb{E}[\mathbb{E}[X|R_n] - \mathbb{E}[X|R_{n+1}]](2q-1)$$
+                                $$ = (\mathbb{E}[\mathbb{E}[X|R_n]] - \mathbb{E}[\mathbb{E}[X|R_{n+1}]])(2q-1)$$
+                                $$ = (\mathbb{E}[X] - \mathbb{E}[X])(2q-1)$$
+                                $$ = 0$$
                             </section>
 
-
-                            <br><br><br><br><br><br><br><br><br><br><br><br>
-                            <section class="box profile-box box-border-bottom">
-                                When \(a \ne 0\), there are two solutions to \(ax^2 + bx + c = 0\) and they are
-                                $$x = {-b \pm \sqrt{b^2-4ac} \over 2a}.$$
-                            </section>
+                            <div id="test" style="display: none;">
+                                <br><br><br><br><br><br><br><br><br><br><br><br>
+                                <section class="box profile-box box-border-bottom">
+                                    When \(a \ne 0\), there are two solutions to \(ax^2 + bx + c = 0\) and they are
+                                    $$x = {-b \pm \sqrt{b^2-4ac} \over 2a}.$$
+                                </section>
+                            </div>
                         </section>
                     </div>
                 </div>
@@ -104,9 +105,10 @@
 
                     <h4 class="caption" role="heading"><span class="caption-text">GAMES</span></h4>
                     <ul>
-                        <li class="toctree-l1" ><a class="reference internal" style="color:#135375;">Stackelberg Game</a></li>
-                        <li class="toctree-l1" ><a class="reference internal" style="color:#135375;" href="security.html">Security Game</a></li>
-                        <li class="toctree-l1" ><a class="reference internal" style="color:#135375;" href="security.html"><b>Trading Game</b></a></li>
+                        <li class="toctree-l1" ><a class="reference internal" style="color:#135375;" href="https://www.haifeng-xu.com/sigma/sigym/games/stackelberg.html">Stackelberg Game</a></li>
+                        <li class="toctree-l1" ><a class="reference internal" style="color:#135375;" href="https://www.haifeng-xu.com/sigma/sigym/games/security.html">Security Game</a></li>
+                        <li class="toctree-l1" ><a class="reference internal" style="color:#135375;" href="/trading-game">Trading Game</a></li>
+                        <li class="toctree-l1" ><a class="reference internal sublink" style="color:#135375;"><b>Analysis</b></a></li>
                     </ul>
                     <h4 class="caption" role="heading"><span class="caption-text">API</span></h4>
                     <ul>
