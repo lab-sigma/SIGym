@@ -58,14 +58,14 @@
                             </section>
                             <p>The expected profit of the investor is then as follows: <br></p>
                             <section class="box profile-box box-border-bottom">
-                                $$u_i = \mathbb{E}[(I_n-M_n) \times P(I_n > M_n) + (M_n-I_n) \times P(I_n &lt; M_n)]$$
+                                $$u_i = \mathbb{E}[I_n-M_n] \times P(I_n > M_n) + \mathbb{E}[M_n-I_n] \times P(I_n &lt; M_n)$$
                             </section>
                             <p>
                                 Let \(q = P(I_n > M_n)\) <br> Simplified, <br>
-                                $$(I_n-M_n) \times q + (M_n-I_n) \times (1 - q)$$
-                                $$ = I_n \times q - M_n \times q + M_n(1 - q) - I_n(1 - q)$$
-                                $$ = 2I_nq - 2M_nq + M_n - I_n$$
-                                $$ = (I_n - M_n)(2q-1)$$
+                                $$u_i = \mathbb{E}[I_n-M_n] \times q + \mathbb{E}[M_n-I_n] \times (1 - q)$$
+                                $$ = \mathbb{E}[I_n \times q - M_n \times q] + \mathbb{E}[M_n(1 - q) - I_n(1 - q)]$$
+                                $$ = \mathbb{E}[2I_nq - 2M_nq + M_n - I_n]$$
+                                $$ = \mathbb{E}[I_n - M_n](2q-1)$$
                             </p>
                             <p>
                                 Fair game:
@@ -84,6 +84,7 @@
                                 $$ = (\mathbb{E}[X] - \mathbb{E}[X])(2q-1)$$
                                 $$ = 0$$
                             </section>
+                            <p>Given a perfectly optimal player, the utility of both the market maker and investor will be 0.</p>
 
                             <div id="test" style="display: none;">
                                 <br><br><br><br><br><br><br><br><br><br><br><br>
