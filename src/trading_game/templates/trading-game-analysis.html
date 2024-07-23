@@ -41,7 +41,13 @@
                             <br>
                             <div class="latex-h1">Calculating expected value of true price</div>
                             <p>
-                                $$\mathbb{E}[T|R_x] = \frac{k - \sum_{i=1}^{n} C_i}{n-x} \times (r-x) + \sum_{i=1}^{n} C_i $$
+                                Let... <br>
+                                \(n\): Current round number <br>
+                                \(k\): Sum of all cards in deck <br>
+                                \(N\): Number of all cards in deck <br>
+                                \(C_i\): Value of \(i_{th}\) revealed card <br>
+                                \(r\): Number of rounds (total cards pulled from deck) <br>
+                                $$\mathbb{E}[X|R_n] = \frac{k - \sum_{i=1}^{n} C_i}{N-n} \times (r-n) + \sum_{i=1}^{n} C_i $$
                             </p>
                             <div class="latex-h1">Basic Strategies</div>
                             <p>

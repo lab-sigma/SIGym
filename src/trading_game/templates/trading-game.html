@@ -265,11 +265,11 @@
                                             </div>
                                             <div class="profile-name">Market Maker</div>
                                             <div class="horizontal-start">
-                                                <div class="pill">
+                                                <div class="pill" style="display: none;">
                                                     Budget: ${{ mmChips }}
                                                 </div>
                                                 <div class="pill">
-                                                    Profit: ${{ mmChips - startingBudget }}
+                                                    Profit: {{ mmChips - startingBudget }}
                                                 </div>
                                             </div>
                                         </div>
@@ -282,11 +282,11 @@
                                             </div>
                                             <div class="profile-name">Investor</div>
                                             <div class="horizontal-start">
-                                                <div class="pill">
+                                                <div class="pill" style="display: none;">
                                                     Budget: ${{ takerChips }}
                                                 </div>
                                                 <div class="pill">
-                                                    Profit: ${{ takerChips - startingBudget }}
+                                                    Profit: {{ takerChips - startingBudget }}
                                                 </div>
                                             </div>
                                         </div>
