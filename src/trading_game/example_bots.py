@@ -41,7 +41,7 @@ class AdvantagedMMBot(MMBot):
             print("----mm---- \n cardSum:{}, cardNum:{}, theo:{}".format(curCardSum, curCardNum, theo))
         print("mm theo:{}".format(theo))
 
-        diff = 3
+        diff = 2
         bid, ask, contracts = round(theo - diff), round(theo + diff), 5
 
         # Set bid = ask = expected value
