@@ -30,7 +30,7 @@
         <div class="document">
             <div class="documentwrapper">
                 <div class="bodywrapper">
-                    <div class="body" role="main">
+                    <div class="body latex" role="main">
                         <h1>Trading Game Analysis<a class="headerlink" href="#stackelberg-game" title="Permalink to this heading">¶</a></h1>
                         <section class="bx profile-bx bx-border-bottom">
                             <p>
@@ -39,7 +39,11 @@
                                 puts out a bid and an ask. You must then respond by buying or selling a number of contracts to them.
                             </p>
                             <br>
-                            <div class="profile-name">Basic Strategies</div>
+                            <div class="latex-h1">Calculating expected value of true price</div>
+                            <p>
+                                $$\mathbb{E}[T|R_x] = \frac{k - \sum_{i=1}^{n} C_i}{n-x} \times (r-x) + \sum_{i=1}^{n} C_i $$
+                            </p>
+                            <div class="latex-h1">Basic Strategies</div>
                             <p>
                                 Let... <br>
                                 \(M_n\): Price set by market maker for round \(n\) <br>
@@ -85,6 +89,21 @@
                                 $$ = 0$$
                             </section>
                             <p>Given a perfectly optimal player, the utility of both the market maker and investor will be 0.</p>
+                            <p class="latex-h1">Problem: Naive Investor vs MM</p>
+                            <p>How does the market maker optimize bid ask spread for utility?</p>
+                            <p>
+                                Bid (b) = \(M_n - d\) <br>
+                                Ask (a) = \(M_n + d\) <br>
+                                <br>
+                                If \(I_n > a\): Investor buys <br>
+                                \(u_i = \mathbb{E}[I_n - a]\), \(u_m = \mathbb{E}[a - M_n] = d\) <br>
+                                <br> 
+                                If \(I_n &lt; b\): Investor sells <br>
+                                \(u_i = \mathbb{E}[b - I_n]\), \(u_m = \mathbb{E}[M_n - b] = d\) <br>
+                                <br>
+                                \(u_i = (I_n - a) \times q_a + (b - I_n) \times q_b\) <br>
+                                \(u_m = d \times q_a + d \times q_b = d(q_a+q_b)\)
+                            </p>
 
                             <div id="test" style="display: none;">
                                 <br><br><br><br><br><br><br><br><br><br><br><br>

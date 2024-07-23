@@ -8,7 +8,7 @@ sys.path.append(os.path.join(os.path.dirname(__file__), '..'))
 from trading_game.game import Game 
 from trading_game.player import MM, Taker
 from trading_game.bot import MMBot, TakerBot
-from trading_game.example_bots import SimpleMMBot, SimpleTakerBot, IMCMMBot, HRTMMBot, GoldmanTakerBot, TwoSigmaTakerBot
+from trading_game.example_bots import SimpleMMBot, SimpleTakerBot, AdvantagedMMBot, AdvantagedTakerBot, IMCMMBot, HRTMMBot, GoldmanTakerBot, TwoSigmaTakerBot
 
 if __name__ == "__main__":
     numGames = 999
@@ -18,15 +18,17 @@ if __name__ == "__main__":
     for _ in range(numGames):
         mm = IMCMMBot("IMC Trading", chips=100, maxspread=5)
         mm = SimpleMMBot("Simple MM Bot", chips = 100, maxspread=100)
+        #mm = AdvantagedMMBot("Adv MM Bot", chips = 100, maxspread=100)
         #mm = MM("player mm", chips=100, maxspread=5)
         #mm = HRTMMBot("Hudson River Trading", chips=100, maxspread=5)
         #taker = GoldmanTakerBot("Goldman Sachs", chips=100) 
         #taker = TwoSigmaTakerBot("Two Sigma", chips=100)
         taker = Taker("player taker", chips = 100)
         taker = SimpleTakerBot("Simple Taker Bot", chips = 100)
+        taker = AdvantagedTakerBot("Adv Taker Bot", chips = 100)
         numRounds = 6
-        numSuits = 1
-        cardsPerSuit = 10
+        numSuits = 4
+        cardsPerSuit = 13
         game = Game(mm, taker, numRounds, numSuits, cardsPerSuit, "Medium")
 
         for _ in range(numRounds):

@@ -20,7 +20,7 @@ sys.path.append(os.path.join(os.path.dirname(__file__), '..'))
 from trading_game.game import Game 
 from trading_game.player import MM, Taker
 from trading_game.bot import MMBot, TakerBot
-from trading_game.example_bots import SimpleMMBot, IMCMMBot, HRTMMBot, GoldmanTakerBot, TwoSigmaTakerBot
+from trading_game.example_bots import SimpleMMBot, SimpleTakerBot, AdvantagedMMBot, AdvantagedTakerBot, IMCMMBot, HRTMMBot, GoldmanTakerBot, TwoSigmaTakerBot
 
 app = Flask(__name__)
 
@@ -31,7 +31,7 @@ marketPrice = 0
 numChips = 100
 
 # Players and bots
-mm = IMCMMBot("IMC Trading", chips = numChips, maxspread=5)
+mm = IMCMMBot("IMC Trading", chips = numChips, maxspread=100)
 #mm = MM("player mm", chips=100, maxspread=5)
 #mm = HRTMMBot("Hudson River Trading", chips=100, maxspread=5)
 taker = Taker("player taker", chips = numChips)
@@ -65,7 +65,8 @@ def trading_game():
             """ Initialize game """
 
             # Set up players and bots
-            mm = SimpleMMBot("Simple MM Bot", chips = numChips, maxspread=5)
+            mm = SimpleMMBot("Simple MM Bot", chips = numChips, maxspread=100)
+            mm = AdvantagedMMBot("Adv MM Bot", chips = numChips, maxspread=100)
             #mm = MM("player mm", chips=100, maxspread=5)
             #mm = HRTMMBot("Hudson River Trading", chips=100, maxspread=5)
             taker = Taker("player taker", chips = numChips)
