@@ -260,7 +260,12 @@ input {
     font-family: 'CMU Serif Roman', 'Times New Roman', Times, serif;
     font-size: 1.8rem;
 }
-
+.latex-title {
+    margin: 10px 0;
+    padding: 0;
+    font-family: 'CMU Serif Roman Bold', 'Times New Roman', Times, serif;
+    font-size: 3.3rem;
+}
 .latex-h1 {
     margin: 10px 0;
     padding: 0;
