@@ -42,12 +42,14 @@
                                 At the start of the game, a random set of cards is drawn from the deck. The true market price is represented by the 
                                 sum of these cards, and is unknown until the very end of the game. Each round, one additional card will be revealed.
                             </p>
-                            <p>
+                            <div class="box profile-box box-border-bottom">
                                 In order to maximize their chances of winning, the investor wants to: <br>
+                                <br>
                                 \(\quad\) (a) Sell at a price higher than the true market price. <br>
                                 \(\quad\) (b) Buy at a price lower than true price. <br>
                                 \(\quad\) (c) Hold when the true price is within the bid ask spread. <br>
-                                <br>
+                            </div>
+                            <p>
                                 To do this, they must predict the true price (determined by the sum of all drawn cards) using the information available each round.
                             </p>
                             <div class="latex-h2">Calculating expected value of true price</div>
@@ -153,7 +155,7 @@
                                 & = \mathbb{E}[I_n q_a - a q_a] + \mathbb{E}[b q_b - I_n q_b] \\
                                 & = \mathbb{E}[I_n q_a - q_a(M_n + d) + q_b(M_n - d) - I_n q_b] \\
                                 & = \mathbb{E}[I_n q_a - I_n q_b - M_n q_a + M_n q_b - d q_a - d q_b] \\
-                                & = (q_a - q_b)\mathbb{E}[I_n - M_n] - d(q_a + q_b) \\
+                                & = (q_a - q_b) \times \mathbb{E}[I_n - M_n] - d(q_a + q_b) \\
                                 \end{split}
                                 \end{equation}
 
@@ -190,10 +192,31 @@
                             <p class="latex-h2">Optimal Investor vs Advantaged MM</p>
                             <p>
                                 Optimal investor's strategy: <br>
-                                For \(I_n = M_n = \mathbb{E}[X|R_{n+1}]\):
                             </p>
+                            <div class="box profile-box box-border-bottom">
+                                For \(I_n = M_n = \mathbb{E}[X|R_{n+1}]\): <br>
+                                \begin{equation}
+                                \begin{split}
+                                u_m & = d(q_a+q_b) \\
+                                & = d(P(I_n > M_n + d) + P(I_n &lt; M_n - d)) \\
+                                & = d(P(\mathbb{E}[X|R_{n+1}] > \mathbb{E}[X|R_{n+1}] + d) + P(\mathbb{E}[X|R_{n+1}] &lt; \mathbb{E}[X|R_{n+1}] - d)) \\
+                                & = d(0+0) \\
+                                & = 0
+                                \end{split}
+                                \end{equation}
+                            </div>
+                            <div class="box profile-box box-border-bottom">
+                                \begin{equation}
+                                \begin{split}
+                                u_i & = (q_a - q_b) \times \mathbb{E}[I_n - M_n] - d(q_a + q_b) \\
+                                & = (P(I_n > M_n + d) - P(I_n &lt; M_n - d)) \times \mathbb{E}[I_n - M_n] - 0 \\
+                                & = 0 \times \mathbb{E}[\mathbb{E}[X|R_{n+1}] - \mathbb{E}[X|R_{n+1}]] \\
+                                & = 0
+                                \end{split}
+                                \end{equation}
+                            </div>
                             <p>
-                                The information advantage would not be a true advantage against an optimal investor, however, as they 
+                                The information advantage would not be a true advantage against an optimal investor, as they 
                                 would be able to derive the information from the market maker's move. Such an investor would continue to 
                                 hold every round, as it is clear that taking any action would be a disadvantage.
                             </p>
@@ -201,6 +224,9 @@
                                 Given a perfectly optimal investor, the utility of both the market maker and investor will still be 0.
                                 No player truly has an advantage in this scenario. Due to the zero-sum nature of the game, this solution
                                 is the trivial Nash Equilibrium.
+                            </p>
+                            <p>
+                                Assuming \(d=0\):
                             </p>
                             <div class="box profile-box box-border-bottom">
                                 For \(I_n = \mathbb{E}[X|R_n]\), \(M_n = \mathbb{E}[X|R_{n+1}]\):
@@ -212,14 +238,6 @@
                                 & = 0 \\
                                 \end{split}
                                 \end{equation}
-                            </div>
-
-                            <div id="test" style="display: none;">
-                                <br><br><br><br><br><br><br><br><br><br><br><br>
-                                <div class="box profile-box box-border-bottom">
-                                    When \(a \ne 0\), there are two solutions to \(ax^2 + bx + c = 0\) and they are
-                                    $$x = {-b \pm \sqrt{b^2-4ac} \over 2a}.$$
-                                </div>
                             </div>
                         </div>
                     </div>
