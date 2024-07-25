@@ -52,6 +52,9 @@
                             </p>
                             <div class="latex-h2">Calculating expected value of true price</div>
                             <p>
+                                We can predict the value of the true price by averaging the sum over all remaining cards, multiplying by the number of hidden cards,
+                                then adding this value to the sum of the cards already revealed. <br>
+                                <br>
                                 Let... <br>
                                 \(n\): Current round number <br>
                                 \(k\): Sum of all cards in deck <br>
@@ -68,25 +71,24 @@
                             <div class="latex-h1">Basic Strategies</div>
                             <p>
                                 Let... <br>
-                                \(M_n\): Price set by market maker for round \(n\) <br>
+                                \(M_n\): Expected price calculated by market maker for round \(n\) <br>
                                 \(I_n\): Expected price calculated by investor for round \(n\) <br>
                                 \(u_p\): Utility for player \(p\) <br>
                                 \(R_n\): Set of cards revealed up to round \(n\) <br>
                                 \(X\): True price <br>
                                 <br>
-                                Bid (b) = \(M_n - d\) <br>
-                                Ask (a) = \(M_n + d\) <br>
+                                Given a bid-ask spread \(d\), the bid price \(b\) and ask price \(a\) determined by the market maker are defined as follows. <br>
+                                $$b = M_n - d$$
+                                $$a = M_n + d$$
+                                For simplicity, assume \(d = 0\), so \(b = a = M_n\). <br>
                                 <br>
-                                Assume: d = 0 <br>
-                                b = a = \(M_n\) <br>
-                                <br>
-                                Investor's strategy: <br>
+                                Then the investor's strategy can be written as: <br>
                             </p>
                             <div class="box profile-box box-border-bottom">
                                 If \(I_n > M_n\): then buy $$u_i = \mathbb{E}[I_n - M_n]$$
                                 If \(I_n &lt; M_n\): then sell $$u_i = \mathbb{E}[M_n - I_n]$$
                             </div>
-                            <p>The expected profit of the investor is then as follows: <br></p>
+                            <p>The expected profit (or utility) of the investor is then as follows: <br></p>
                             <div class="box profile-box box-border-bottom">
                                 $$u_i = \mathbb{E}[I_n-M_n] \times P(I_n > M_n) + \mathbb{E}[M_n-I_n] \times P(I_n &lt; M_n)$$
                             </div>
@@ -107,7 +109,7 @@
                                 For a fair game where the market maker and investor are exposed to the same information,
                                 both players will utilize the calculation resulting in the exact same expected true price.
                                 Therefore the investor will never trade, and the utility (expected profit) of both players
-                                will average to 0.
+                                will be 0.
                             </p>
                             <div class="box profile-box box-border-bottom">
                                 For \(I_n = \mathbb{E}[X|R_n]\), \(M_n = \mathbb{E}[X|R_n]\):
@@ -121,18 +123,20 @@
                             </div>
                             <br>
                             <div class="latex-h1">Introducing an Information Advantage</div>
-                            <p>How does the market maker optimize bid ask spread for utility?</p>
                             <p>
+                                To make the game more interesting, we can give the market maker an information advantage by 
+                                allowing them to see 1 card ahead of the investor. <br>
+                                <br>
                                 Bid (b) = \(M_n - d\) <br>
                                 Ask (a) = \(M_n + d\) <br>
                                 <br>
-                                Investor's strategy: <br>
+                                The investor's strategy can be written as: <br>
                             </p>
                             <div class="box profile-box box-border-bottom">
-                                If \(I_n > a\): Investor buys <br>
+                                If \(I_n > a\): then buy <br>
                                 $$u_i = \mathbb{E}[I_n - a]$$ 
                                 $$u_m = \mathbb{E}[a - M_n] = d$$ <br>
-                                If \(I_n &lt; b\): Investor sells <br>
+                                If \(I_n &lt; b\): then sell <br>
                                 $$u_i = \mathbb{E}[b - I_n]$$
                                 $$u_m = \mathbb{E}[M_n - b] = d$$ 
                             </div>
@@ -163,7 +167,25 @@
                             <p class="latex-h2">Naive Investor vs Advantaged MM</p>
                             <p>
                                 Naive investor's strategy: <br>
-                                For \(I_n = \mathbb{E}[X|R_n]\), \(M_n = \mathbb{E}[X|R_{n+1}]\):
+                            </p>
+                            <div class="box profile-box box-border-bottom">
+                                For \(I_n = \mathbb{E}[X|R_n]\), \(M_n = \mathbb{E}[X|R_{n+1}]\): <br>
+                                \begin{equation}
+                                \begin{split}
+                                u_m & = d(q_a+q_b) \\
+                                & = d(P(I_n > M_n + d) + P(I_n &lt; M_n - d)) \\
+                                & = d(P(\mathbb{E}[X|R_n] > \mathbb{E}[X|R_{n+1}] + d) + P(\mathbb{E}[X|R_n] &lt; \mathbb{E}[X|R_{n+1}] - d)) \\
+                                \end{split}
+                                \end{equation}
+                            </div>
+                            <p>
+                                \begin{multline}
+                                P(I_n > M_n + d) = P(\frac{k - \sum_{i=1}^{n} C_i}{N-n} \times (r-n) + \sum_{i=1}^{n} C_i \\
+                                > \frac{k - \sum_{i=1}^{n+1} C_i}{N-(n+1)} \times (r-(n+1)) + \sum_{i=1}^{n+1} C_i) \\
+                                \end{multline}
+                            </p>
+                            <p>
+                                In this scenario, the market maker can optimize bid-ask spread to maximize their utility. <br>
                             </p>
                             <p class="latex-h2">Optimal Investor vs Advantaged MM</p>
                             <p>
