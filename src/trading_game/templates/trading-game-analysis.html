@@ -32,14 +32,25 @@
                 <div class="bodywrapper">
                     <div class="body latex" role="main">
                         <div class="latex-title">Trading Game Analysis</div>
-                        <section class="bx profile-bx bx-border-bottom">
+                        <div class="bx profile-bx bx-border-bottom">
                             <p>
-                                This interactive environment simulates a market making game. Your objective as the trader
+                                This interactive environment simulates a market making game. Your objective as the investor
                                 is to maximize your profit against a market maker with the same goal. Every round, the market maker
-                                puts out a bid and an ask. You must then respond by buying or selling a number of contracts to them.
+                                puts out a bid (price they buy at) and an ask (price they sell at). You must then respond by buying or selling a number of contracts to them.
                             </p>
-                            <br>
-                            <div class="latex-h1">Calculating expected value of true price</div>
+                            <p>
+                                At the start of the game, a random set of cards is drawn from the deck. The true market price is represented by the 
+                                sum of these cards, and is unknown until the very end of the game. Each round, one additional card will be revealed.
+                            </p>
+                            <p>
+                                In order to maximize their chances of winning, the investor wants to: <br>
+                                \(\quad\) (a) Sell at a price higher than the true market price. <br>
+                                \(\quad\) (b) Buy at a price lower than true price. <br>
+                                \(\quad\) (c) Hold when the true price is within the bid ask spread. <br>
+                                <br>
+                                To do this, they must predict the true price (determined by the sum of all drawn cards) using the information available each round.
+                            </p>
+                            <div class="latex-h2">Calculating expected value of true price</div>
                             <p>
                                 Let... <br>
                                 \(n\): Current round number <br>
@@ -47,8 +58,13 @@
                                 \(N\): Number of all cards in deck <br>
                                 \(C_i\): Value of \(i_{th}\) revealed card <br>
                                 \(r\): Number of rounds (total cards pulled from deck) <br>
-                                $$\mathbb{E}[X|R_n] = \frac{k - \sum_{i=1}^{n} C_i}{N-n} \times (r-n) + \sum_{i=1}^{n} C_i $$
+                                <br>
+                                The formula for the expected value of the true price \(X\) given \(n\) revealed cards is as follows:
                             </p>
+                            <div class="box profile-box box-border-bottom">
+                                $$\mathbb{E}[X|R_n] = \frac{k - \sum_{i=1}^{n} C_i}{N-n} \times (r-n) + \sum_{i=1}^{n} C_i $$
+                            </div>
+                            <br>
                             <div class="latex-h1">Basic Strategies</div>
                             <p>
                                 Let... <br>
@@ -58,34 +74,42 @@
                                 \(R_n\): Set of cards revealed up to round \(n\) <br>
                                 \(X\): True price <br>
                                 <br>
-                                Assume: Bid = Ask = Price (\(M_n\)) <br>
+                                Bid (b) = \(M_n - d\) <br>
+                                Ask (a) = \(M_n + d\) <br>
+                                <br>
+                                Assume: d = 0 <br>
+                                b = a = \(M_n\) <br>
                                 <br>
                                 Investor's strategy: <br>
                             </p>
-                            <section class="box profile-box box-border-bottom">
-                                if \(I_n > M_n\): then buy $$u_i = \mathbb{E}[I_n - M_n]$$
-                                if \(I_n &lt; M_n\): then sell $$u_i = \mathbb{E}[M_n - I_n]$$
-                            </section>
+                            <div class="box profile-box box-border-bottom">
+                                If \(I_n > M_n\): then buy $$u_i = \mathbb{E}[I_n - M_n]$$
+                                If \(I_n &lt; M_n\): then sell $$u_i = \mathbb{E}[M_n - I_n]$$
+                            </div>
                             <p>The expected profit of the investor is then as follows: <br></p>
-                            <section class="box profile-box box-border-bottom">
+                            <div class="box profile-box box-border-bottom">
                                 $$u_i = \mathbb{E}[I_n-M_n] \times P(I_n > M_n) + \mathbb{E}[M_n-I_n] \times P(I_n &lt; M_n)$$
-                            </section>
+                            </div>
                             <p>
                                 Let \(q = P(I_n > M_n)\) <br> 
                                 Simplified, <br>
                                 \begin{equation} \label{eq1}
                                 \begin{split}
                                 u_i & = \mathbb{E}[I_n-M_n] \times q + \mathbb{E}[M_n-I_n] \times (1 - q) \\
-                                & = \mathbb{E}[I_n \times q - M_n \times q] + \mathbb{E}[M_n(1 - q) - I_n(1 - q)] \\
+                                & = \mathbb{E}[I_nq - M_nq] + \mathbb{E}[M_n(1 - q) - I_n(1 - q)] \\
                                 & = \mathbb{E}[2I_nq - 2M_nq + M_n - I_n] \\
                                 & = \mathbb{E}[I_n - M_n](2q-1)
                                 \end{split}
                                 \end{equation}
                             </p>
+                            <div class="latex-h2">Fair game</div>
                             <p>
-                                Fair game:
+                                For a fair game where the market maker and investor are exposed to the same information,
+                                both players will utilize the calculation resulting in the exact same expected true price.
+                                Therefore the investor will never trade, and the utility (expected profit) of both players
+                                will average to 0.
                             </p>
-                            <section class="box profile-box box-border-bottom">
+                            <div class="box profile-box box-border-bottom">
                                 For \(I_n = \mathbb{E}[X|R_n]\), \(M_n = \mathbb{E}[X|R_n]\):
                                 \begin{equation}
                                 \begin{split}
@@ -94,9 +118,69 @@
                                 & = 0 \\
                                 \end{split}
                                 \end{equation}
-                            </section>
-                            <p>With market maker information advantage:</p>
-                            <section class="box profile-box box-border-bottom">
+                            </div>
+                            <br>
+                            <div class="latex-h1">Introducing an Information Advantage</div>
+                            <p>How does the market maker optimize bid ask spread for utility?</p>
+                            <p>
+                                Bid (b) = \(M_n - d\) <br>
+                                Ask (a) = \(M_n + d\) <br>
+                                <br>
+                                Investor's strategy: <br>
+                            </p>
+                            <div class="box profile-box box-border-bottom">
+                                If \(I_n > a\): Investor buys <br>
+                                $$u_i = \mathbb{E}[I_n - a]$$ 
+                                $$u_m = \mathbb{E}[a - M_n] = d$$ <br>
+                                If \(I_n &lt; b\): Investor sells <br>
+                                $$u_i = \mathbb{E}[b - I_n]$$
+                                $$u_m = \mathbb{E}[M_n - b] = d$$ 
+                            </div>
+                            <p>The expected utilities of the investor and market maker are then as follows: <br></p>
+                            <div class="box profile-box box-border-bottom">
+                                $$u_i = \mathbb{E}[I_n - a] \times P(I_n > a) + \mathbb{E}[b - I_n] \times P(I_n &lt; b)$$
+                                $$u_m = d \times P(I_n > a) + d \times P(I_n &lt; b)$$
+                            </div>
+                            <p>
+                                Let \(q_a = P(I_n > a)\), \(q_b = P(I_n &lt; b)\) <br>
+                                \begin{equation}
+                                \begin{split}
+                                u_i & = \mathbb{E}[I_n - a] \times q_a + \mathbb{E}[b - I_n] \times q_b \\
+                                & = \mathbb{E}[I_n q_a - a q_a] + \mathbb{E}[b q_b - I_n q_b] \\
+                                & = \mathbb{E}[I_n q_a - q_a(M_n + d) + q_b(M_n - d) - I_n q_b] \\
+                                & = \mathbb{E}[I_n q_a - I_n q_b - M_n q_a + M_n q_b - d q_a - d q_b] \\
+                                & = (q_a - q_b)\mathbb{E}[I_n - M_n] - d(q_a + q_b) \\
+                                \end{split}
+                                \end{equation}
+
+                                \begin{equation}
+                                \begin{split}
+                                u_m & = d \times q_a + d \times q_b \\
+                                & = d(q_a+q_b) \\
+                                \end{split}
+                                \end{equation}
+                            </p>
+                            <p class="latex-h2">Naive Investor vs Advantaged MM</p>
+                            <p>
+                                Naive investor's strategy: <br>
+                                For \(I_n = \mathbb{E}[X|R_n]\), \(M_n = \mathbb{E}[X|R_{n+1}]\):
+                            </p>
+                            <p class="latex-h2">Optimal Investor vs Advantaged MM</p>
+                            <p>
+                                Optimal investor's strategy: <br>
+                                For \(I_n = M_n = \mathbb{E}[X|R_{n+1}]\):
+                            </p>
+                            <p>
+                                The information advantage would not be a true advantage against an optimal investor, however, as they 
+                                would be able to derive the information from the market maker's move. Such an investor would continue to 
+                                hold every round, as it is clear that taking any action would be a disadvantage.
+                            </p>
+                            <p>
+                                Given a perfectly optimal investor, the utility of both the market maker and investor will still be 0.
+                                No player truly has an advantage in this scenario. Due to the zero-sum nature of the game, this solution
+                                is the trivial Nash Equilibrium.
+                            </p>
+                            <div class="box profile-box box-border-bottom">
                                 For \(I_n = \mathbb{E}[X|R_n]\), \(M_n = \mathbb{E}[X|R_{n+1}]\):
                                 \begin{equation}
                                 \begin{split}
@@ -106,42 +190,16 @@
                                 & = 0 \\
                                 \end{split}
                                 \end{equation}
-                            </section>
-                            <p>Given a perfectly optimal player, the utility of both the market maker and investor will be 0.</p>
-                            <p class="latex-h1">Problem: Naive Investor vs MM</p>
-                            <p>How does the market maker optimize bid ask spread for utility?</p>
-                            <p>
-                                Bid (b) = \(M_n - d\) <br>
-                                Ask (a) = \(M_n + d\) <br>
-                                <br>
-                                Naive investor's strategy:
-                            </p>
-                            <section class="box profile-box box-border-bottom">
-                                If \(I_n > a\): Investor buys <br>
-                                $$u_i = \mathbb{E}[I_n - a]$$ 
-                                $$u_m = \mathbb{E}[a - M_n] = d$$ <br>
-                                If \(I_n &lt; b\): Investor sells <br>
-                                $$u_i = \mathbb{E}[b - I_n]$$
-                                $$u_m = \mathbb{E}[M_n - b] = d$$ 
-                            </section>
-                            <p>
-                                Let \(q_a = P(I_n > a)\), \(q_b = P(I_n &lt; b)\)
-                            </p>
-                            <section class="box profile-box box-border-bottom">
-                                $$u_i = (I_n - a) \times q_a + (b - I_n) \times q_b$$
-                            </section>
-                            <section class="box profile-box box-border-bottom">
-                                $$u_m = d \times q_a + d \times q_b = d(q_a+q_b)$$
-                            </section>
+                            </div>
 
                             <div id="test" style="display: none;">
                                 <br><br><br><br><br><br><br><br><br><br><br><br>
-                                <section class="box profile-box box-border-bottom">
+                                <div class="box profile-box box-border-bottom">
                                     When \(a \ne 0\), there are two solutions to \(ax^2 + bx + c = 0\) and they are
                                     $$x = {-b \pm \sqrt{b^2-4ac} \over 2a}.$$
-                                </section>
+                                </div>
                             </div>
-                        </section>
+                        </div>
                     </div>
                 </div>
             </div>

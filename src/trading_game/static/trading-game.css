@@ -272,3 +272,9 @@ input {
     font-family: 'CMU Serif Roman Bold', 'Times New Roman', Times, serif;
     font-size: 2.6rem;
 }
+.latex-h2 {
+    margin: 10px 0;
+    padding: 0;
+    font-family: 'CMU Serif Roman Bold', 'Times New Roman', Times, serif;
+    font-size: 2rem;
+}
