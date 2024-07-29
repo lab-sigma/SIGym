@@ -67,10 +67,10 @@
                                 The formula for the expected value of the true price \(X\) given \(n\) revealed cards is as follows:
                             </p>
                             <div class="box profile-box box-border-bottom">
-                                $$\mathbb{E}[X|R_n] = \frac{k - \sum_{i=1}^{n} C_i}{N-n} \times (r-n) + \sum_{i=1}^{n} C_i $$
+                                $$\mathbb{E}[X|R_n] = \frac{k - \sum_{i=1}^{n} C_i}{N-n} \cdot (r-n) + \sum_{i=1}^{n} C_i $$
                             </div>
                             <br>
-                            <div class="latex-h1">Basic Strategies</div>
+                            <div class="latex-h1">Basic Strategy</div>
                             <p>
                                 Let... <br>
                                 \(M_n\): Expected price calculated by market maker for round \(n\) <br>
@@ -92,14 +92,14 @@
                             </div>
                             <p>The expected profit (or utility) of the investor is then as follows: <br></p>
                             <div class="box profile-box box-border-bottom">
-                                $$u_i = \mathbb{E}[I_n-M_n] \times P(I_n > M_n) + \mathbb{E}[M_n-I_n] \times P(I_n &lt; M_n)$$
+                                $$u_i = \mathbb{E}[I_n-M_n] \cdot P(I_n > M_n) + \mathbb{E}[M_n-I_n] \cdot P(I_n &lt; M_n)$$
                             </div>
                             <p>
                                 Let \(q = P(I_n > M_n)\) <br> 
                                 Simplified, <br>
                                 \begin{equation} \label{eq1}
                                 \begin{split}
-                                u_i & = \mathbb{E}[I_n-M_n] \times q + \mathbb{E}[M_n-I_n] \times (1 - q) \\
+                                u_i & = \mathbb{E}[I_n-M_n] \cdot q + \mathbb{E}[M_n-I_n] \cdot (1 - q) \\
                                 & = \mathbb{E}[I_nq - M_nq] + \mathbb{E}[M_n(1 - q) - I_n(1 - q)] \\
                                 & = \mathbb{E}[2I_nq - 2M_nq + M_n - I_n] \\
                                 & = \mathbb{E}[I_n - M_n](2q-1)
@@ -114,12 +114,27 @@
                                 will be 0.
                             </p>
                             <div class="box profile-box box-border-bottom">
-                                For \(I_n = \mathbb{E}[X|R_n]\), \(M_n = \mathbb{E}[X|R_n]\):
+                                For \(I_n = \mathbb{E}[X|R_n] = M_n\):
                                 \begin{equation}
                                 \begin{split}
                                 u_i & = \mathbb{E}[\mathbb{E}[X|R_n] - \mathbb{E}[X|R_n]](2q-1) \\
                                 & = \mathbb{E}[0](2q-1) \\
                                 & = 0 \\
+                                \end{split}
+                                \end{equation}
+                            </div>
+                            <div class="box profile-box box-border-bottom">
+                                For \(I_n = \mathbb{E}[X|R_n] = M_n\):
+                                \begin{equation}
+                                \begin{split}
+                                u_i & = \mathbb{E}[I_n - a] \cdot P(I_n > a) + \mathbb{E}[b - I_n] \cdot P(I_n &lt; b) \\
+                                & = \mathbb{E}[I_n - (I_n + d)] \cdot P(I_n > I_n + d) + \mathbb{E}[I_n - d - I_n] \cdot P(I_n &lt; I_n - d) \\
+                                & = \mathbb{E}[-d] \cdot 0 + \mathbb{E}[-d] \cdot 0 \\
+                                & = 0 \\
+                                \\
+                                u_m & = d \cdot P(I_n > I_n + d) + d \cdot P(I_n &lt; I_n - d) \\
+                                & = d \cdot 0 + d \cdot 0 \\
+                                & = 0
                                 \end{split}
                                 \end{equation}
                             </div>
@@ -137,31 +152,31 @@
                             <div class="box profile-box box-border-bottom">
                                 If \(I_n > a\): then buy <br>
                                 $$u_i = \mathbb{E}[I_n - a]$$ 
-                                $$u_m = \mathbb{E}[a - M_n] = d$$ <br>
+                                $$u_m = \mathbb{E}[a - M_n] = d$$
                                 If \(I_n &lt; b\): then sell <br>
                                 $$u_i = \mathbb{E}[b - I_n]$$
                                 $$u_m = \mathbb{E}[M_n - b] = d$$ 
                             </div>
                             <p>The expected utilities of the investor and market maker are then as follows: <br></p>
                             <div class="box profile-box box-border-bottom">
-                                $$u_i = \mathbb{E}[I_n - a] \times P(I_n > a) + \mathbb{E}[b - I_n] \times P(I_n &lt; b)$$
-                                $$u_m = d \times P(I_n > a) + d \times P(I_n &lt; b)$$
+                                $$u_i = \mathbb{E}[I_n - a] \cdot P(I_n > a) + \mathbb{E}[b - I_n] \cdot P(I_n &lt; b)$$
+                                $$u_m = d \cdot P(I_n > a) + d \cdot P(I_n &lt; b)$$
                             </div>
                             <p>
                                 Let \(q_a = P(I_n > a)\), \(q_b = P(I_n &lt; b)\) <br>
                                 \begin{equation}
                                 \begin{split}
-                                u_i & = \mathbb{E}[I_n - a] \times q_a + \mathbb{E}[b - I_n] \times q_b \\
+                                u_i & = \mathbb{E}[I_n - a] \cdot q_a + \mathbb{E}[b - I_n] \cdot q_b \\
                                 & = \mathbb{E}[I_n q_a - a q_a] + \mathbb{E}[b q_b - I_n q_b] \\
                                 & = \mathbb{E}[I_n q_a - q_a(M_n + d) + q_b(M_n - d) - I_n q_b] \\
                                 & = \mathbb{E}[I_n q_a - I_n q_b - M_n q_a + M_n q_b - d q_a - d q_b] \\
-                                & = (q_a - q_b) \times \mathbb{E}[I_n - M_n] - d(q_a + q_b) \\
+                                & = (q_a - q_b) \cdot \mathbb{E}[I_n - M_n] - d(q_a + q_b) \\
                                 \end{split}
                                 \end{equation}
 
                                 \begin{equation}
                                 \begin{split}
-                                u_m & = d \times q_a + d \times q_b \\
+                                u_m & = d \cdot q_a + d \cdot q_b \\
                                 & = d(q_a+q_b) \\
                                 \end{split}
                                 \end{equation}
@@ -182,8 +197,8 @@
                             </div>
                             <p>
                                 \begin{multline}
-                                P(I_n > M_n + d) = P(\frac{k - \sum_{i=1}^{n} C_i}{N-n} \times (r-n) + \sum_{i=1}^{n} C_i \\
-                                > \frac{k - \sum_{i=1}^{n+1} C_i}{N-(n+1)} \times (r-(n+1)) + \sum_{i=1}^{n+1} C_i) \\
+                                P(I_n > M_n + d) = P(\frac{k - \sum_{i=1}^{n} C_i}{N-n} \cdot (r-n) + \sum_{i=1}^{n} C_i \\
+                                > \frac{k - \sum_{i=1}^{n+1} C_i}{N-(n+1)} \cdot (r-(n+1)) + \sum_{i=1}^{n+1} C_i) \\
                                 \end{multline}
                             </p>
                             <p>
@@ -201,17 +216,12 @@
                                 & = d(P(I_n > M_n + d) + P(I_n &lt; M_n - d)) \\
                                 & = d(P(\mathbb{E}[X|R_{n+1}] > \mathbb{E}[X|R_{n+1}] + d) + P(\mathbb{E}[X|R_{n+1}] &lt; \mathbb{E}[X|R_{n+1}] - d)) \\
                                 & = d(0+0) \\
-                                & = 0
-                                \end{split}
-                                \end{equation}
-                            </div>
-                            <div class="box profile-box box-border-bottom">
-                                \begin{equation}
-                                \begin{split}
-                                u_i & = (q_a - q_b) \times \mathbb{E}[I_n - M_n] - d(q_a + q_b) \\
-                                & = (P(I_n > M_n + d) - P(I_n &lt; M_n - d)) \times \mathbb{E}[I_n - M_n] - 0 \\
-                                & = 0 \times \mathbb{E}[\mathbb{E}[X|R_{n+1}] - \mathbb{E}[X|R_{n+1}]] \\
-                                & = 0
+                                & = 0 \\
+                                \\
+                                u_i & = (q_a - q_b) \cdot \mathbb{E}[I_n - M_n] - d(q_a + q_b) \\
+                                & = (P(I_n > M_n + d) - P(I_n &lt; M_n - d)) \cdot \mathbb{E}[I_n - M_n] - 0 \\
+                                & = 0 \cdot \mathbb{E}[\mathbb{E}[X|R_{n+1}] - \mathbb{E}[X|R_{n+1}]] \\
+                                & = 0 \\
                                 \end{split}
                                 \end{equation}
                             </div>
