@@ -183,16 +183,16 @@
                                                     <div class="display-primary">Ask: <span>{{ ask }}</span></div>
                                                 </div>
                                             </div>
-                                            <form method="post" class="box horizontal-spread">
-                                                <input class="button" type="submit" name="submit_btn" value="Buy">
+                                            <form method="post" class="box horizontal-spread" id="buy-box">
+                                                <input class="button" id="buy-btn" type="submit" name="submit_btn" value="Buy">
                                                 <input required name="buy_amt" type="text" id="" class="action-input" placeholder="0" value="{{ request.form['buy_amt'] }}">
                                                 <div class="caret-container">
                                                     <i class="fa-solid fa-caret-up"></i>
                                                     <i class="fa-solid fa-caret-down"></i>
                                                 </div>
                                             </form>
-                                            <form method="post" class="box horizontal-spread">
-                                                <input class="button" type="submit" name="submit_btn" value="Sell">
+                                            <form method="post" class="box horizontal-spread" id="sell-box">
+                                                <input class="button" id="sell-btn" type="submit" name="submit_btn" value="Sell">
                                                 <input required name="sell_amt" type="text" id="" class="action-input" placeholder="0" value="{{ request.form['sell_amt'] }}">
                                                 <div class="caret-container">
                                                     <i class="fa-solid fa-caret-up"></i>
