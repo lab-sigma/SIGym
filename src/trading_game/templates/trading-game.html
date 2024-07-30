@@ -64,36 +64,22 @@
                                             <label for="html">Hard</label><br>
                                         </div>
                                     </div>
-                                    <div class="box horizontal-spread">
-                                        <label for="num_rounds">Number of Rounds</label>
-                                        <input required name="num_rounds" type="text" class="action-input" placeholder="6" value="6">
-                                        <div class="caret-container">
-                                            <i class="fa-solid fa-caret-up"></i>
-                                            <i class="fa-solid fa-caret-down"></i>
+                                    <div class="settings-input-box">
+                                        <div class="box setting-option-box">
+                                            <label for="num_rounds">Number of Rounds</label>
+                                            <input required name="num_rounds" type="text" class="setting-input" placeholder="6" value="6">
                                         </div>
-                                    </div>
-                                    <div class="box horizontal-spread">
-                                        <label for="deck_size">Deck Size</label>
-                                        <input disabled id="deck-size-input" name="deck_size" type="text" class="action-input" placeholder="52" value="52">
-                                        <div class="caret-container">
-                                            <i class="fa-solid fa-caret-up"></i>
-                                            <i class="fa-solid fa-caret-down"></i>
+                                        <div class="box setting-option-box">
+                                            <label for="deck_size">Deck Size</label>
+                                            <input disabled id="deck-size-input" name="deck_size" type="text" class="setting-input disabled-input" placeholder="52" value="52">
                                         </div>
-                                    </div>
-                                    <div class="box horizontal-spread">
-                                        <label for="num_suits">Number of Suits</label>
-                                        <input required id="num-suits-input" name="num_suits" oninput="updateDeckSize()" type="text" class="action-input" placeholder="4" value="4">
-                                        <div class="caret-container">
-                                            <i class="fa-solid fa-caret-up"></i>
-                                            <i class="fa-solid fa-caret-down"></i>
+                                        <div class="box setting-option-box">
+                                            <label for="num_suits">Number of Suits</label>
+                                            <input required id="num-suits-input" name="num_suits" oninput="updateDeckSize()" type="text" class="setting-input" placeholder="4" value="4">
                                         </div>
-                                    </div>
-                                    <div class="box horizontal-spread">
-                                        <label for="cards_per_suit">Cards per Suit</label>
-                                        <input required id="cards-per-suit-input" name="cards_per_suit" oninput="updateDeckSize()" type="text" class="action-input" placeholder="13" value="13">
-                                        <div class="caret-container">
-                                            <i class="fa-solid fa-caret-up"></i>
-                                            <i class="fa-solid fa-caret-down"></i>
+                                        <div class="box setting-option-box">
+                                            <label for="cards_per_suit">Cards per Suit</label>
+                                            <input required id="cards-per-suit-input" name="cards_per_suit" oninput="updateDeckSize()" type="text" class="setting-input" placeholder="13" value="13">
                                         </div>
                                     </div>
                                     <input class="button" type="submit" name="submit_btn" value="Start Game">
