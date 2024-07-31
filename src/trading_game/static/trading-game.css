@@ -61,21 +61,6 @@ body {
     font-family: Droid Sans,Tahoma,Arial,sans-serif;
 }
 
-a {
-    transition: color .5s ease;
-    transition: 0s;
-    color: white;
-    text-decoration: none;
-}
-
-a:hover,
-a:focus, 
-a:active {
-    color: var(--magenta);
-    text-decoration: line-through;
-    /*font-family: 'Pixelify Sans', sans-serif;*/
-}
-
 button,
 .button {
     font-family: Droid Sans,Tahoma,Arial,sans-serif;
@@ -109,7 +94,7 @@ input {
     margin-left: 20px;
 }
 
-#active-game {
+.mono-font {
     font-family: 'Fira Mono', 'Courier New', Courier, monospace;
 }
 

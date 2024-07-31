@@ -131,7 +131,7 @@
                                     <h4>Round {{ (cardsRevealed | length) + 1 }}</h4>
                                     <i class="fa-solid fa-gear"></i>
                                 </div>
-                                <div id="active-game" class="bx">
+                                <div class="mono-font">
                                     <div class="game-box">
                                         <div class="profiles-container">
                                             <div class="box profile-box box-border-bottom">
@@ -228,7 +228,7 @@
                             </section>
                         {% endif %}
                         {% if gameStatus == "ended" %}
-                            <section>
+                            <section class="mono-font">
                                 <div class="horizontal-spread">
                                     <h4>Game ended</h4>
                                     <i class="fa-solid fa-gear"></i>
@@ -275,10 +275,16 @@
                                                 </div>
                                             </div>
                                         </div>
-                                        <div class="box box-border-bottom">
-                                            Game Log: <br> <br>
-                                            {{ gameLog }}
-                                        </div>
+                                    </div>
+                                    <div class="box box-border-bottom">
+                                        <div class="profile-name">Game Log</div>
+                                        {% for log in gameLog %}
+                                            
+                                            <div class="box box-border-bottom">
+                                                Round {{ loop.index }}
+                                                {{ log }}
+                                            </div>
+                                        {% endfor %}
                                     </div>
                                 </div>
                                 <div class="box box-border-bottom">

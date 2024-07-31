@@ -52,7 +52,7 @@ class Game:
         # Give MM 1 card information advantage
         if self.difficulty != "Easy":
             self.info["Cards"].append(self.cards[self.curRound])
-        self.info["Actions"].append([])
+        self.info["Actions"].append({})
         self.send_info()
         self.print_board()
 
@@ -83,8 +83,9 @@ class Game:
         self.bestBid = max(self.bestBid, bid)
         self.bestAsk = min(self.bestAsk, ask)
         self.contracts_available = contracts
-        market_object = {"Market": [bid, ask]}
-        self.info["Actions"][self.curRound].append(market_object)
+        #market_object = {"Market": [bid, ask]}
+        #self.info["Actions"][self.curRound].append(market_object)
+        self.info["Actions"][self.curRound]["Market"] = [bid, ask]
         self.send_info()
 
         return receive_object
@@ -104,8 +105,9 @@ class Game:
             self.mm.contracts.append(Contract('b', self.bestBid, amount))
             self.taker.contracts.append(Contract('s', self.bestBid, amount))
 
-        action_object = {"Taker": action}
-        self.info["Actions"][self.curRound].append(action_object)
+        #action_object = {"Taker": action}
+        #self.info["Actions"][self.curRound].append(action_object)
+        self.info["Actions"][self.curRound]["Taker"] = [action, amount]
         self.send_info()
 
     def clear_book(self):
