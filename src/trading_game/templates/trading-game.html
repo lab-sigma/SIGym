@@ -25,6 +25,7 @@
         <script src="https://kit.fontawesome.com/df8ef38841.js" crossorigin="anonymous"></script>
 
         <script type="text/javascript" id="MathJax-script" async src="https://cdn.jsdelivr.net/npm/mathjax@3/es5/tex-mml-chtml.js"></script>
+        <script src="../static/tradingGame.js" charset="utf-8"></script>
     </head>
     <body>
         <div class="document">
@@ -67,19 +68,19 @@
                                     <div class="settings-input-box">
                                         <div class="box setting-option-box">
                                             <label for="num_rounds">Number of Rounds</label>
-                                            <input required name="num_rounds" type="text" class="setting-input" placeholder="6" value="6">
+                                            <input required id="num-rounds-input" name="num_rounds" type="number" min="1" class="setting-input" placeholder="6" value="6">
                                         </div>
                                         <div class="box setting-option-box">
                                             <label for="deck_size">Deck Size</label>
-                                            <input disabled id="deck-size-input" name="deck_size" type="text" class="setting-input disabled-input" placeholder="52" value="52">
+                                            <input disabled id="deck-size-input" name="deck_size" type="number" min="1" class="setting-input disabled-input" placeholder="52" value="52">
                                         </div>
                                         <div class="box setting-option-box">
                                             <label for="num_suits">Number of Suits</label>
-                                            <input required id="num-suits-input" name="num_suits" oninput="updateDeckSize()" type="text" class="setting-input" placeholder="4" value="4">
+                                            <input required id="num-suits-input" name="num_suits" type="number" min="1"  class="setting-input" placeholder="4" value="4">
                                         </div>
                                         <div class="box setting-option-box">
                                             <label for="cards_per_suit">Cards per Suit</label>
-                                            <input required id="cards-per-suit-input" name="cards_per_suit" oninput="updateDeckSize()" type="text" class="setting-input" placeholder="13" value="13">
+                                            <input required id="cards-per-suit-input" name="cards_per_suit" oninput="updateDeckSize()" type="number" min="0"  class="setting-input" placeholder="13" value="13">
                                         </div>
                                     </div>
                                     <input class="button" type="submit" name="submit_btn" value="Start Game">
@@ -90,38 +91,6 @@
                                     <div id="myElement">Ignore this.</div>
                                     <button onclick="getElementValue('myElement')">Get Element Value</button>
                                 </div>
-                                <script>
-                                    function getElementValue(elementId) {
-                                        var element = document.getElementById(elementId);
-                                        var elementValue = element.innerHTML;
-                            
-                                        fetch('/get_html_value', {
-                                            method: 'POST',
-                                            headers: {
-                                                'Content-Type': 'application/x-www-form-urlencoded',
-                                            },
-                                            body: new URLSearchParams({
-                                                'element_id': elementId,
-                                                'element_value': elementValue
-                                            })
-                                        })
-                                        .then(response => response.json())
-                                        .then(data => {
-                                            console.log('Element ID:', data.element_id);
-                                            console.log('Element Value:', data.element_value);
-                                        })
-                                        .catch(error => console.error('Error:', error));
-                                    }
-
-                                    function updateDeckSize() {
-                                        console.log("update deck size")
-                                        let deckSizeEl = document.getElementById("deck-size-input")
-                                        let numSuits = document.getElementById("num-suits-input").value
-                                        let cardsPerSuit = document.getElementById("cards-per-suit-input").value
-                                        deckSizeEl.value = numSuits * cardsPerSuit
-                                    }
-                                </script>
-
 
                             </section>
                         {% endif %}
