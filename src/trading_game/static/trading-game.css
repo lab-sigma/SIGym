@@ -22,7 +22,7 @@
     --light-gray: #D9D9D9;
     --green: #54C57A;
     --pink: rgb(255, 140, 234);
-    --cyan: cyan;
+    --blue: rgb(121, 155, 255);
     --tomato: tomato;
     --yellow: yellow;
     --purple: rgb(89, 86, 255);
@@ -75,7 +75,7 @@ body {
     padding: 10px 15px;
     background-color: black;
     color: #fff;
-    font-family: Droid Sans,Tahoma,Arial,sans-serif;
+    border: 2px solid black;
     font-size: 1.5rem;
     border-radius: 6px;
     position: absolute;
@@ -140,7 +140,7 @@ input {
     margin: 10px 0;
     padding: 15px 15px;
     border-radius: 5px;
-    border: var(--borderwidth) solid var(--light-gray);
+    border: 2px solid black;
 }
 
 .box-border-bottom {
@@ -264,9 +264,6 @@ input {
     box-shadow: 2px 3px black;
 }
 
-.action-panel {
-}
-
 .action-descrip {
     margin: 0 0 10px 0;
 }
@@ -297,16 +294,20 @@ input {
     width: 50%;
     max-width: 160px;
 }
-#buy-box {
-    border: 2px solid black;
-}
-#sell-box {
-    border: 2px solid black;
-}
 
 .caret-container {
     display: flex;
     flex-direction: column;
+}
+
+.end-profiles-container {
+    width: 100%;
+    display: flex;
+    justify-content: space-between;
+    align-items: center;
+}
+.end-profile {
+    width: 49%;
 }
 
 /* Latex analysis document */

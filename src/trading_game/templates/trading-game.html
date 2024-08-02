@@ -129,7 +129,7 @@
                             <section>
                                 <div class="horizontal-spread">
                                     <h4>Round {{ (cardsRevealed | length) + 1 }}</h4>
-                                    <i class="fa-solid fa-gear"></i>
+                                    <i class="fa-solid fa-gear" style="display: none;"></i>
                                 </div>
                                 <div class="mono-font">
                                     <div class="game-box">
@@ -138,7 +138,7 @@
                                                 <div class="profile-info-icon">
                                                     <div class="tooltip">
                                                         <i class="fa-solid fa-circle-info"></i>
-                                                        <span class="tooltiptext">The Market Maker sets the bid and ask price. <br> Bid: Price market maker buys for. <br> Ask: Price market maker sells at.</span>
+                                                        <span class="tooltiptext">The Market Maker sets the bid (price they buy at) and ask (price they sell for).</span>
                                                     </div>
                                                 </div>
                                                 <div class="profile-icon">
@@ -153,7 +153,7 @@
                                                 <div class="profile-info-icon">
                                                     <div class="tooltip">
                                                         <i class="fa-solid fa-circle-info"></i>
-                                                        <span class="tooltiptext">You play as the investor.</span>
+                                                        <span class="tooltiptext">You play as the investor. Each round you can buy, sell, or hold.</span>
                                                     </div>
                                                 </div>
                                                 <div class="profile-icon">
@@ -177,19 +177,11 @@
                                             </div>
                                             <form method="post" class="box horizontal-spread" id="buy-box">
                                                 <input class="button" id="buy-btn" type="submit" name="submit_btn" value="Buy">
-                                                <input required name="buy_amt" type="text" id="" class="action-input" placeholder="0" value="{{ request.form['buy_amt'] }}">
-                                                <div class="caret-container">
-                                                    <i class="fa-solid fa-caret-up"></i>
-                                                    <i class="fa-solid fa-caret-down"></i>
-                                                </div>
+                                                <input required name="buy_amt" type="number" min="0" class="action-input" placeholder="0" value="{{ request.form['buy_amt'] }}">
                                             </form>
                                             <form method="post" class="box horizontal-spread" id="sell-box">
                                                 <input class="button" id="sell-btn" type="submit" name="submit_btn" value="Sell">
-                                                <input required name="sell_amt" type="text" id="" class="action-input" placeholder="0" value="{{ request.form['sell_amt'] }}">
-                                                <div class="caret-container">
-                                                    <i class="fa-solid fa-caret-up"></i>
-                                                    <i class="fa-solid fa-caret-down"></i>
-                                                </div>
+                                                <input required name="sell_amt" type="number" min="0" class="action-input" placeholder="0" value="{{ request.form['sell_amt'] }}">
                                             </form>
                                         </div>
                                     </div>
@@ -198,12 +190,11 @@
                                         <div class="profile-info-icon">
                                             <div class="tooltip">
                                                 <i class="fa-solid fa-circle-info"></i>
-                                                <span class="tooltiptext">The true market price is the sum of all the cards.</span>
+                                                <span class="tooltiptext">The sum of all these cards represents the true market price.</span>
                                             </div>
                                         </div>
                                         <div class="profile-name">
                                             Cards in play 
-                                            <i class="fa-brands fa-cc-diners-club"></i>
                                         </div>
                                         <div class="cards-stats-container">
                                             <div class="pill cards-stat">
@@ -240,19 +231,22 @@
                             <section class="mono-font">
                                 <div class="horizontal-spread">
                                     <h4>Game ended</h4>
-                                    <i class="fa-solid fa-gear"></i>
+                                    <i class="fa-solid fa-gear" style="display: none;"></i>
                                 </div>
                                 <form method="post">
                                     <input class="button" type="submit" name="submit_btn" value="New Game">
                                 </form>
                                 <div class="game-box">
-                                    <div class="profiles-container">
-                                        <div class="box box-border-bottom">
-                                            True price: {{ marketPrice }}
-                                        </div>
-                                        <div class="box box-border-bottom">
+                                    <div class="box box-border-bottom">
+                                        True price: {{ marketPrice }}
+                                    </div>
+                                    <div class="end-profiles-container">
+                                        <div class="box box-border-bottom end-profile">
                                             <div class="profile-info-icon">
-                                                <i class="fa-solid fa-circle-info"></i>
+                                                <div class="tooltip">
+                                                    <i class="fa-solid fa-circle-info"></i>
+                                                    <span class="tooltiptext">The Market Maker sets the bid (price they buy at) and ask (price they sell for).</span>
+                                                </div>
                                             </div>
                                             <div class="profile-icon">
                                                 <i class="fa-regular fa-building"></i>
@@ -267,9 +261,12 @@
                                                 </div>
                                             </div>
                                         </div>
-                                        <div class="box box-border-bottom">
+                                        <div class="box box-border-bottom end-profile">
                                             <div class="profile-info-icon">
-                                                <i class="fa-solid fa-circle-info"></i>
+                                                <div class="tooltip">
+                                                    <i class="fa-solid fa-circle-info"></i>
+                                                    <span class="tooltiptext">You play as the investor. Each round you can buy, sell, or hold.</span>
+                                                </div>
                                             </div>
                                             <div class="profile-icon">
                                                 <i class="fa-regular fa-user"></i>
@@ -285,10 +282,15 @@
                                             </div>
                                         </div>
                                     </div>
-                                    <div class="box box-border-bottom">
+                                    <div class="box box-border-bottom" style="width: 100%;">
+                                        <div class="profile-info-icon">
+                                            <div class="tooltip">
+                                                <i class="fa-solid fa-circle-info"></i>
+                                                <span class="tooltiptext">Recorded history of moves.</span>
+                                            </div>
+                                        </div>
                                         <div class="profile-name">Game Log</div>
                                         {% for log in gameLog %}
-                                            
                                             <div class="box box-border-bottom">
                                                 Round {{ loop.index }}
                                                 {{ log }}
@@ -298,7 +300,10 @@
                                 </div>
                                 <div class="box box-border-bottom">
                                     <div class="profile-info-icon">
-                                        <i class="fa-solid fa-circle-info"></i>
+                                        <div class="tooltip">
+                                            <i class="fa-solid fa-circle-info"></i>
+                                            <span class="tooltiptext">The sum of all these cards represents the true market price.</span>
+                                        </div>
                                     </div>
                                     <div class="profile-name">
                                         Cards in play 
